@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillApple } from "react-icons/ai";
 import { useRouter } from "next/router";
-// import Flag from "react-world-flags";
+import Flag from "react-world-flags";
 
 function Login() {
   const [fullName, setFullName] = useState("");
@@ -54,7 +54,7 @@ function Login() {
               </label>
               <div className="flex">
                 <span className="flex items-center bg-white border border-gray-300 mt-3 rounded-l-xl pl-3 w-[100px]">
-                  {/* <Flag code="IN" className="w-5 h-5 mr-2" /> */}
+                  <Flag code="IN" className="w-5 h-5 mr-2" />
                   +91
                 </span>
                 <input

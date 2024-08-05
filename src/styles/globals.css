@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none !important;
+}

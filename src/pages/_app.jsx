@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Layout from "../layouts";
 import "../styles/globals.css";
 import { useEffect } from "react";
