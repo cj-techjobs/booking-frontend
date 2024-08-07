@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -87,7 +88,7 @@ const Search = () => {
   };
 
   return (
-    <div className="container min-h-screen mx-auto flex flex-col items-center justify-center">
+    <div className="container mx-auto flex flex-col items-center justify-center">
       <div className="w-full flex justify-between">
         {isSearchData() && (
           <div className="w-1/3">
@@ -103,7 +104,7 @@ const Search = () => {
         )}
         {!isSearchData() && (
           <div className="w-1/3">
-            <h2 className="text-2xl mb-4">Results of "{"d"}"</h2>
+            <h2 className="text-2xl mb-4">Results of `{"d"}`</h2>
           </div>
         )}
         {isSearchData() && (
@@ -116,7 +117,7 @@ const Search = () => {
                   className="h-12 rounded-md border flex items-center gap-2"
                 >
                   <div className="w-12 h-full border-r">
-                    <img src="" alt="" />
+                    <Image src="" alt="" />
                   </div>
                   <p>{m}</p>
                 </div>

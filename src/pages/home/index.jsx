@@ -1,19 +1,19 @@
-import React from 'react'
+import dynamic from "next/dynamic";
+import React, { useState } from "react";
 import bgImage from "../../../public/images/bgImage.png";
 import Image from "next/image";
+import Account from "../settings";
+// import React from "react";
 
-const Login = () => {
+function Home () {
   return (
-    <div>
-        <div className="container mx-auto">
+      <div className="container mx-auto">
         <h2 className="text-center text-2xl py-5 font-bold text-gray-800">
           SHOP WHAT YOU LIKE USING{" "}
           <span className="text-red-500">CATEGORIES</span>
         </h2>
         <Image src={bgImage} alt="Background" className="w-full bg-white" />
       </div>
-    </div>
-  )
+  );
 }
-
-export default Login
+export default Home;
