@@ -8,8 +8,12 @@ import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
+import LaptopMacRoundedIcon from "@mui/icons-material/LaptopMacRounded";
+import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
+import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import rocketImage from "/src/assets/rocket.svg";
-import proMemeberSlider from '/src/assets/promemberSlider.svg'
+import proMemeberSlider from "/src/assets/promemberSlider.svg";
 import Image2 from "/src/assets/accountImages/lock.svg";
 import Image1 from "/src/assets/accountImages/profile.svg";
 import Image3 from "/src/assets/accountImages/membership.svg";
@@ -29,6 +33,7 @@ const Account = () => {
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [membershipModalOpen, setMembershipModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [proMemebershipModalOpen, setProMembershipModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,6 +93,24 @@ const Account = () => {
     },
   ]);
 
+  const membershipDataBenefits = [
+    {
+      id: "1",
+      benefit: "Ad-free experience",
+    },
+    {
+      id: "2",
+      benefit: "Access to all features and functionalities",
+    },
+    {
+      id: "3",
+      benefit: "Priority customer support",
+    },
+    {
+      id: "4",
+      benefit: "Early access to new features and updates",
+    },
+  ];
   const membershipData = [
     {
       id: "1",
@@ -121,7 +144,7 @@ const Account = () => {
 
   return (
     <>
-      <div className="pt-10 container mx-auto">
+      <div className="pt-10 h-[calc(100vh-80px)] container mx-auto">
         <h2 className="mb-6 text-2xl font-bold">Your Account</h2>
         <div className="grid grid-cols-3 gap-8">
           {profileSettings.map((m, i) => (
@@ -236,10 +259,6 @@ const Account = () => {
                   <div className="text-xl font-bold text-center">
                     Help & Support
                   </div>
-                  {/* <CloseRoundedIcon
-                    className="absolute right-3"
-                    onClick={() => setProfileModalOpen(false)}
-                  /> */}
                 </div>
                 <div>
                   <input
@@ -295,7 +314,18 @@ const Account = () => {
                   </div>
                   <div>
                     <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={112.28} width={134.86} src={rocketImage} />
+                      <Image height={100.28} width={110.86} src={rocketImage} />
+                      <div className="mt-2 text-base font-bold">
+                        Unlock Premium Features
+                      </div>
+                      <div className="text-sm">
+                        Enjoy exclusive features and the newest updates
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="mt-7 flex flex-col mb-8 items-center justify-center">
+                      <Image height={100.28} width={110.86} src={rocketImage} />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
                       </div>
@@ -306,18 +336,7 @@ const Account = () => {
                   </div>
                   <div>
                     <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={112.28} width={134.86} src={rocketImage} />
-                      <div className="mt-2 text-base font-bold">
-                        Unlock Premium Features
-                      </div>
-                      <div className="text-sm">
-                        Enjoy exclusive features and the newest updates
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={112.28} width={134.86} src={rocketImage} />
+                      <Image height={100.28} width={110.86} src={rocketImage} />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
                       </div>
@@ -364,11 +383,128 @@ const Account = () => {
                 <button
                   onClick={() => {
                     setMembershipModalOpen(false);
-                    setPaymentModalOpen(true);
+                    setProMembershipModalOpen(true);
                   }}
                   className="bg-red-500 py-2 mt-3 text-center text-white font-normal w-full rounded-md"
                 >
                   Continue
+                </button>
+              </div>
+            </Modal>
+          )}
+          {proMemebershipModalOpen && (
+            <Modal
+              isVisible={proMemebershipModalOpen}
+              onClose={() => setProMembershipModalOpen(false)}
+            >
+              <div className="p-4">
+                <div className="flex items-center justify-center">
+                  <div
+                    className="absolute left-5"
+                    onClick={() => {
+                      setProMembershipModalOpen(false);
+                      setMembershipModalOpen(true);
+                    }}
+                  >
+                    <ChevronLeftRoundedIcon />
+                  </div>
+                  <div className="text-lg text-center">Pro Membership</div>
+                </div>
+                <div>
+                  <Slider {...settings}>
+                    <div className="mb-10">
+                      <div className="mt-7 w-[350px] p-2 flex flex-row items-center bg-gray-100 rounded-xl justify-center">
+                        <div className="p-2">
+                          <div className="mt-2 text-sm font-bold">
+                            Managing Made Easy
+                          </div>
+                          <div className="text-xs">
+                            Effortlessly manage, organise, and analyse your
+                            files.
+                          </div>
+                        </div>
+                        <Image height={80} width={108} src={proMemeberSlider} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="mt-7 w-[350px] p-2 flex flex-row items-center bg-gray-100 rounded-xl justify-center">
+                        <div className="p-2">
+                          <div className="mt-2 text-sm font-bold">
+                            Managing Made Easy
+                          </div>
+                          <div className="text-xs">
+                            Effortlessly manage, organise, and analyse your
+                            files.
+                          </div>
+                        </div>
+                        <Image height={80} width={108} src={proMemeberSlider} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="mt-7 w-[350px] p-2 flex flex-row items-center bg-gray-100 rounded-xl justify-center">
+                        <div className="p-2">
+                          <div className="mt-2 text-sm font-bold">
+                            Managing Made Easy
+                          </div>
+                          <div className="text-xs">
+                            Effortlessly manage, organise, and analyse your
+                            files.
+                          </div>
+                        </div>
+                        <Image height={80} width={108} src={proMemeberSlider} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="mt-7 w-[350px] p-2 flex flex-row items-center bg-gray-100 rounded-xl justify-center">
+                        <div className="p-2">
+                          <div className="mt-2 text-sm font-bold">
+                            Managing Made Easy
+                          </div>
+                          <div className="text-xs">
+                            Effortlessly manage, organise, and analyse your
+                            files.
+                          </div>
+                        </div>
+                        <Image height={80} width={108} src={proMemeberSlider} />
+                      </div>
+                    </div>
+                  </Slider>
+                </div>
+                <div className="flex mt-2 justify-between">
+                  <div className="text-lg">$21.42 /month</div>
+                  <div className="py-1 px-1 text-xs rounded-lg bg-yellow-400">
+                    Recommend
+                  </div>
+                </div>
+                <div className="flex gap-4 text-gray-500 mt-4">
+                  <LaptopMacRoundedIcon />
+                  <div>Unlimited devices</div>
+                </div>
+                <div className="flex gap-4 text-gray-500 mt-2">
+                  <BackupOutlinedIcon />
+                  <div>25GB monthly</div>
+                </div>
+                <div className="flex gap-4 text-gray-500 mt-2">
+                  <InsertDriveFileOutlinedIcon />
+                  <div>300 MB per note</div>
+                </div>
+                <div className="py-6">
+                  <div className="text-lg">The package also includes</div>
+                </div>
+                {membershipDataBenefits.map((data) => (
+                  <div key={data.id} className="flex py-1 gap-4 text-gray-500">
+                    <CheckRoundedIcon />
+                    {data?.benefit}
+                  </div>
+                ))}
+                <button
+                  onClick={() => {
+                    setProMembershipModalOpen(false);
+                    setPaymentModalOpen(true);
+                  }}
+                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
+                >
+                  Proceed with payment
                 </button>
               </div>
             </Modal>
@@ -380,65 +516,17 @@ const Account = () => {
             >
               <div className="p-4">
                 <div className="flex items-center justify-center">
-                <div
-                className="absolute left-5"
-                  onClick={() => {
-                    setPaymentModalOpen(false);
-                    setMembershipModalOpen(true);
-                  }}
-                >
-                  <ChevronLeftRoundedIcon />
+                  <div
+                    className="absolute left-5 cursor-pointer"
+                    onClick={() => {
+                      setPaymentModalOpen(false);
+                      setProMembershipModalOpen(true);
+                    }}
+                  >
+                    <ChevronLeftRoundedIcon />
+                  </div>
+                  <div className="text-lg font-bold text-center">Payment</div>
                 </div>
-                  <div className="text-lg text-center">Pro Membership</div>
-                </div>
-                <Slider {...settings}>
-                  <div>
-                    <div className="mt-7 flex flex-row items-center bg-gray-100 rounded-xl justify-center">
-                      <div>
-                      <div className="mt-2 text-sm font-bold">
-                      Managing Made Easy
-                      </div>
-                      <div className="text-xs">
-                      Effortlessly manage, organise, and analyse your files.
-                      </div>
-                      <Image height={80} width={108} src={proMemeberSlider} />
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={112.28} width={134.86} src={rocketImage} />
-                      <div className="mt-2 text-base font-bold">
-                        Unlock Premium Features
-                      </div>
-                      <div className="text-sm">
-                        Enjoy exclusive features and the newest updates
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={112.28} width={134.86} src={rocketImage} />
-                      <div className="mt-2 text-base font-bold">
-                        Unlock Premium Features
-                      </div>
-                      <div className="text-sm">
-                        Enjoy exclusive features and the newest updates
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={112.28} width={134.86} src={rocketImage} />
-                      <div className="mt-2 text-base font-bold">
-                        Unlock Premium Features
-                      </div>
-                      <div className="text-sm">
-                        Enjoy exclusive features and the newest updates
-                      </div>
-                    </div>
-                  </div>
-                </Slider>
               </div>
             </Modal>
           )}

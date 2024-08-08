@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import bgImage from "../../../public/images/bgImage.png";
 import Image from "next/image";
 import Account from "../settings";
+import CarouselComponent from "../../components/carousel";
 // import React from "react";
 
 function Home () {
@@ -12,7 +13,7 @@ function Home () {
           SHOP WHAT YOU LIKE USING{" "}
           <span className="text-red-500">CATEGORIES</span>
         </h2>
-        <Image src={bgImage} alt="Background" className="w-full bg-white" />
+        <CarouselComponent />
       </div>
   );
 }

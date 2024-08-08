@@ -36,3 +36,22 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none !important;
 }
+
+.slick-dots{
+  bottom: 0 !important;
+  font-size: 7px !important;
+}
+.slick-dots li button:hover, .slick-dots li button:focus 
+ { outline: none; }
+
+
+.slick-dots li button:before 
+ { color: #BDC1CA !important;border-radius:10px; font-size: 10px !important;}
+
+.slick-dots li.slick-active button:before 
+ { color: #BDC1CA !important;   background-color:#BDC1CA !important; height: 15px; width: 15px;
+ }
+.slick-dots li button::before {
+   content: "";
+   }
+   

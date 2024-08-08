@@ -1,4 +1,3 @@
-"use client";
 
 import React, { useEffect, useState } from "react";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
@@ -10,10 +9,10 @@ import { FaUser } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { FiPlusCircle } from "react-icons/fi";
 
-import Leave from "../../../assets/images/leave.png";
-import Lemon from "../../../assets/images/lemon.png";
-import Donut from "../../../assets/images/donut.png";
-import Orange from "../../../assets/images/orange.png";
+import Leave from "/src/assets/images/leave.png";
+import Lemon from "/src/assets/images/Lemon.png";
+import Donut from "/src/assets/images/donut.png";
+import Orange from "/src/assets/images/orange.png";
 
 const CarouselComponent = () => {
   const [carouselData, setCarouselData] = useState([]);
@@ -130,7 +129,7 @@ const CarouselComponent = () => {
   return (
     <div className="container mx-auto">
       <div className="mb-8">
-        <h2 className="text-[#000852] text-center font-bold text-2xl mb-6">
+        <h2 className="text-[#000852] mt-4 text-center font-bold text-2xl mb-6">
           SHOP WHAT YOU LIKE USING
           <span className="text-red-500"> CATAGORIES</span>
         </h2>
