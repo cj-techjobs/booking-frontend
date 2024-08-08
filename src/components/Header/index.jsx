@@ -33,7 +33,7 @@ function Header() {
           <div className="">
             <select
               name="select"
-              value="Deoghar"
+              // value="Deoghar"
               className="font-normal text-sm w-full border-[1px] border-[#EFEFEF] my-2.5 bg-[#f7f6f6] rounded-2xl px-4 py-2 drop-shadow-md text-[#000000]"
             >
               <option value="Deoghar">Deoghar</option>

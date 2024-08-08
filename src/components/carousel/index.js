@@ -10,10 +10,10 @@ import { FaUser } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { FiPlusCircle } from "react-icons/fi";
 
-import Leave from "../../../assets/images/leave.png";
-import Lemon from "../../../assets/images/lemon.png";
-import Donut from "../../../assets/images/donut.png";
-import Orange from "../../../assets/images/orange.png";
+import leave from "../../assets/images/leave.png";
+import lemon from "../../assets/images/lemon.png";
+import donut from "../../assets/images/donut.png";
+import orange from "../../assets/images/orange.png";
 
 const CarouselComponent = () => {
   const [carouselData, setCarouselData] = useState([]);
@@ -77,25 +77,25 @@ const CarouselComponent = () => {
         title: `Leave`,
         rating: 4,
         price: `₹ 250`,
-        productImage: Leave,
+        productImage: leave,
       },
       {
         title: `Lemon`,
         rating: 3,
         price: `₹ 200`,
-        productImage: Lemon,
+        productImage: lemon,
       },
       {
         title: `Donut`,
         rating: 4,
         price: `₹ 125`,
-        productImage: Donut,
+        productImage: donut,
       },
       {
         title: `Orange`,
         rating: 4.5,
         price: `₹ 100`,
-        productImage: Orange,
+        productImage: orange,
       },
     ];
 
