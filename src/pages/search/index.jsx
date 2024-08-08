@@ -8,10 +8,9 @@ const Search = () => {
   const [recentSearch, setRecentSearch] = useState([]);
   const [recommandProduct, setRecommandProduct] = useState([]);
 
-  const [isSearch, setIsSearchData] = useState(['']);
+  const [isSearch, setIsSearchData] = useState([""]);
 
   useEffect(() => {
-
     const data = [
       {
         title: "Cars",
@@ -87,7 +86,7 @@ const Search = () => {
   };
 
   return (
-    <div className="container min-h-screen mx-auto flex flex-col items-center justify-center">
+    <div className="container mt-8 min-h-screen mx-auto flex flex-col items-center justify-center">
       <div className="w-full flex justify-between">
         {isSearchData() && (
           <div className="w-1/3">
@@ -95,7 +94,7 @@ const Search = () => {
             <div className="flex flex-wrap gap-2">
               {recentSearch.map((m, i) => (
                 <div key={i} className="bg-[#f3f4f6] p-2 rounded-md">
-                  {m}
+                  <a href={m.toLowerCase().replaceAll(" ", "_")}>{m}</a>
                 </div>
               ))}
             </div>
@@ -118,7 +117,7 @@ const Search = () => {
                   <div className="w-12 h-full border-r">
                     <img src="" alt="" />
                   </div>
-                  <p>{m}</p>
+                  <a href={m.toLowerCase().replaceAll(' ', '_')}>{m}</a>
                 </div>
               ))}
             </div>
@@ -167,7 +166,7 @@ const Search = () => {
           </div>
         </div>
       )}
-      {!isSearchData() && <div></div>}
+      {!isSearchData() && <div className="flex flex-1"></div>}
     </div>
   );
 };
