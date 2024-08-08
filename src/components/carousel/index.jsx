@@ -7,13 +7,14 @@ import { MdNotifications } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { FiPlusCircle } from "react-icons/fi";
-
 import Leave from "/src/assets/images/leave.png";
 import Lemon from "/src/assets/images/Lemon.png";
 import Donut from "/src/assets/images/donut.png";
 import Orange from "/src/assets/images/orange.png";
+import { useRouter } from "next/navigation";
 
 const CarouselComponent = () => {
+  const router = useRouter();
   const [carouselData, setCarouselData] = useState([]);
   const [quickAccess, setQuickAccess] = useState([]);
   const [products, setProducts] = useState([]);
@@ -104,18 +105,38 @@ const CarouselComponent = () => {
     setProducts(products);
 
     setQuickAccess([
-      "",
-      <IoMdSettings
+      {
+        path:"",
+        content: "",
+      },
+      {
+        path:"/settings",
+        content: <IoMdSettings
         style={{ color: "#ffffff", width: "32px", height: "32px" }}
       />,
-      <FaTag style={{ color: "#ffffff", width: "32px", height: "32px" }} />,
-      <MdNotifications
+      },
+      {
+        path:"/settings",
+        content: <FaTag style={{ color: "#ffffff", width: "32px", height: "32px" }} />,
+      },
+      {
+        path:"/settings",
+        content: <MdNotifications
         style={{ color: "#ffffff", width: "32px", height: "32px" }}
       />,
-      <FaUser style={{ color: "#ffffff", width: "32px", height: "32px" }} />,
-      <BsFillBoxSeamFill
+      },
+      {
+        path:"/settings",
+        content: <BsFillBoxSeamFill
         style={{ color: "#ffffff", width: "32px", height: "32px" }}
       />,
+      },
+      {
+        path:"/settings",
+        content: <FaUser style={{ color: "#ffffff", width: "32px", height: "32px" }} />,
+      },
+      // 
+      
     ]);
 
     setCarouselData(data);
@@ -159,13 +180,13 @@ const CarouselComponent = () => {
         <div className="h-56 p-4 bg-[#ececec] rounded-lg flex flex-col items-center justify-between">
           <h2 className="text-black-400 text-xl ">Quick Access</h2>
           <div className="grid grid-cols-3 place-items-center gap-4">
-            {quickAccess.map((m, i) => (
+            {quickAccess.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center justify-center w-16 h-16 rounded-full bg-[#fc6e6e]"
-                onClick={{}}
+                className="flex items-center justify-center cursor-pointer w-16 h-16 rounded-full bg-[#fc6e6e]"
+                onClick={() => router.push(item?.path)}
               >
-                {m}
+                {item?.content}
               </div>
             ))}
           </div>
