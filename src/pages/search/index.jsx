@@ -88,7 +88,7 @@ const Search = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center">
+    <div className="container mx-auto flex mt-4 flex-col items-center justify-center">
       <div className="w-full flex justify-between">
         {isSearchData() && (
           <div className="w-1/3">

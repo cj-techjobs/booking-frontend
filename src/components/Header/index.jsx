@@ -12,11 +12,12 @@ import { Popover } from "@mui/material";
 import { AiFillApple } from "react-icons/ai";
 import profilephoto from "/src/assets/accountImages/profile.svg";
 import { usePathname } from "next/navigation";
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import EmailIcon from '@mui/icons-material/Email';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import SettingsIcon from '@mui/icons-material/Settings';
-import orderIcon from "/src/assets/order.svg"
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import EmailIcon from "@mui/icons-material/Email";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import SettingsIcon from "@mui/icons-material/Settings";
+import orderIcon from "/src/assets/order.svg";
+import MessageIcon from '@mui/icons-material/Message';
 
 function Header() {
   const [isLogin, setIsLogin] = useState(true);
@@ -44,6 +45,30 @@ function Header() {
     setAnchorEl(null);
   };
 
+  const messageData = [
+    {
+      "id":"1",
+      "name":"Aditya",
+      "message":"How are you ?",
+      "profileImg": profilephoto,
+      "inboxNumber":"2"
+    },
+    {
+      "id":"2",
+      "name":"Messie",
+      "message":"Order details",
+      "profileImg": profilephoto,
+      "inboxNumber":"0"
+    },
+    {
+      "id":"3",
+      "name":"Roman",
+      "message":"I like your products",
+      "profileImg": profilephoto,
+      "inboxNumber":"5"
+    },
+  ]
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -70,7 +95,7 @@ function Header() {
             type="search"
             className="rounded-lg border bg-white w-full drop-shadow-md py-2 px-10 outline-none"
             placeholder="Search"
-            onClick={() => router.push("/settings")}
+            onClick={() => router.push("/search")}
           />
           <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
         </div>
@@ -322,34 +347,62 @@ function Header() {
                 </p>
               </div>
             </div>
-            <div className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle shadow-[0_5px_2px_0_rgba(255,233,228,1)]">
-                <LocalOfferIcon className="ml-4" />
-              <button>
-                Sell / Post an Ad 
-              </button>
+            <div className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle bg-[#FBFDFF] shadow-[0_5px_2px_0_rgba(87,159,255,0.25)]">
+              <LocalOfferIcon className="ml-4" />
+              <button>Sell / Post an Ad</button>
             </div>
             <div className="mt-4 cursor-pointer w-[382px] flex gap-4 bg-[#000852] text-white rounded-full py-4 px-2 align-middle">
-              <EmailIcon className="ml-4"/>
-              <div className="font-bold">
-                Inbox
+              <EmailIcon className="ml-4" />
+              <div className="font-bold">Inbox</div>
+              <div className="px-1 absolute end-12 text-sm mt-0.5 rounded-md bg-gray-500">
+                12
               </div>
-              <div className="px-2 absolute end-12 rounded-md bg-gray-500">12</div>
             </div>
             <div className="mt-4 flex justify-between">
               <h2 className="text-gray-500 font-bold">Recents</h2>
-              <h2 className="text-red-500"><RemoveRedEyeIcon /> View all</h2>
+              <h2 className="text-red-500">
+                <RemoveRedEyeIcon /> View all
+              </h2>
             </div>
-            <div className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle shadow-[0_5px_2px_0_rgba(255,233,228,1)]">
-                <Image src={orderIcon} className="ml-4" alt="order icon" width={30} height={30}/>
-              <button>
-                My Orders
-              </button>
-            </div>
-            <div onClick={() => router.push("/settings")} className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle shadow-[0_5px_2px_0_rgba(255,233,228,1)]">
-                <SettingsIcon className="ml-4"/>
-              <div>
-                Settings
+            {messageData?.map((data) => (
+            <div key={data.id} className="mt-4 flex justify-between">
+              <div className="flex gap-4 items-center">
+                <div className="relative w-fit rounded-full pt-1 shadow-sm cursor-pointer">
+                  <Image
+                    src={data?.profileImg}
+                    width={40}
+                    height={40}
+                    alt="profile"
+                  />
+                </div>
+                <div>
+                  <div className="font-bold">{data?.name}</div>
+                  <div className="text-gray-500 text-xs">{data?.message}</div>
+                </div>
               </div>
+              <div>
+                {data.inboxNumber === "0" ? "" : <div className="rounded-full mt-1 w-fit px-1.5 py-[0.3px] absolute left-[380px] text-white text-xs bg-red-500">{data?.inboxNumber}</div>}
+                {/* <div className="rounded-full w-fit px-1.5 absolute right-6 top-[272px] text-white text-xs bg-red-500">{data.inboxNumber}</div> */}
+              <MessageIcon className="mr-3 mt-3 "/>
+              </div>
+            </div>
+            ))}
+            <div className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle bg-[#FBFDFF] shadow-[0_5px_2px_0_rgba(87,159,255,0.25)]">
+              <Image
+                src={orderIcon}
+                className="ml-4"
+                alt="order icon"
+                width={25}
+                height={25}
+              />
+              <button>My Orders</button>
+            </div>
+            <div
+              onClick={() => router.push("/settings")}
+              className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle bg-[#FBFDFF] shadow-[0_5px_2px_0_rgba(87,159,255,0.25)]"
+            >
+              <SettingsIcon className="ml-4" />
+              <div>Settings</div>
             </div>
           </div>
         </Popover>

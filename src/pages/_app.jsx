@@ -1,8 +1,6 @@
 import Layout from "../layouts";
 import "../styles/globals.css";
-import { useEffect } from "react";
 import Header from "../components/Header";
-// import "react-toastify/dist/ReactToastify.min.css";
 
 const App = ({ Component, pageProps }) => {
 
