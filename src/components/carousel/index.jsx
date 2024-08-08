@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -164,6 +163,7 @@ const CarouselComponent = () => {
               <div
                 key={i}
                 className="flex items-center justify-center w-16 h-16 rounded-full bg-[#fc6e6e]"
+                onClick={{}}
               >
                 {m}
               </div>

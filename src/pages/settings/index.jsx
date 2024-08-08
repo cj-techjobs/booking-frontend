@@ -11,7 +11,9 @@ import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import LaptopMacRoundedIcon from "@mui/icons-material/LaptopMacRounded";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import apple from "/src/assets/apple.svg";
 import rocketImage from "/src/assets/rocket.svg";
 import proMemeberSlider from "/src/assets/promemberSlider.svg";
 import Image2 from "/src/assets/accountImages/lock.svg";
@@ -22,18 +24,25 @@ import Image5 from "/src/assets/accountImages/help.svg";
 import Image6 from "/src/assets/accountImages/payment.svg";
 import Image7 from "/src/assets/accountImages/order.svg";
 import profilephoto from "/src/assets/accountImages/profile.svg";
+import emoji from "/src/assets/finalEmoji.png"
+import visa from "/src/assets/visa.svg";
+import upi from "/src/assets/upi.svg";
 import Modal from "./Modal";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { version } from "os";
+import { useRouter } from "next/navigation";
+import { data } from "autoprefixer";
 
 const Account = () => {
+  const router = useRouter();
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [membershipModalOpen, setMembershipModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [paymentConfirmModalOpen, setPaymentConfirmModalOpen] = useState(false);
   const [proMemebershipModalOpen, setProMembershipModalOpen] = useState(false);
+  const [lastModalOpen, setLastModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -83,6 +92,7 @@ const Account = () => {
       title: `Payment options`,
       name: `PaymentOption`,
       about: `Edit or add payment methods`,
+      modalOpen: setPaymentModalOpen,
       img: Image6,
     },
     {
@@ -132,6 +142,33 @@ const Account = () => {
     },
   ];
 
+  const paymentConfirmDetail = [
+    {
+      "id":"1",
+      "title":"Pro Membership",
+      "data":"$21.42",
+    },
+    {
+      "id":"2",
+      "title":"Billing",
+      "data":"Monthly",
+    },
+    {
+      "id":"3",
+      "title":"Method",
+      "data":"****** 2334",
+    },
+    {
+      "id":"4",
+      "title":"Discount",
+      "data":"$3.40",
+    },
+    {
+      "id":"5",
+      "title":"Total",
+      "data":"$19.02",
+    },
+  ]
   // membership modal slick settings
   var settings = {
     dots: true,
@@ -290,10 +327,10 @@ const Account = () => {
               isVisible={membershipModalOpen}
               onClose={() => setMembershipModalOpen(false)}
             >
-              <div className="p-4 w-[390px]">
+              <div className="p-4">
                 <div
                   onClick={() => setMembershipModalOpen(false)}
-                  className="rounded-full w-7 h-7 bg-gray-500 absolute right-3 items-center justify-center "
+                  className="rounded-full w-7 h-7 bg-gray-500 absolute right-3 items-center justify-center z-50"
                 >
                   <CloseRoundedIcon
                     fontSize="small"
@@ -349,13 +386,13 @@ const Account = () => {
                 {membershipData.map((data) => (
                   <div
                     key={data.id}
-                    className="p-4 mt-2 w-[350px] cursor-pointer rounded-xl border-2 border-orange-300"
+                    className="p-4 mt-2 cursor-pointer rounded-xl border-2 border-orange-300"
                   >
                     <div className="flex justify-between">
                       <div className="flex items-center">
                         <input
                           type="radio"
-                          className="w-5 h-5 border-orange-300 accent-orange-300"
+                          className="w-5 h-5 accent-orange-300"
                         />{" "}
                         <span className="ms-2 text-base mb-1">
                           {data.version}
@@ -515,7 +552,7 @@ const Account = () => {
               onClose={() => setPaymentModalOpen(false)}
             >
               <div className="p-4">
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center mb-4">
                   <div
                     className="absolute left-5 cursor-pointer"
                     onClick={() => {
@@ -527,6 +564,154 @@ const Account = () => {
                   </div>
                   <div className="text-lg font-bold text-center">Payment</div>
                 </div>
+                <div className="py-3 px-3 flex ite bg-[#FFFAE1] mb-4 rounded-lg">
+                  <VerifiedRoundedIcon className="text-[#9C7F00]" />
+                  <div className="ms-2 text-sm">
+                    A discount is applied for the first month
+                  </div>
+                </div>
+                <div className="text-center rounded-xl p-6 mb-2 bg-[#FAFAFB]">
+                  <div className="text-sm font-semibold">TOTAL</div>
+                  <div className="text-[32px] font-bold mt-2">$19.02</div>
+                  <div className="text-sm mt-1">
+                    On 23/12/23, your plan will be renewed on its own. The
+                    monthly cost will be $21.42
+                  </div>
+                </div>
+                <div className="text-xl font-semibold mb-4">
+                  Payment methods
+                </div>
+                <div className="flex items-center p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
+                  <input
+                    type="radio"
+                    className="absolute right-10 w-4 h-4 accent-red-600"
+                  />
+                  <Image
+                    className="ms-2"
+                    height={30}
+                    width={30}
+                    src={visa}
+                    alt="visa"
+                  />
+                  <div className="text-sm">****** 2334</div>
+                </div>
+                <div className="flex items-center mt-2 p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
+                  <input
+                    type="radio"
+                    className="absolute right-10 w-4 h-4 accent-red-600"
+                  />
+                  <Image
+                    className="ms-2"
+                    height={30}
+                    width={30}
+                    src={apple}
+                    alt="visa"
+                  />
+                  <div className="text-sm">Apple Pay</div>
+                </div>
+                <div className="flex items-center mt-2 p-2 py-4 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
+                  <input
+                    type="radio"
+                    className="absolute right-10 w-4 h-4 accent-red-600"
+                  />
+                  <Image
+                    className="ms-2"
+                    height={30}
+                    width={30}
+                    src={upi}
+                    alt="visa"
+                  />
+                  <div className="text-sm">abc@okupi</div>
+                </div>
+                <div className="text-[#6D31ED] mt-3 text-center text-lg mb-10">
+                  + Add New Card
+                </div>
+                <button
+                  onClick={() => {
+                    setPaymentModalOpen(false);
+                    setPaymentConfirmModalOpen(true);
+                  }}
+                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
+                >
+                  Continue
+                </button>
+              </div>
+            </Modal>
+          )}
+          {paymentConfirmModalOpen && (
+            <Modal
+              isVisible={paymentConfirmModalOpen}
+              onClose={() => setPaymentConfirmModalOpen(false)}
+            >
+              <div className="p-8">
+                <div className="flex items-center justify-center mb-10">
+                  <div
+                    className="absolute left-5 cursor-pointer"
+                    onClick={() => {
+                      setPaymentConfirmModalOpen(false);
+                      setPaymentModalOpen(true);
+                    }}
+                  >
+                    <ChevronLeftRoundedIcon />
+                  </div>
+                  <div className="text-lg font-bold text-center">Payment</div>
+                </div>
+                {paymentConfirmDetail.map((data) => (
+                <div key={data.id} className="flex items-center justify-between px-2 py-2">
+                  <div className="text-sm text-gray-500 ">
+                    {data.title}
+                  </div>
+                  <div className="text-lg ">
+                    {data.data}
+                  </div>
+                </div>
+                ))}
+                <div className="mt-36 flex">
+                  <input type="checkbox" className="h-4 absolute w-4 mt-1.5" />
+                  <span className="text-base ms-6">By confirming your payment, you agree to our terms and conditions.</span>
+                </div>
+                <button
+                  onClick={() => {
+                    setPaymentConfirmModalOpen(false);
+                    setLastModalOpen(true);
+                  }}
+                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
+                >
+                  Continue
+                </button>
+              </div>
+            </Modal>
+          )}
+          {lastModalOpen && (
+            <Modal
+              isVisible={lastModalOpen}
+              onClose={() => setLastModalOpen(false)}
+            >
+              <div className="p-4 w-[390px]">
+                <div className="flex justify-center mt-44 items-center">
+                <Image src={emoji} height={40} width={40} />
+                </div>
+                <div className="text-2xl font-bold text-center">
+                  Welcome new member
+                </div>
+                <div className="text-sm px-8 py-2 mb-20 text-center">
+                  Thank you for upgrading. Happy exploring and enjoy your Pro membership to the fullest!
+                </div>
+                <button
+                  onClick={() => {
+                    router.push("/")
+                  }}
+                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
+                >
+                  Start Exploring
+                </button>
+                <button
+                disabled
+                  onClick={{}}
+                  className="bg-red-300 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
+                >
+                  Back to Home
+                </button>
               </div>
             </Modal>
           )}

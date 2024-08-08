@@ -76,7 +76,7 @@ function Header() {
     <header className="bg-white sticky top-0 shadow-md">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex gap-8 items-center">
-          <Link href="/home">
+          <Link href="/">
             <Image src={logo} alt="Emerge" className="w-20 h-full" />
           </Link>
           <div className="">
