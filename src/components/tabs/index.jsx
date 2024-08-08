@@ -33,14 +33,16 @@ const Tabs = (data) => {
       </div>
       {tabs.length > 0 && (
         <div className="flex flex-1 flex-col p-2">
-          {tabs[activeTabs].content.map((m, i) => (
-            <div key={i} className="flex gap-4">
-              <input className="text-lg" type="checkbox" id={i} />
-              <label className="text-lg" htmlFor={i}>
-                {m[i]}
-              </label>
-            </div>
-          ))}
+          {tabs[activeTabs].content &&
+            tabs[activeTabs].content.length > 0 &&
+            tabs[activeTabs].content.map((m, i) => (
+              <div key={i} className="flex gap-4">
+                <input className="text-lg" type="checkbox" id={i} />
+                <label className="text-lg" htmlFor={i}>
+                  {m[i]}
+                </label>
+              </div>
+            ))}
         </div>
       )}
     </div>
