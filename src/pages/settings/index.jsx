@@ -23,15 +23,19 @@ import Image5 from "/src/assets/accountImages/help.svg";
 import Image6 from "/src/assets/accountImages/payment.svg";
 import Image7 from "/src/assets/accountImages/order.svg";
 import profilephoto from "/src/assets/accountImages/profile.svg";
-import emoji from "/src/assets/settingsModalSvg/finalEmoji.png"
+import emoji from "/src/assets/settingsModalSvg/finalEmoji.png";
 import visa from "/src/assets/settingsModalSvg/visa.svg";
 import upi from "/src/assets/settingsModalSvg/upi.svg";
 // import Modal from "./Modal";
-import Modal from '/src/components/Modal.jsx'
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Modal from "/src/components/Modal.jsx";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
+import { orange, red } from "@mui/material/colors";
 
 const Account = () => {
   const router = useRouter();
@@ -47,6 +51,11 @@ const Account = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthdate, setBirthdate] = useState("");
+  const [value, setValue] = React.useState("female");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Detials:", { name, password, email, phoneNumber, birthdate });
@@ -123,18 +132,21 @@ const Account = () => {
   const membershipData = [
     {
       id: "1",
+      value: "option1",
       version: "Pro",
       details: "Get the ultimate file management experience",
       price: "21.42",
     },
     {
       id: "2",
+      value: "option2",
       version: "Standerd",
       details: "Unlock advanced features for professionals",
       price: "16.42",
     },
     {
       id: "3",
+      value: "option3",
       version: "Starter",
       details: "Unlock additional features & more storage",
       price: "8.99",
@@ -143,31 +155,31 @@ const Account = () => {
 
   const paymentConfirmDetail = [
     {
-      "id":"1",
-      "title":"Pro Membership",
-      "data":"$21.42",
+      id: "1",
+      title: "Pro Membership",
+      data: "$21.42",
     },
     {
-      "id":"2",
-      "title":"Billing",
-      "data":"Monthly",
+      id: "2",
+      title: "Billing",
+      data: "Monthly",
     },
     {
-      "id":"3",
-      "title":"Method",
-      "data":"****** 2334",
+      id: "3",
+      title: "Method",
+      data: "****** 2334",
     },
     {
-      "id":"4",
-      "title":"Discount",
-      "data":"$3.40",
+      id: "4",
+      title: "Discount",
+      data: "$3.40",
     },
     {
-      "id":"5",
-      "title":"Total",
-      "data":"$19.02",
+      id: "5",
+      title: "Total",
+      data: "$19.02",
     },
-  ]
+  ];
   // membership modal slick settings
   var settings = {
     dots: true,
@@ -339,7 +351,12 @@ const Account = () => {
                 <Slider {...settings}>
                   <div>
                     <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={100.28} width={110.86} src={rocketImage} />
+                      <Image
+                        height={100.28}
+                        width={110.86}
+                        src={rocketImage}
+                        alt=""
+                      />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
                       </div>
@@ -350,7 +367,12 @@ const Account = () => {
                   </div>
                   <div>
                     <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={100.28} width={110.86} src={rocketImage} />
+                      <Image
+                        height={100.28}
+                        width={110.86}
+                        src={rocketImage}
+                        alt=""
+                      />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
                       </div>
@@ -361,7 +383,12 @@ const Account = () => {
                   </div>
                   <div>
                     <div className="mt-7 flex flex-col mb-8 items-center justify-center">
-                      <Image height={100.28} width={110.86} src={rocketImage} />
+                      <Image
+                        height={100.28}
+                        width={110.86}
+                        src={rocketImage}
+                        alt=""
+                      />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
                       </div>
@@ -372,7 +399,12 @@ const Account = () => {
                   </div>
                   <div>
                     <div className="mt-7 flex flex-col items-center justify-center">
-                      <Image height={100.28} width={110.86} src={rocketImage} />
+                      <Image
+                        height={100.28}
+                        width={110.86}
+                        src={rocketImage}
+                        alt=""
+                      />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
                       </div>
@@ -388,15 +420,31 @@ const Account = () => {
                     className="p-4 mt-2 cursor-pointer rounded-xl border-2 border-orange-300"
                   >
                     <div className="flex justify-between">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          className="w-5 h-5 accent-orange-300"
-                        />{" "}
-                        <span className="ms-2 text-base mb-1">
-                          {data.version}
-                        </span>
-                      </div>
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={value}
+                        onChange={handleChange}
+                      >
+                        <div className="flex items-center">
+                          <FormControlLabel
+                            type="radio"
+                            control={
+                              <Radio
+                                sx={{
+                                  "&.Mui-checked": {
+                                    color: orange[500],
+                                  },
+                                }}
+                              />
+                            }
+                            value={data.value}
+                          />{" "}
+                          <span className="ms-2 text-base mb-1">
+                            {data.version}
+                          </span>
+                        </div>
+                      </RadioGroup>
                       {data.id === "1" ? (
                         <div className="py-1 px-1 text-xs rounded-lg bg-yellow-400">
                           Recommend
@@ -580,48 +628,88 @@ const Account = () => {
                 <div className="text-xl font-semibold mb-4">
                   Payment methods
                 </div>
-                <div className="flex items-center p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
-                  <input
-                    type="radio"
-                    className="absolute right-10 w-4 h-4 accent-red-600"
-                  />
-                  <Image
-                    className="ms-2"
-                    height={30}
-                    width={30}
-                    src={visa}
-                    alt="visa"
-                  />
-                  <div className="text-sm">****** 2334</div>
-                </div>
-                <div className="flex items-center mt-2 p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
-                  <input
-                    type="radio"
-                    className="absolute right-10 w-4 h-4 accent-red-600"
-                  />
-                  <Image
-                    className="ms-2"
-                    height={30}
-                    width={30}
-                    src={apple}
-                    alt="visa"
-                  />
-                  <div className="text-sm">Apple Pay</div>
-                </div>
-                <div className="flex items-center mt-2 p-2 py-4 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
-                  <input
-                    type="radio"
-                    className="absolute right-10 w-4 h-4 accent-red-600"
-                  />
-                  <Image
-                    className="ms-2"
-                    height={30}
-                    width={30}
-                    src={upi}
-                    alt="visa"
-                  />
-                  <div className="text-sm">abc@okupi</div>
-                </div>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <div className="flex items-center p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
+                    <FormControlLabel
+                      type="radio"
+                      control={
+                        <Radio
+                          sx={{
+                            "&.Mui-checked": {
+                              color: red[400],
+                            },
+                          }}
+                        />
+                      }
+                      value="visa"
+                    />
+                    <div className="absolute flex items-center gap-3 ms-6">
+                    <Image
+                      className="ms-2"
+                      height={30}
+                      width={30}
+                      src={visa}
+                      alt="visa"
+                    />
+                    <div className="text-sm">****** 2334</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center mt-2 p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
+                    <FormControlLabel
+                      type="radio"
+                      control={
+                        <Radio
+                          sx={{
+                            "&.Mui-checked": {
+                              color: red[400],
+                            },
+                          }}
+                        />
+                      }
+                      value="apple"
+                    />
+                    <div className="absolute flex items-center gap-3 ms-6">
+                    <Image
+                      className="ms-2"
+                      height={30}
+                      width={30}
+                      src={apple}
+                      alt="visa"
+                    />
+                    <div className="text-sm ">Apple Pay</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center mt-2 p-2 py-4 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
+                    <FormControlLabel
+                      type="radio"
+                      control={
+                        <Radio
+                          sx={{
+                            "&.Mui-checked": {
+                              color: red[400],
+                            },
+                          }}
+                        />
+                      }
+                      value="upi"
+                    />
+                    <div className="absolute flex items-center gap-3 ms-6">
+                    <Image
+                      className="ms-2"
+                      height={30}
+                      width={30}
+                      src={upi}
+                      alt="visa"
+                    />
+                    <div className="text-sm">abc@okupi</div>
+                    </div>
+                  </div>
+                </RadioGroup>
                 <div className="text-[#6D31ED] mt-3 text-center text-lg mb-10">
                   + Add New Card
                 </div>
@@ -656,18 +744,20 @@ const Account = () => {
                   <div className="text-lg font-bold text-center">Payment</div>
                 </div>
                 {paymentConfirmDetail.map((data) => (
-                <div key={data.id} className="flex items-center justify-between px-2 py-2">
-                  <div className="text-sm text-gray-500 ">
-                    {data.title}
+                  <div
+                    key={data.id}
+                    className="flex items-center justify-between px-2 py-2"
+                  >
+                    <div className="text-sm text-gray-500 ">{data.title}</div>
+                    <div className="text-lg ">{data.data}</div>
                   </div>
-                  <div className="text-lg ">
-                    {data.data}
-                  </div>
-                </div>
                 ))}
                 <div className="mt-36 flex">
                   <input type="checkbox" className="h-4 absolute w-4 mt-1.5" />
-                  <span className="text-base ms-6">By confirming your payment, you agree to our terms and conditions.</span>
+                  <span className="text-base ms-6">
+                    By confirming your payment, you agree to our terms and
+                    conditions.
+                  </span>
                 </div>
                 <button
                   onClick={() => {
@@ -688,24 +778,25 @@ const Account = () => {
             >
               <div className="p-4 w-[390px]">
                 <div className="flex justify-center mt-44 items-center">
-                <Image src={emoji} height={40} width={40} />
+                  <Image src={emoji} height={40} width={40} />
                 </div>
                 <div className="text-2xl font-bold text-center">
                   Welcome new member
                 </div>
                 <div className="text-sm px-8 py-2 mb-20 text-center">
-                  Thank you for upgrading. Happy exploring and enjoy your Pro membership to the fullest!
+                  Thank you for upgrading. Happy exploring and enjoy your Pro
+                  membership to the fullest!
                 </div>
                 <button
                   onClick={() => {
-                    router.push("/")
+                    router.push("/");
                   }}
                   className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
                 >
                   Start Exploring
                 </button>
                 <button
-                disabled
+                  disabled
                   onClick={{}}
                   className="bg-red-300 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
                 >

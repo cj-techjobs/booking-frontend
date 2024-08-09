@@ -114,8 +114,6 @@ const CarouselComponent = () => {
 
     const products = new Array(5).fill(product).flat(Infinity);
 
-    console.log(products);
-
     setProducts(products);
 
     setQuickAccess([
