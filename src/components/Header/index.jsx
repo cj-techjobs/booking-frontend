@@ -16,7 +16,7 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import EmailIcon from "@mui/icons-material/Email";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SettingsIcon from "@mui/icons-material/Settings";
-import orderIcon from "/src/assets/order.svg";
+import orderIcon from "/src/assets/settingsModalSvg/order.svg";
 import MessageIcon from '@mui/icons-material/Message';
 
 function Header() {

@@ -12,18 +12,32 @@ import Lemon from "/src/assets/images/Lemon.png";
 import Donut from "/src/assets/images/donut.png";
 import Orange from "/src/assets/images/orange.png";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Modal from "/src/components/Modal.jsx";
+import SellItem from "./sellItem";
+import SellCar from "./sellCar";
+import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
+import InputAdornment from "@mui/material/InputAdornment";
+import Input from "@mui/material/Input";
+import uploadSvg from "/src/assets/homeModalSvg/uploadSvg.svg";
+import TextField from "@mui/material/TextField";
+import PostAnAdd from "./postAnAdd";
 
 const CarouselComponent = () => {
   const router = useRouter();
   const [carouselData, setCarouselData] = useState([]);
   const [quickAccess, setQuickAccess] = useState([]);
   const [products, setProducts] = useState([]);
+  const [sellItemModal, setSelltemModal] = useState(false);
+  const [carModal, setCarModal] = useState(false);
+  const [uploadImageModal, setUploadImageModal] = useState(false);
 
   useEffect(() => {
     const data = [
       {
         title: "Cars",
         bgColor: "#d96849",
+        modal: setCarModal,
       },
       {
         title: "Bikes",
@@ -106,37 +120,47 @@ const CarouselComponent = () => {
 
     setQuickAccess([
       {
-        path:"",
+        path: "",
         content: "",
       },
       {
-        path:"/settings",
-        content: <IoMdSettings
-        style={{ color: "#ffffff", width: "32px", height: "32px" }}
-      />,
+        path: "/settings",
+        content: (
+          <IoMdSettings
+            style={{ color: "#ffffff", width: "32px", height: "32px" }}
+          />
+        ),
       },
       {
-        path:"/settings",
-        content: <FaTag style={{ color: "#ffffff", width: "32px", height: "32px" }} />,
+        // path: "/settings",
+        modal: setSelltemModal,
+        content: (
+          <FaTag style={{ color: "#ffffff", width: "32px", height: "32px" }} />
+        ),
       },
       {
-        path:"/settings",
-        content: <MdNotifications
-        style={{ color: "#ffffff", width: "32px", height: "32px" }}
-      />,
+        path: "/settings",
+        content: (
+          <MdNotifications
+            style={{ color: "#ffffff", width: "32px", height: "32px" }}
+          />
+        ),
       },
       {
-        path:"/settings",
-        content: <BsFillBoxSeamFill
-        style={{ color: "#ffffff", width: "32px", height: "32px" }}
-      />,
+        path: "/settings",
+        content: (
+          <BsFillBoxSeamFill
+            style={{ color: "#ffffff", width: "32px", height: "32px" }}
+          />
+        ),
       },
       {
-        path:"/settings",
-        content: <FaUser style={{ color: "#ffffff", width: "32px", height: "32px" }} />,
+        path: "/settings",
+        content: (
+          <FaUser style={{ color: "#ffffff", width: "32px", height: "32px" }} />
+        ),
       },
-      // 
-      
+      //
     ]);
 
     setCarouselData(data);
@@ -154,18 +178,16 @@ const CarouselComponent = () => {
           <span className="text-red-500"> CATAGORIES</span>
         </h2>
         <div className="flex items-center justify-center gap-4">
-          {carouselData.map((m, i) => (
+          {carouselData.map((item, i) => (
             <div
               key={i}
-              className="w-32 h-28 flex items-center justify-center rounded-lg"
+              className="w-32 h-28 flex items-center justify-center rounded-lg cursor-pointer"
               style={{ backgroundColor: getBgColor(i) }}
+              onClick={() => item?.modal(true)}
             >
-              <a
-                href={m.title.toLowerCase()}
-                className="text-white font-bold text-center"
-              >
-                {m.title}
-              </a>
+              <div className="text-white font-bold text-center">
+                {item.title}
+              </div>
             </div>
           ))}
         </div>
@@ -184,7 +206,11 @@ const CarouselComponent = () => {
               <div
                 key={i}
                 className="flex items-center justify-center cursor-pointer w-16 h-16 rounded-full bg-[#fc6e6e]"
-                onClick={() => router.push(item?.path)}
+                onClick={
+                  item.path
+                    ? () => router.push(item?.path)
+                    : () => item.modal(true)
+                }
               >
                 {item?.content}
               </div>
@@ -201,7 +227,13 @@ const CarouselComponent = () => {
               className="flex flex-col gap-2 shadow-xl rounded-lg p-2"
             >
               <div className="flex-1">
-                <img src={m.productImage.src} className="h-48 w-full" />
+                <Image
+                  src={m.productImage.src}
+                  className=""
+                  alt="product image"
+                  height={220}
+                  width={230}
+                />
               </div>
               <div className="flex justify-between px-2">
                 <div>
@@ -217,6 +249,87 @@ const CarouselComponent = () => {
           ))}
         </div>
       </div>
+      {sellItemModal && (
+        <Modal isVisible={sellItemModal} onClose={() => setSelltemModal(false)}>
+          <SellItem />
+          {/* <PostAnAdd /> */}
+        </Modal>
+      )}
+      {carModal && (
+        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
+          <SellCar
+            onClick={() => {
+              setCarModal(false);
+              setUploadImageModal(true);
+            }}
+          />
+        </Modal>
+      )}
+      {uploadImageModal && (
+        <Modal
+          isVisible={uploadImageModal}
+          onClose={() => setUploadImageModal(false)}
+        >
+          <div className="p-4">
+            <div className="flex items-center justify-center mb-10">
+              <div
+                className="absolute left-5 cursor-pointer"
+                onClick={() => {
+                  setCarModal(true);
+                  setUploadImageModal(false);
+                }}
+              >
+                <ChevronLeftRoundedIcon />
+              </div>
+              <div className="text-lg font-bold text-center">
+                You are Almost There
+              </div>
+            </div>
+            <div className="px-4">
+              <Input
+                id="standard-adornment-amount"
+                startAdornment={
+                  <InputAdornment className="font-extrabold" position="start">
+                    ₹
+                  </InputAdornment>
+                }
+                className="w-full"
+                placeholder="Enter Your price*/No of days"
+              />
+              <div className="mt-4 text-base">
+              Rs. 5,000 will be your security money and the responsibility of car is our
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center mt-28">
+              <div className="cursor-pointer">
+                <label htmlFor="upload-file" className="cursor-pointer">
+                  <Image
+                    src={uploadSvg}
+                    alt="upload-Image"
+                    height={100}
+                    width={100}
+                  />
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  id="upload-file"
+                  className="absolute opacity-0 -z-20"
+                />{" "}
+                <span className="text-xs left-[140px] tracking-tighter font-bold absolute">
+                  click and upload
+                </span>
+              </div>
+              <div className="text-xl mt-6">
+                 Upload Images of your Products
+              </div>
+              <div className="px-4 py-2 rounded-md border-2 border-black bg-[#FFB017] mt-8">
+                <button className="text-base tracking-tighter">Click and Upload</button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

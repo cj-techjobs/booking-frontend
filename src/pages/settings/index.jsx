@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-// import lockImg from '/src/assets/images/lock.svg'
 import Image from "next/image";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
@@ -13,9 +12,9 @@ import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import apple from "/src/assets/apple.svg";
-import rocketImage from "/src/assets/rocket.svg";
-import proMemeberSlider from "/src/assets/promemberSlider.svg";
+import apple from "/src/assets/settingsModalSvg/apple.svg";
+import rocketImage from "/src/assets/settingsModalSvg/rocket.svg";
+import proMemeberSlider from "/src/assets/settingsModalSvg/promemberSlider.svg";
 import Image2 from "/src/assets/accountImages/lock.svg";
 import Image1 from "/src/assets/accountImages/profile.svg";
 import Image3 from "/src/assets/accountImages/membership.svg";
@@ -24,15 +23,15 @@ import Image5 from "/src/assets/accountImages/help.svg";
 import Image6 from "/src/assets/accountImages/payment.svg";
 import Image7 from "/src/assets/accountImages/order.svg";
 import profilephoto from "/src/assets/accountImages/profile.svg";
-import emoji from "/src/assets/finalEmoji.png"
-import visa from "/src/assets/visa.svg";
-import upi from "/src/assets/upi.svg";
-import Modal from "./Modal";
+import emoji from "/src/assets/settingsModalSvg/finalEmoji.png"
+import visa from "/src/assets/settingsModalSvg/visa.svg";
+import upi from "/src/assets/settingsModalSvg/upi.svg";
+// import Modal from "./Modal";
+import Modal from '/src/components/Modal.jsx'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
-import { data } from "autoprefixer";
 
 const Account = () => {
   const router = useRouter();
