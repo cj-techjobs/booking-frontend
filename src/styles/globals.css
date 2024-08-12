@@ -55,3 +55,7 @@ body {
    content: "";
    }
    
+/* slider color car page pricerange filer */
+.css-188mx6n-MuiSlider-root{
+  color: red !important;
+}

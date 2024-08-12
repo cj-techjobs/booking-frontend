@@ -29,12 +29,6 @@ const Modal = ({ isVisible, onClose, children }) => {
         ref={modalRef}
         className="bg-white rounded-2xl shadow-md relative w-1/5"
       >
-        {/* <button
-          className="absolute top-0 right-0 m-4 text-gray-600"
-          onClick={onClose}
-        >
-          &times;
-        </button> */}
         {children}
       </div>
     </div>

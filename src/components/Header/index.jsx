@@ -30,9 +30,12 @@ function Header() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login:", { mobileNumber, password });
+    // console.log("Login:", { mobileNumber, password });
+    localStorage.setItem("mobile Number", mobileNumber)
+    localStorage.setItem("password", password)
+    localStorage.setItem("fullname", fullName)
     setModalOpen(false);
-    router.push("/home");
+    router.push("/");
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -71,6 +74,13 @@ function Header() {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  useEffect(() => {
+    fetch('/api/items')
+      .then(response => response.json())
+      .then(data => setFullName(data))
+      .catch(error => console.error('Error fetching items:', error));
+  }, []);
 
   return (
     <header className="bg-white sticky top-0 shadow-md">

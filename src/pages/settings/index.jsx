@@ -419,7 +419,7 @@ const Account = () => {
                     key={data.id}
                     className="p-4 mt-2 cursor-pointer rounded-xl border-2 border-orange-300"
                   >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center">
                       <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
                         name="controlled-radio-buttons-group"
@@ -440,7 +440,7 @@ const Account = () => {
                             }
                             value={data.value}
                           />{" "}
-                          <span className="ms-2 text-base mb-1">
+                          <span className=" text-base mb-1">
                             {data.version}
                           </span>
                         </div>

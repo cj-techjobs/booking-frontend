@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { IoMdSettings } from "react-icons/io";
@@ -31,6 +31,7 @@ const CarouselComponent = () => {
   const [sellItemModal, setSelltemModal] = useState(false);
   const [carModal, setCarModal] = useState(false);
   const [uploadImageModal, setUploadImageModal] = useState(false);
+  const [amount, setAmount] = useState("")
 
   useEffect(() => {
     const data = [
@@ -168,6 +169,12 @@ const CarouselComponent = () => {
     return carouselData[index].bgColor;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem("Amount", amount);
+    setUploadImageModal(false);
+  };
+
   return (
     <div className="container mx-auto">
       <div className="mb-8">
@@ -256,7 +263,7 @@ const CarouselComponent = () => {
       {carModal && (
         <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
           <SellCar
-            onClick={() => {
+            modal={() => {
               setCarModal(false);
               setUploadImageModal(true);
             }}
@@ -293,9 +300,14 @@ const CarouselComponent = () => {
                 }
                 className="w-full"
                 placeholder="Enter Your price*/No of days"
+                value={amount}
+                onChange={(e) =>
+                  setAmount(e.target.value )
+                }
               />
               <div className="mt-4 text-base">
-              Rs. 5,000 will be your security money and the responsibility of car is our
+                Rs. 5,000 will be your security money and the responsibility of
+                car is our
               </div>
             </div>
             <div className="flex flex-col justify-center items-center mt-28">
@@ -318,11 +330,11 @@ const CarouselComponent = () => {
                   click and upload
                 </span>
               </div>
-              <div className="text-xl mt-6">
-                 Upload Images of your Products
-              </div>
+              <div className="text-xl mt-6">Upload Images of your Products</div>
               <div className="px-4 py-2 rounded-md border-2 border-black bg-[#FFB017] mt-8">
-                <button className="text-base tracking-tighter">Click and Upload</button>
+                <button onClick={handleSubmit} className="text-base tracking-tighter">
+                  Click and Upload
+                </button>
               </div>
             </div>
           </div>
