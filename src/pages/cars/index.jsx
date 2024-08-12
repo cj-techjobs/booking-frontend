@@ -183,6 +183,70 @@ const Car = () => {
     },
   ];
 
+  //seats
+  const seats = [
+    {
+      id: "1",
+      type: "2 Seater",
+      available: "30",
+    },
+    {
+      id: "2",
+      type: "3 Seater",
+      available: "20",
+    },
+    {
+      id: "3",
+      type: "4 Seater",
+      available: "10",
+    },
+    {
+      id: "4",
+      type: "6 Seater",
+      available: "13",
+    },
+  ];
+
+  //brand + modal
+  const brand = [
+    {
+      id: "1",
+      name: "Tata",
+      modals: [
+        {
+          id: "1",
+          name: "Tiago",
+        },
+        {
+          id: "2",
+          name: "Nexon",
+        },
+        {
+          id: "3",
+          name: "Harrier",
+        },
+      ],
+    },
+
+    {
+      id: "2",
+      name: "Honda",
+      modals: [
+        {
+          id: "1",
+          name: "WR-V",
+        },
+        {
+          id: "2",
+          name: "BR-V",
+        },
+        {
+          id: "3",
+          name: "CR-V",
+        },
+      ],
+    },
+  ];
 
   const handleFilterClick = (title) => {
     if (activeModal === title) {
@@ -192,7 +256,7 @@ const Car = () => {
     }
   };
   return (
-    <div className="flex">
+    <div className="flex container mx-auto">
       <div className="w-[550px]">
         <div className="text-4xl rounded-b-lg h-[114px] flex justify-center text-white items-center bg-red-500 text-center">
           Shop in Cars
@@ -263,10 +327,10 @@ const Car = () => {
               </div>
             ))}
           </div>
-          <div className="w-2/3">
-            <div className="text-gray-400 mb-4 text-sm">
+          <div className="w-2/3 mt-4">
+            {/* <div className="text-gray-400 mb-4 text-sm">
               SELECT <span>By</span>
-            </div>
+            </div> */}
             {activeModal === "Price Range" && (
               <div className="p-4 w-[240px]">
                 <div className="text-center py-2">{val}</div>
@@ -323,7 +387,7 @@ const Car = () => {
                 <div className="flex">
                   <input type="checkbox" value={"automatic"} className="me-2" />
                   <div className="flex justify-between w-full">
-                  <select
+                    <select
                       name="manual"
                       className="outline-none w-full"
                       id="manual"
@@ -341,6 +405,53 @@ const Car = () => {
                     </select>
                   </div>
                 </div>
+              </div>
+            )}
+            {activeModal === "Body Type" && (
+              <div className="ms-3">
+                {carCategory?.map((item) => (
+                  <div key={item?.id} className="flex mb-2">
+                    <input type="checkbox" value={item?.title} />
+                    <div className="ms-2">{item?.title}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeModal === "Seats" && (
+              <div className="ms-3">
+                {seats?.map((item) => (
+                  <div key={item?.id} className="flex mb-2">
+                    <input type="checkbox" value={item?.type} />
+                    <div className="ms-2">
+                      {item?.type} {"("}
+                      {item?.available}
+                      {")"}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeModal === "Brands + Models" && (
+              <div className="ms-3">
+                <input
+                  type="search"
+                  name="Search Modal"
+                  placeholder="Search"
+                  className="py-2 border-2 outline-none rounded-lg w-full px-2"
+                />
+                {brand?.map((item) => (
+                  <div key={item?.id} className="mt-2 flex mb-2">
+                    <input type="checkbox" value={item?.name} />
+                    <div className="w-full ms-2">
+                        <select name="modals" className="w-full" id="">
+                          <option value={item?.name}>{item?.name}</option>
+                        {item?.modals?.map((modal) => (
+                          <option key={modal?.id} value={modal?.name}>{modal?.name}</option>
+                        ))}
+                        </select>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>

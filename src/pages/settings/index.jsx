@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
@@ -36,8 +36,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
 import { orange, red } from "@mui/material/colors";
+import { GlobalContext, useData } from "../api/context/context";
+
 
 const Account = () => {
+  const context = useContext(GlobalContext); 
+  console.log("🚀 ~ Account ~ context:", context)
   const router = useRouter();
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
@@ -52,15 +56,41 @@ const Account = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [value, setValue] = React.useState("female");
+  const [fullName, setFullName] = useState("");
+
+
+  useEffect(() => { 
+      if (typeof window !== 'undefined') {
+        const nameLocal = localStorage.getItem('fullName');
+        const phone = localStorage.getItem('mobile Number');
+        const passwordLocal = localStorage.getItem('password');
+        const emailLocal = localStorage.getItem('email');
+        const dob = localStorage.getItem('dob');
+
+        setName(nameLocal);
+        setPhoneNumber(phone);
+        setPassword(passwordLocal);
+        setEmail(emailLocal);
+        setBirthdate(dob);
+      }
+},[]);
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Detials:", { name, password, email, phoneNumber, birthdate });
-    setProfileModalOpen(false);
+      localStorage.setItem("fullName", fullName)
+      localStorage.setItem("mobile Number", phoneNumber)
+      localStorage.setItem("password", password)
+      localStorage.setItem('email',email)
+      localStorage.setItem('dob',birthdate)
+      setProfileModalOpen(false);
+      context.setIsUpdateUser(!context.isUpdateUser);
   };
+
+
   const [profileSettings, setProfileSettings] = useState([
     {
       title: `Profile`,
@@ -246,8 +276,8 @@ const Account = () => {
                       <input
                         type="text"
                         className="py-2 bg-gray-100 appearance-none outline-none rounded-md ps-2"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col">

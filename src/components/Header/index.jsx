@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import logo from "../../../public/images/logo.svg";
 import { FaFacebookF, FaUser } from "react-icons/fa";
 import { useRouter } from "next/router";
@@ -18,26 +18,42 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SettingsIcon from "@mui/icons-material/Settings";
 import orderIcon from "/src/assets/settingsModalSvg/order.svg";
 import MessageIcon from '@mui/icons-material/Message';
+import { GlobalContext } from "../../pages/api/context/context";
+
 
 function Header() {
+
+  const context = useContext(GlobalContext); 
+  console.log("🚀 ~ Header ~ context:", context)
+
   const [isLogin, setIsLogin] = useState(true);
   const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      let name =  localStorage.getItem('fullName');
+      setName(name);
+    }
+},[context]);
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("Login:", { mobileNumber, password });
     localStorage.setItem("mobile Number", mobileNumber)
     localStorage.setItem("password", password)
-    localStorage.setItem("fullname", fullName)
+    localStorage.setItem("fullName", fullName)
     setModalOpen(false);
     router.push("/");
+    context.setIsUpdateUser(!context.isUpdateUser);
   };
 
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -75,12 +91,12 @@ function Header() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  useEffect(() => {
-    fetch('/api/items')
-      .then(response => response.json())
-      .then(data => setFullName(data))
-      .catch(error => console.error('Error fetching items:', error));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/api/items')
+  //     .then(response => response.json())
+  //     .then(data => setFullName(data))
+  //     .catch(error => console.error('Error fetching items:', error));
+  // }, []);
 
   return (
     <header className="bg-white sticky top-0 shadow-md">
@@ -123,7 +139,7 @@ function Header() {
           <div className="">
             <div className="text-gray-600 text-sm font-bold">Welcome</div>
             <p className="text-gray-800 font-bold text-xl cursor-pointer">
-              Rajesh Khanna
+              {name}
             </p>
           </div>
         )}
@@ -420,5 +436,4 @@ function Header() {
     </header>
   );
 }
-
 export default Header;
