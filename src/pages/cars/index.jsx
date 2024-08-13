@@ -1,13 +1,27 @@
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
+//filter data from utils
+import {
+  carCategory,
+  FilterList,
+  color,
+  manual,
+  auto,
+  seats,
+  brand,
+  kms,
+  year,
+  owner,
+} from "../../utils";
 
 //navigation bar images
-import hatchback from "/src/assets/carsSvg/hatchback.svg";
-import lsedan from "/src/assets/carsSvg/lsedan.svg";
-import lsuv from "/src/assets/carsSvg/lsuv.svg";
-import mpv from "/src/assets/carsSvg/mpv.svg";
-import sedan from "/src/assets/carsSvg/sedan.svg";
-import suv from "/src/assets/carsSvg/suv.svg";
 import car from "/src/assets/carsSvg/i10.svg";
+
+//Radio button MUI for filter
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 //main page car images
 import Image from "next/image";
@@ -15,6 +29,7 @@ import Image from "next/image";
 //material UI components
 import Slider from "@mui/material/Slider";
 
+//price range filter
 const MAX = 1000000;
 const MIN = 0;
 const marks = [
@@ -29,9 +44,20 @@ const marks = [
 ];
 
 const Car = () => {
+  const router = useRouter();
+
   const [isActive, setIsActive] = useState("Hatchback");
   const [isActiveTab, setIsActiveTab] = useState("Buy");
 
+  const [yearValue, setYearValue] = useState("");
+  const [ownerValue, setOwnerValue] = useState("");
+
+  const handleYearChange = (event) => {
+    setYearValue(event.target.value);
+  };
+  const handleOwnerChange = (event) => {
+    setOwnerValue(event.target.value);
+  };
   //filter states
   const [activeModal, setActiveModal] = useState(null);
 
@@ -39,214 +65,6 @@ const Car = () => {
   const handleChange = (_, newValue) => {
     setVal(newValue);
   };
-
-  //car list
-  const carCategory = [
-    {
-      id: "1",
-      title: "Hatchback",
-      image: hatchback,
-    },
-    {
-      id: "2",
-      title: "Sedan",
-      image: sedan,
-    },
-    {
-      id: "3",
-      title: "SUV",
-      image: suv,
-    },
-    {
-      id: "4",
-      title: "MPV",
-      image: mpv,
-    },
-    {
-      id: "5",
-      title: "Luxury Sedan",
-      image: lsedan,
-    },
-    {
-      id: "6",
-      title: "Luxury SUV",
-      image: lsuv,
-    },
-  ];
-
-  //filter list
-  const FilterList = [
-    {
-      id: "1",
-      title: "Price Range",
-    },
-    {
-      id: "2",
-      title: "Brands + Models",
-      visible: "false",
-    },
-    {
-      id: "3",
-      title: "Year",
-      visible: "false",
-    },
-    {
-      id: "4",
-      title: "Kms Driven",
-      visible: "false",
-    },
-    {
-      id: "5",
-      title: "Fuel Type",
-      visible: "false",
-    },
-    {
-      id: "6",
-      title: "Body Type",
-      visible: "false",
-    },
-    {
-      id: "7",
-      title: "Transmission",
-      isVisible: "false",
-    },
-    {
-      id: "8",
-      title: "Color",
-    },
-    {
-      id: "9",
-      title: "Features",
-      visible: "false",
-    },
-    {
-      id: "10",
-      title: "Seats",
-      visible: "false",
-    },
-    {
-      id: "11",
-      title: "Owner",
-      visible: "false",
-    },
-  ];
-
-  //car color list
-  const color = [
-    { id: 1, available: "20", name: "Red", color: "#ff0000" },
-    { id: 2, available: "22", name: "Green", color: "#008000" },
-    { id: 3, available: "222", name: "Blue", color: "#0000ff" },
-    { id: 4, available: "24", name: "Yellow", color: "#ffff00" },
-    { id: 5, available: "1", name: "Pink", color: "#ff00ff" },
-    { id: 6, available: "30", name: "Cyan", color: "#00ffff" },
-    { id: 7, available: "50", name: "Black", color: "#000" },
-    { id: 8, available: "98", name: "White", color: "#fff" },
-    { id: 9, available: "2", name: "Orange", color: "#FFA500" },
-    { id: 10, available: "26", name: "Lime Green", color: "#89f336" },
-    { id: 11, available: "12", name: "Silver", color: "#C0C0C0" },
-    { id: 12, available: "42", name: "Violet", color: "#7F00FF" },
-  ];
-
-  //transmisson options
-  const manual = [
-    {
-      id: "1",
-      gear: "4 Gears",
-      available: "50",
-    },
-    {
-      id: "2",
-      gear: "5 Gears",
-      available: "50",
-    },
-    {
-      id: "3",
-      gear: "6 Gears",
-      available: "50",
-    },
-    {
-      id: "4",
-      gear: "7 Gears",
-      available: "50",
-    },
-  ];
-  const auto = [
-    {
-      id: "1",
-      gear: "DCT",
-      available: "50",
-    },
-    {
-      id: "2",
-      gear: "AMT",
-      available: "50",
-    },
-  ];
-
-  //seats
-  const seats = [
-    {
-      id: "1",
-      type: "2 Seater",
-      available: "30",
-    },
-    {
-      id: "2",
-      type: "3 Seater",
-      available: "20",
-    },
-    {
-      id: "3",
-      type: "4 Seater",
-      available: "10",
-    },
-    {
-      id: "4",
-      type: "6 Seater",
-      available: "13",
-    },
-  ];
-
-  //brand + modal
-  const brand = [
-    {
-      id: "1",
-      name: "Tata",
-      modals: [
-        {
-          id: "1",
-          name: "Tiago",
-        },
-        {
-          id: "2",
-          name: "Nexon",
-        },
-        {
-          id: "3",
-          name: "Harrier",
-        },
-      ],
-    },
-
-    {
-      id: "2",
-      name: "Honda",
-      modals: [
-        {
-          id: "1",
-          name: "WR-V",
-        },
-        {
-          id: "2",
-          name: "BR-V",
-        },
-        {
-          id: "3",
-          name: "CR-V",
-        },
-      ],
-    },
-  ];
 
   const handleFilterClick = (title) => {
     if (activeModal === title) {
@@ -328,9 +146,6 @@ const Car = () => {
             ))}
           </div>
           <div className="w-2/3 mt-4">
-            {/* <div className="text-gray-400 mb-4 text-sm">
-              SELECT <span>By</span>
-            </div> */}
             {activeModal === "Price Range" && (
               <div className="p-4 w-[240px]">
                 <div className="text-center py-2">{val}</div>
@@ -346,8 +161,11 @@ const Car = () => {
             )}
             {activeModal === "Color" && (
               <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
                 {color?.map((item) => (
-                  <div key={item?.id} className="flex gap-4 mb-[21px]">
+                  <div key={item?.id} className="flex gap-2 mb-[21px]">
                     <div
                       className="h-[26px] w-[60px] rounded-md border"
                       style={{ backgroundColor: item?.color }}
@@ -363,6 +181,9 @@ const Car = () => {
             )}
             {activeModal === "Transmission" && (
               <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
                 <div className="flex mb-10">
                   <input type="checkbox" value={"manual"} className="me-2" />
                   <div className="flex justify-between w-full">
@@ -409,6 +230,9 @@ const Car = () => {
             )}
             {activeModal === "Body Type" && (
               <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
                 {carCategory?.map((item) => (
                   <div key={item?.id} className="flex mb-2">
                     <input type="checkbox" value={item?.title} />
@@ -419,6 +243,9 @@ const Car = () => {
             )}
             {activeModal === "Seats" && (
               <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
                 {seats?.map((item) => (
                   <div key={item?.id} className="flex mb-2">
                     <input type="checkbox" value={item?.type} />
@@ -439,17 +266,101 @@ const Car = () => {
                   placeholder="Search"
                   className="py-2 border-2 outline-none rounded-lg w-full px-2"
                 />
+                <div className="text-xs text-gray-400 py-2">Top Brands</div>
                 {brand?.map((item) => (
-                  <div key={item?.id} className="mt-2 flex mb-2">
+                  <div key={item?.id} className="mt-2 mb-4 flex gap-2">
                     <input type="checkbox" value={item?.name} />
-                    <div className="w-full ms-2">
-                        <select name="modals" className="w-full" id="">
-                          <option value={item?.name}>{item?.name}</option>
+                    <div className="w-full">
+                      <select name="modals" className="w-full" id="">
+                        <option value={item?.name}>
+                          {item?.name} {"("}
+                          {item?.available}
+                          {")"}
+                        </option>
                         {item?.modals?.map((modal) => (
-                          <option key={modal?.id} value={modal?.name}>{modal?.name}</option>
+                          <option key={modal?.id} value={modal?.name}>
+                            {modal?.name}
+                          </option>
                         ))}
-                        </select>
+                      </select>
                     </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeModal === "Kms Driven" && (
+              <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
+                {kms?.map((item) => (
+                  <div key={item?.id} className="flex mb-4">
+                    <input type="checkbox" value={item?.kms} />
+                    <div className="ms-2">
+                      {item?.kms} kms or less {"("}
+                      {item?.available}
+                      {")"}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeModal === "Year" && (
+              <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
+                {year?.map((item) => (
+                  <div key={item?.id} className="flex mb-2">
+                    <RadioGroup
+                      aria-labelledby="demo-controlled-radio-buttons-group"
+                      name="controlled-radio-buttons-group"
+                      value={yearValue}
+                      onChange={handleYearChange}
+                    >
+                      <div className="flex items-center">
+                        <FormControlLabel
+                          type="radio"
+                          control={<Radio />}
+                          value={item.value}
+                        />{" "}
+                        <span className=" text-base mb-1">
+                          {item?.year} & above {"("}
+                          {item?.available}
+                          {")"}
+                        </span>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeModal === "Owner" && (
+              <div className="ms-3">
+                <div className="text-gray-400 mb-4 text-sm">
+                  SELECT <span>By</span>
+                </div>
+                {owner?.map((item) => (
+                  <div key={item?.id} className="flex mb-2">
+                    <RadioGroup
+                      aria-labelledby="demo-controlled-radio-buttons-group"
+                      name="controlled-radio-buttons-group"
+                      value={ownerValue}
+                      onChange={handleOwnerChange}
+                    >
+                      <div className="flex items-center">
+                        <FormControlLabel
+                          type="radio"
+                          control={<Radio />}
+                          value={item.value}
+                        />{" "}
+                        <span className=" text-base mb-1">
+                          {item?.owner} & above {"("}
+                          {item?.available}
+                          {")"}
+                        </span>
+                      </div>
+                    </RadioGroup>
                   </div>
                 ))}
               </div>
@@ -462,7 +373,10 @@ const Car = () => {
           {FilterList?.map((items) => (
             <div
               key={items.id}
-              className="rounded-3xl pb-4 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]"
+              className="rounded-3xl pb-4 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] cursor-pointer"
+              onClick={() => {
+                router.push("/cars/carItem");
+              }}
             >
               <Image src={car} width={400} alt="" />
               {/* {items.title} */}

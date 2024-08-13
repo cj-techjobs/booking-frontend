@@ -24,8 +24,6 @@ import { GlobalContext } from "../../pages/api/context/context";
 function Header() {
 
   const context = useContext(GlobalContext); 
-  console.log("🚀 ~ Header ~ context:", context)
-
   const [isLogin, setIsLogin] = useState(true);
   const [fullName, setFullName] = useState("");
   const [name, setName] = useState("");
@@ -90,13 +88,6 @@ function Header() {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
-  // useEffect(() => {
-  //   fetch('/api/items')
-  //     .then(response => response.json())
-  //     .then(data => setFullName(data))
-  //     .catch(error => console.error('Error fetching items:', error));
-  // }, []);
 
   return (
     <header className="bg-white sticky top-0 shadow-md">
@@ -369,7 +360,7 @@ function Header() {
               <div>
                 <div className="text-gray-600 font-bold text-xl ">Welcome</div>
                 <p className="text-gray-800 text-sm font-bold cursor-pointer">
-                  Rajesh Khanna
+                  {name}
                 </p>
               </div>
             </div>

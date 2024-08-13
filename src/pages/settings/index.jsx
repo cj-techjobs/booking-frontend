@@ -41,7 +41,6 @@ import { GlobalContext, useData } from "../api/context/context";
 
 const Account = () => {
   const context = useContext(GlobalContext); 
-  console.log("🚀 ~ Account ~ context:", context)
   const router = useRouter();
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
@@ -55,7 +54,7 @@ const Account = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [value, setValue] = React.useState("female");
+  const [value, setValue] = useState("female");
   const [fullName, setFullName] = useState("");
 
 
@@ -67,7 +66,7 @@ const Account = () => {
         const emailLocal = localStorage.getItem('email');
         const dob = localStorage.getItem('dob');
 
-        setName(nameLocal);
+        setFullName(nameLocal);
         setPhoneNumber(phone);
         setPassword(passwordLocal);
         setEmail(emailLocal);
