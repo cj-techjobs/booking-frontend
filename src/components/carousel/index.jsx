@@ -36,32 +36,32 @@ const CarouselComponent = () => {
   useEffect(() => {
     const data = [
       {
-        title: "Cars",
+        title: "cars",
         bgColor: "#d96849",
         modal: setCarModal,
       },
       {
-        title: "Bikes",
+        title: "bikes",
         bgColor: "#ead795",
       },
       {
-        title: "Property",
+        title: "property",
         bgColor: "#b0d0db",
       },
       {
-        title: "Appliances",
+        title: "appliances",
         bgColor: "#fbe0c4",
       },
       {
-        title: "Books",
+        title: "books",
         bgColor: "#6d8891",
       },
       {
-        title: "Furniture",
+        title: "furniture",
         bgColor: "#44596e",
       },
       {
-        title: "Clothing",
+        title: "clothing",
         bgColor: "#e3af99",
       },
       {
@@ -188,9 +188,9 @@ const CarouselComponent = () => {
               key={i}
               className="w-32 h-28 flex items-center justify-center rounded-lg cursor-pointer"
               style={{ backgroundColor: getBgColor(i) }}
-              onClick={() => item?.modal(true)}
+              onClick={() => router.push(`/${item?.title}`)}
             >
-              <div className="text-white font-bold text-center">
+              <div className="text-white capitalize font-bold text-center">
                 {item.title}
               </div>
             </div>
