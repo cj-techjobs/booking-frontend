@@ -1,15 +1,20 @@
 import Layout from "../layouts";
 import "../styles/globals.css";
-import { useEffect } from "react";
-// import "react-toastify/dist/ReactToastify.min.css";
+import Header from "../components/Header";
+import { DataProvider } from "./api/context/context";
+// import Home from "./home";
+// import Page from ".";
 
+// "h-[calc(100vh-80px)]
 const App = ({ Component, pageProps }) => {
-
   return (
     <>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <DataProvider>
+        <Layout>
+          <Header />
+          <Component {...pageProps} />
+        </Layout>
+      </DataProvider>
     </>
   );
 };
