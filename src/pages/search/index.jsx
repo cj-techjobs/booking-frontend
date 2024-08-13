@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -9,10 +8,9 @@ const Search = () => {
   const [recentSearch, setRecentSearch] = useState([]);
   const [recommandProduct, setRecommandProduct] = useState([]);
 
-  const [isSearch, setIsSearchData] = useState(['']);
+  const [isSearch, setIsSearchData] = useState([""]);
 
   useEffect(() => {
-
     const data = [
       {
         title: "Cars",
@@ -88,7 +86,7 @@ const Search = () => {
   };
 
   return (
-    <div className="container mx-auto flex mt-4 flex-col items-center justify-center">
+    <div className="container mt-8 min-h-screen mx-auto flex flex-col items-center justify-center">
       <div className="w-full flex justify-between">
         {isSearchData() && (
           <div className="w-1/3">
@@ -96,7 +94,7 @@ const Search = () => {
             <div className="flex flex-wrap gap-2">
               {recentSearch.map((m, i) => (
                 <div key={i} className="bg-[#f3f4f6] p-2 rounded-md">
-                  {m}
+                  <a href={m.toLowerCase().replaceAll(" ", "_")}>{m}</a>
                 </div>
               ))}
             </div>
@@ -104,7 +102,7 @@ const Search = () => {
         )}
         {!isSearchData() && (
           <div className="w-1/3">
-            <h2 className="text-2xl mb-4">Results of `{"d"}`</h2>
+            <h2 className="text-2xl mb-4">Results of "{"d"}"</h2>
           </div>
         )}
         {isSearchData() && (
@@ -117,9 +115,9 @@ const Search = () => {
                   className="h-12 rounded-md border flex items-center gap-2"
                 >
                   <div className="w-12 h-full border-r">
-                    <Image src="" alt="" />
+                    <img src="" alt="" />
                   </div>
-                  <p>{m}</p>
+                  <a href={m.toLowerCase().replaceAll(' ', '_')}>{m}</a>
                 </div>
               ))}
             </div>
@@ -168,7 +166,7 @@ const Search = () => {
           </div>
         </div>
       )}
-      {!isSearchData() && <div></div>}
+      {!isSearchData() && <div className="flex flex-1"></div>}
     </div>
   );
 };
