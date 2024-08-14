@@ -26,7 +26,6 @@ import profilephoto from "/src/assets/accountImages/profile.svg";
 import emoji from "/src/assets/settingsModalSvg/finalEmoji.png";
 import visa from "/src/assets/settingsModalSvg/visa.svg";
 import upi from "/src/assets/settingsModalSvg/upi.svg";
-// import Modal from "./Modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -38,9 +37,8 @@ import { useRouter } from "next/navigation";
 import { orange, red } from "@mui/material/colors";
 import { GlobalContext, useData } from "../api/context/context";
 
-
 const Account = () => {
-  const context = useContext(GlobalContext); 
+  const context = useContext(GlobalContext);
   const router = useRouter();
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
@@ -49,7 +47,6 @@ const Account = () => {
   const [paymentConfirmModalOpen, setPaymentConfirmModalOpen] = useState(false);
   const [proMemebershipModalOpen, setProMembershipModalOpen] = useState(false);
   const [lastModalOpen, setLastModalOpen] = useState(false);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -57,22 +54,21 @@ const Account = () => {
   const [value, setValue] = useState("female");
   const [fullName, setFullName] = useState("");
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const nameLocal = localStorage.getItem("fullName");
+      const phone = localStorage.getItem("mobile Number");
+      const passwordLocal = localStorage.getItem("password");
+      const emailLocal = localStorage.getItem("email");
+      const dob = localStorage.getItem("dob");
 
-  useEffect(() => { 
-      if (typeof window !== 'undefined') {
-        const nameLocal = localStorage.getItem('fullName');
-        const phone = localStorage.getItem('mobile Number');
-        const passwordLocal = localStorage.getItem('password');
-        const emailLocal = localStorage.getItem('email');
-        const dob = localStorage.getItem('dob');
-
-        setFullName(nameLocal);
-        setPhoneNumber(phone);
-        setPassword(passwordLocal);
-        setEmail(emailLocal);
-        setBirthdate(dob);
-      }
-},[]);
+      setFullName(nameLocal);
+      setPhoneNumber(phone);
+      setPassword(passwordLocal);
+      setEmail(emailLocal);
+      setBirthdate(dob);
+    }
+  }, []);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -80,15 +76,14 @@ const Account = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      localStorage.setItem("fullName", fullName)
-      localStorage.setItem("mobile Number", phoneNumber)
-      localStorage.setItem("password", password)
-      localStorage.setItem('email',email)
-      localStorage.setItem('dob',birthdate)
-      setProfileModalOpen(false);
-      context.setIsUpdateUser(!context.isUpdateUser);
+    localStorage.setItem("fullName", fullName);
+    localStorage.setItem("mobile Number", phoneNumber);
+    localStorage.setItem("password", password);
+    localStorage.setItem("email", email);
+    localStorage.setItem("dob", birthdate);
+    setProfileModalOpen(false);
+    context.setIsUpdateUser(!context.isUpdateUser);
   };
-
 
   const [profileSettings, setProfileSettings] = useState([
     {
@@ -102,7 +97,7 @@ const Account = () => {
       title: `Login & security`,
       name: `LoginAndSecurity`,
       about: `Edit login, name and mobile number`,
-      modalOpen: setHelpModalOpen,
+      modalOpen: setProfileModalOpen,
       img: Image2,
     },
     {
@@ -678,14 +673,14 @@ const Account = () => {
                       value="visa"
                     />
                     <div className="absolute flex items-center gap-3 ms-6">
-                    <Image
-                      className="ms-2"
-                      height={30}
-                      width={30}
-                      src={visa}
-                      alt="visa"
-                    />
-                    <div className="text-sm">****** 2334</div>
+                      <Image
+                        className="ms-2"
+                        height={30}
+                        width={30}
+                        src={visa}
+                        alt="visa"
+                      />
+                      <div className="text-sm">****** 2334</div>
                     </div>
                   </div>
                   <div className="flex items-center mt-2 p-2 py-3 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
@@ -703,14 +698,14 @@ const Account = () => {
                       value="apple"
                     />
                     <div className="absolute flex items-center gap-3 ms-6">
-                    <Image
-                      className="ms-2"
-                      height={30}
-                      width={30}
-                      src={apple}
-                      alt="visa"
-                    />
-                    <div className="text-sm ">Apple Pay</div>
+                      <Image
+                        className="ms-2"
+                        height={30}
+                        width={30}
+                        src={apple}
+                        alt="visa"
+                      />
+                      <div className="text-sm ">Apple Pay</div>
                     </div>
                   </div>
                   <div className="flex items-center mt-2 p-2 py-4 border gap-4 cursor-pointer hover:border-red-500 border-gray-300 rounded-md">
@@ -728,14 +723,14 @@ const Account = () => {
                       value="upi"
                     />
                     <div className="absolute flex items-center gap-3 ms-6">
-                    <Image
-                      className="ms-2"
-                      height={30}
-                      width={30}
-                      src={upi}
-                      alt="visa"
-                    />
-                    <div className="text-sm">abc@okupi</div>
+                      <Image
+                        className="ms-2"
+                        height={30}
+                        width={30}
+                        src={upi}
+                        alt="visa"
+                      />
+                      <div className="text-sm">abc@okupi</div>
                     </div>
                   </div>
                 </RadioGroup>

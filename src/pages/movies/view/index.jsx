@@ -14,7 +14,7 @@ const View = () => {
       console.log(data);
       setMovie(data);
     }
-  }, [router]);
+  }, [id, router]);
 
   return (
     <div className="container mx-auto">

@@ -377,7 +377,7 @@ function Header() {
             </div>
             <div className="mt-4 flex justify-between">
               <h2 className="text-gray-500 font-bold">Recents</h2>
-              <h2 className="text-red-500">
+              <h2 className="text-red-500 cursor-pointer" onClick={() => router.push("/message")}>
                 <RemoveRedEyeIcon /> View all
               </h2>
             </div>

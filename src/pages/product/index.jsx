@@ -34,7 +34,7 @@ const Product = () => {
     if (type) {
       setProducts(type);
     }
-  }, [router]);
+  }, [router, type]);
 
   useEffect(() => {
     const optionData = [
@@ -448,9 +448,9 @@ const Product = () => {
 
   return (
     <div className="relative container mx-auto pt-4 ">
-      <div className="relative conatiner-full flex gap-8">
+      <div className="relative container-full flex gap-8">
         {/* Sidebar */}
-        {product && product.length > 0 && (
+        {product && (
           <div className="flex basis-1/3 sticky top-0 flex-col">
             <h2 className="w-full bg-[#f14c4c] text-center py-8 text-2xl text-white rounded-b-2xl h-max">
               Shop in {type?.charAt(0)?.toUpperCase() + type?.slice(1)}
@@ -489,13 +489,13 @@ const Product = () => {
             </div>
             <div className="flex gap-2 ">
               <div className="flex justify-between items-center w-full ">
-                {tab.length > 0 && <Tabs data={tab}></Tabs>}
+                 <Tabs data={tab}></Tabs>
               </div>
             </div>
           </div>
         )}
         {/* Main Content */}
-        {product && product.length > 0 && (
+        {product && (
           <div className="flex basis-2/3">
             <div className="grid grid-cols-4 gap-4">
               {product.map((m, i) => (

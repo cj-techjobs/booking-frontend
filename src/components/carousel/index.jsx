@@ -32,7 +32,7 @@ const CarouselComponent = () => {
   const [carModal, setCarModal] = useState(false);
   const [uploadImageModal, setUploadImageModal] = useState(false);
   const [amount, setAmount] = useState("")
-
+  
   useEffect(() => {
     const data = [
       {
@@ -188,7 +188,7 @@ const CarouselComponent = () => {
               key={i}
               className="w-32 h-28 flex items-center justify-center rounded-lg cursor-pointer"
               style={{ backgroundColor: getBgColor(i) }}
-              onClick={() => router.push(`/${item?.title}`)}
+              onClick={() => router.push(`/${item?.title === "Movies & Events" ? "movies" : item?.title}`)}
             >
               <div className="text-white capitalize font-bold text-center">
                 {item.title}
