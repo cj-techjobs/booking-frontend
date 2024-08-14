@@ -20,6 +20,7 @@ import luxarySedan from "../../assets/images/luxarySedan.svg";
 import Tabs from "../../components/tabs";
 import { useRouter } from "next/router";
 import { title } from "process";
+import Image from "next/image";
 
 const Product = () => {
   const router = useRouter();
@@ -459,8 +460,10 @@ const Product = () => {
             <div className="flex gap-2  mt-8">
               {option?.map((m, i) => (
                 <div key={i} className="flex flex-col  items-center">
-                  <img
+                  <Image
                     src={m.image.src}
+                    height={100}
+                    width={100}
                     className="flex flex-1 object-contain"
                     alt=""
                   />
@@ -482,7 +485,7 @@ const Product = () => {
             <div className="flex gap-2 mt-8">
               <div className="flex justify-between items-center w-full overflow-hidden rounded-lg">
                 <p className="text-lg">Filter</p>
-                <button className="px-8 rounded-lg py-2 text-xl text-red-500 bg-[#f9f2f2] shadow_ bg-[#fafafa]">
+                <button className="px-8 rounded-lg py-2 text-xl text-red-500 shadow_ bg-[#fafafa]">
                   Apply
                 </button>
               </div>
@@ -503,7 +506,7 @@ const Product = () => {
                   key={i}
                   className="rounded-[2rem] shadow-[0_5px_2px_0_rgba(192,192,192,1)] overflow-hidden"
                 >
-                  {<img src={m.image["src"]} alt="" />}
+                  {<Image src={m.image["src"]} alt="" />}
                   <div className="p-2 pb-4">
                     <h1 className="text-black">{m.title}</h1>
                     <h1 className="font-bold text-red-500">{m.price}</h1>

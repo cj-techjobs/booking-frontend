@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 import homeImage from "/src/assets/propertySvg/homeSvg.svg";
-import SideBar from "./sideBar";
+import Sidebar from "../../components/sidebar";
 
 const Properties = () => {
 
@@ -43,7 +43,8 @@ const Properties = () => {
   return (
     <div className="container mx-auto border-l flex">
       <div className="w-1/4">
-        <SideBar />
+      <Sidebar />
+        {/* <SideBar /> */}
       </div>
       <div className="pt-12 ps-12 pe-12 w-3/4">
         <div className="grid grid-cols-4 gap-10">

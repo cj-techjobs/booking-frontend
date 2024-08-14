@@ -84,9 +84,9 @@ const Movies = () => {
                         backgroundRepeat: `no-repeat`,
                         backgroundSize: `100% 100%`,
                       }}
-                      className="w-full min-w-[5rem] h-full min-h-[6rem] flex items-end justify-center relative"
+                      className="w-full min-w-[5rem] h-full min-h-[6rem] z-20 flex items-end justify-center"
                     >
-                      <p className="font-bold text-lg text-white absolute bottom-[0.2rem]">
+                      <p className="font-bold text-lg text-white mb-2">
                         {m.title}
                       </p>
                     </div>
@@ -95,7 +95,7 @@ const Movies = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 basis-3/4 h-max">
+        <div className="grid grid-cols-3 gap-4 mt-4 basis-3/4 h-max">
           {movies.map((m, i) => (
             <Link key={i} href={"/movies/view?id=" + m.id} className="h-full">
               <div className="shadow-lg rounded-lg cursor-pointer flex flex-col">

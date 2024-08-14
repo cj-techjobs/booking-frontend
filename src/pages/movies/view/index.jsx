@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import MovieData from "../../../data/movieData";
+import Image from "next/image";
 
 const View = () => {
   const router = useRouter();
@@ -16,12 +17,13 @@ const View = () => {
     }
   }, [id, router]);
 
+  const max = 100;
   return (
     <div className="container mx-auto">
       <div className="bg-[#e9e9e9] h-full rounded-[4rem] pb-12 mb-12">
         <div className="w-full">
           {movie && movie.imageUrl && (
-            <img className="w-full" src={movie.imageUrl.src} alt="" />
+            <Image className="w-full" width={max} height={max} src={movie.imageUrl.src} alt="" />
           )}
         </div>
         <div className="flex w-full h-full -mt-16">
@@ -68,7 +70,7 @@ const View = () => {
                   <p>Filing Fast</p>
                 </div>
                 <div>
-                  <button className="bg-[#eb4e63] text-white p-2 rounded-md p-2 px-4">
+                  <button className="bg-[#eb4e63] text-white rounded-md p-2 px-4">
                     Book Now
                   </button>
                 </div>

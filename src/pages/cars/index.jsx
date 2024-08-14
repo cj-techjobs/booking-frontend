@@ -10,7 +10,7 @@ import {
 import car from "/src/assets/carsSvg/i10.svg";
 //main page car images
 import Image from "next/image";
-import SideBar from "./sideBar";
+import Sidebar from "../../components/sidebar";
 
 const data = "";
 
@@ -20,7 +20,8 @@ const Car = () => {
   return (
     <div className="flex container mx-auto">
       <div className="w-1/4">
-        <SideBar data={data} />
+      <Sidebar />
+        {/* <SideBar data={data} /> */}
       </div>
       <div className="pt-12 ps-12 pe-12 w-3/4">
         <div className="grid grid-cols-4 gap-10">
