@@ -7,7 +7,6 @@ export const signUp = async (mobileNumber, password) => {
             mobileNumber,
             password
         });
-        console.log("first3233323233")
     if (response.data.verifyToken) {
         localStorage.setItem('token', response.data.verifyToken);
     }
@@ -19,10 +18,15 @@ export const signUp = async (mobileNumber, password) => {
 };
 
 // Resend OTP for sign-up
-export const resendSignUpOtp = async (mobileNumber) => {
+export const resendSignUpOtp = async (mobileNumber , userId, token) => {
   try {
-    const response = await axiosInstance.put('/resendOtp', {
-      mobileNumber
+    const response = await axiosInstance.put('/signUp', {
+      mobileNumber,
+      userId
+    }, {
+      headers: {
+        'VerifyToken': token
+      }
     });
     return response.data; 
   } catch (error) {
@@ -31,22 +35,17 @@ export const resendSignUpOtp = async (mobileNumber) => {
 };
 
 // Verify OTP during sign-up
-export const verifyOtp = async (mobileNumber, otp) => {
-  const token = localStorage.getItem('token'); 
-
+export const verifyOtp = async ({mobileNumber , otp , token}) => {
   try {
     const response = await axiosInstance.post('/verifyOtp', {
-      mobileNumber,
-      otp
+      mobileNumber ,
+       otp
     }, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'VerifyToken': token
       }
     });
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-    }
-    return response.data; 
+    return response?.data; 
   } catch (error) {
     throw error.response ? error.response.data : new Error('An unexpected error occurred');
   }

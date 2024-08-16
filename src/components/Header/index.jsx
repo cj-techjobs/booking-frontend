@@ -19,9 +19,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import orderIcon from "/src/assets/settingsModalSvg/order.svg";
 import MessageIcon from "@mui/icons-material/Message";
 import { GlobalContext } from "../../pages/api/context/context";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { signIn, signUp } from "/src/pages/api/api.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { signIn, signUp, verifyOtp , resendSignUpOtp } from "../../pages/api/api";
 
 function Header() {
   const context = useContext(GlobalContext);
@@ -29,8 +29,12 @@ function Header() {
   const [fullName, setFullName] = useState("");
   const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
+  const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
+  const [otp, setOtp] = useState("");
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -41,39 +45,78 @@ function Header() {
     }
   }, [context]);
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    localStorage.setItem("fullName", fullName);
     try {
       if (isLogin) {
         const response = await signIn(mobileNumber, password);
         if (response && response?.data?.authToken) {
-          localStorage.setItem("Authintication token", response?.data?.authToken);
+          localStorage.setItem(
+            "authintication_token",
+            response?.data?.authToken
+          );
         } else {
+          toast.error("Error while login");
           throw new Error("Token not received in login response");
         }
+        setModalOpen(false);
+        router.push("/");
       } else {
         const response = await signUp(mobileNumber, password);
         if (response && response?.data?.verifyToken) {
-          localStorage.setItem("Verification token", response?.data?.verifyToken);
+          setToken(response?.data?.verifyToken);
+          localStorage.setItem(
+            "verification_token",
+            response?.data?.verifyToken
+          );
+          localStorage.setItem("user_id", response?.data?.id);
         } else {
           throw new Error("Token not received in signUp response");
         }
+        setModalOpen(false);
+        setOtpModalOpen(true);
       }
       context.setIsUpdateUser(!context.isUpdateUser);
     } catch (error) {
-      console.error("An error occurred:", error);
-
-      if (error.response && error.response.data) {
-        console.error("Error details:", error.response.data);
-      } else if (error.message) {
-        console.error("Error message:", error.message);
-      } else {
-        console.error("An unexpected error occurred.");
-      }
+      toast.error("Invalid Credentials");
     }
   };
 
+  const handleSubmitOtp = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await verifyOtp({
+        mobileNumber: mobileNumber,
+        otp: otp,
+        token: token,
+      });
+      toast.success("OTP verified Success!!");
+    } catch (error) {
+      toast.error("Invalid!! error!!!! check CODE!!");
+    }
+    setOtpModalOpen(false);
+    router.push("/");
+  };
+
+  const handleResendOtp = async (e) => {
+    e.preventDefault();
+    const userId = localStorage.getItem("user_id")
+    try {
+      const response = await resendSignUpOtp({
+        mobileNumber,
+        userId,
+      });
+      toast.success("OTP sent success!!");
+    } catch (error) {
+      toast.error("Invalid error check CODE!!");
+      return
+    }
+    handleSubmitOtp();
+    // setOtpModalOpen(false);
+    // router.push("/");
+  }
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -366,6 +409,29 @@ function Header() {
                   </a>
                 </p>
               )}
+            </div>
+          </Modal>
+        )}
+        {otpModalOpen && (
+          <Modal
+            isVisible={otpModalOpen}
+            onClose={() => setOtpModalOpen(false)}
+          >
+            <div className="p-4">
+              <div className="text-2xl text-center">OTP Verificaiton</div>
+              <form onSubmit={handleSubmitOtp}>
+                <input
+                  type="text"
+                  name="otp"
+                  id="otp"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  className="border-2"
+                />
+                <br />
+                <button className="mb-8" type="submit">Submit</button>
+              </form>
+              <button onClick={handleResendOtp}>Resend Otp</button>
             </div>
           </Modal>
         )}
