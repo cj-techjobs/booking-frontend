@@ -379,7 +379,7 @@ const Account = () => {
                         height={100.28}
                         width={110.86}
                         src={rocketImage}
-                        alt=""
+                        alt="membership"
                       />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
@@ -395,7 +395,7 @@ const Account = () => {
                         height={100.28}
                         width={110.86}
                         src={rocketImage}
-                        alt=""
+                        alt="rocket"
                       />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
@@ -411,7 +411,7 @@ const Account = () => {
                         height={100.28}
                         width={110.86}
                         src={rocketImage}
-                        alt=""
+                        alt="rocket"
                       />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
@@ -427,7 +427,7 @@ const Account = () => {
                         height={100.28}
                         width={110.86}
                         src={rocketImage}
-                        alt=""
+                        alt="rocket"
                       />
                       <div className="mt-2 text-base font-bold">
                         Unlock Premium Features
@@ -531,7 +531,7 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} />
+                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
                       </div>
                     </div>
                     <div>
@@ -545,7 +545,7 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} />
+                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
                       </div>
                     </div>
                     <div>
@@ -559,7 +559,7 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} />
+                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
                       </div>
                     </div>
                     <div>
@@ -573,7 +573,7 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} />
+                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
                       </div>
                     </div>
                   </Slider>
@@ -802,7 +802,7 @@ const Account = () => {
             >
               <div className="p-4 w-[390px]">
                 <div className="flex justify-center mt-44 items-center">
-                  <Image src={emoji} height={40} width={40} />
+                  <Image src={emoji} height={40} width={40} alt="happy emoji"/>
                 </div>
                 <div className="text-2xl font-bold text-center">
                   Welcome new member

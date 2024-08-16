@@ -7,7 +7,7 @@ const Tabs = (data) => {
   useEffect(() => {
     console.log(data.data);
     setTabs(data.data);
-  }, []);
+  }, [data.data]);
 
   const changeTabs = (index) => {
     setActiveTabs(index);

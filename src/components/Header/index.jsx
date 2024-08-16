@@ -17,13 +17,14 @@ import EmailIcon from "@mui/icons-material/Email";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SettingsIcon from "@mui/icons-material/Settings";
 import orderIcon from "/src/assets/settingsModalSvg/order.svg";
-import MessageIcon from '@mui/icons-material/Message';
+import MessageIcon from "@mui/icons-material/Message";
 import { GlobalContext } from "../../pages/api/context/context";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { signIn, signUp } from "/src/pages/api/api.js";
 
 function Header() {
-
-  const context = useContext(GlobalContext); 
+  const context = useContext(GlobalContext);
   const [isLogin, setIsLogin] = useState(true);
   const [fullName, setFullName] = useState("");
   const [name, setName] = useState("");
@@ -34,24 +35,45 @@ function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      let name =  localStorage.getItem('fullName');
+    if (typeof window !== "undefined" && window.localStorage) {
+      let name = localStorage.getItem("fullName");
       setName(name);
     }
-},[context]);
-  
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    localStorage.setItem("mobile Number", mobileNumber)
-    localStorage.setItem("password", password)
-    localStorage.setItem("fullName", fullName)
-    setModalOpen(false);
-    router.push("/");
-    context.setIsUpdateUser(!context.isUpdateUser);
-  };
+  }, [context]);
 
   
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isLogin) {
+        const response = await signIn(mobileNumber, password);
+        if (response && response?.data?.authToken) {
+          localStorage.setItem("Authintication token", response?.data?.authToken);
+        } else {
+          throw new Error("Token not received in login response");
+        }
+      } else {
+        const response = await signUp(mobileNumber, password);
+        if (response && response?.data?.verifyToken) {
+          localStorage.setItem("Verification token", response?.data?.verifyToken);
+        } else {
+          throw new Error("Token not received in signUp response");
+        }
+      }
+      context.setIsUpdateUser(!context.isUpdateUser);
+    } catch (error) {
+      console.error("An error occurred:", error);
+
+      if (error.response && error.response.data) {
+        console.error("Error details:", error.response.data);
+      } else if (error.message) {
+        console.error("Error message:", error.message);
+      } else {
+        console.error("An unexpected error occurred.");
+      }
+    }
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -64,27 +86,27 @@ function Header() {
 
   const messageData = [
     {
-      "id":"1",
-      "name":"Aditya",
-      "message":"How are you ?",
-      "profileImg": profilephoto,
-      "inboxNumber":"2"
+      id: "1",
+      name: "Aditya",
+      message: "How are you ?",
+      profileImg: profilephoto,
+      inboxNumber: "2",
     },
     {
-      "id":"2",
-      "name":"Messie",
-      "message":"Order details",
-      "profileImg": profilephoto,
-      "inboxNumber":"0"
+      id: "2",
+      name: "Messie",
+      message: "Order details",
+      profileImg: profilephoto,
+      inboxNumber: "0",
     },
     {
-      "id":"3",
-      "name":"Roman",
-      "message":"I like your products",
-      "profileImg": profilephoto,
-      "inboxNumber":"5"
+      id: "3",
+      name: "Roman",
+      message: "I like your products",
+      profileImg: profilephoto,
+      inboxNumber: "5",
     },
-  ]
+  ];
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -251,6 +273,24 @@ function Header() {
                         required
                       />
                     </div>
+
+                    <div className="mb-4">
+                      <label
+                        className="text-[#333230] text-sm font-bold ml-4 mt-2"
+                        htmlFor="password"
+                      >
+                        PASSWORD
+                      </label>
+                      <input
+                        type="password"
+                        id="password"
+                        className="w-full px-3 py-2 border rounded-xl mt-3"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="********"
+                        required
+                      />
+                    </div>
                     <div className="mb-4">
                       <label
                         className="text-[#333230] text-sm font-bold ml-4"
@@ -377,32 +417,41 @@ function Header() {
             </div>
             <div className="mt-4 flex justify-between">
               <h2 className="text-gray-500 font-bold">Recents</h2>
-              <h2 className="text-red-500 cursor-pointer" onClick={() => router.push("/message")}>
+              <h2
+                className="text-red-500 cursor-pointer"
+                onClick={() => router.push("/message")}
+              >
                 <RemoveRedEyeIcon /> View all
               </h2>
             </div>
             {messageData?.map((data) => (
-            <div key={data.id} className="mt-4 flex justify-between">
-              <div className="flex gap-4 items-center">
-                <div className="relative w-fit rounded-full pt-1 shadow-sm cursor-pointer">
-                  <Image
-                    src={data?.profileImg}
-                    width={40}
-                    height={40}
-                    alt="profile"
-                  />
+              <div key={data.id} className="mt-4 flex justify-between">
+                <div className="flex gap-4 items-center">
+                  <div className="relative w-fit rounded-full pt-1 shadow-sm cursor-pointer">
+                    <Image
+                      src={data?.profileImg}
+                      width={40}
+                      height={40}
+                      alt="profile"
+                    />
+                  </div>
+                  <div>
+                    <div className="font-bold">{data?.name}</div>
+                    <div className="text-gray-500 text-xs">{data?.message}</div>
+                  </div>
                 </div>
                 <div>
-                  <div className="font-bold">{data?.name}</div>
-                  <div className="text-gray-500 text-xs">{data?.message}</div>
+                  {data.inboxNumber === "0" ? (
+                    ""
+                  ) : (
+                    <div className="rounded-full mt-1 w-fit px-1.5 py-[0.3px] absolute left-[380px] text-white text-xs bg-red-500">
+                      {data?.inboxNumber}
+                    </div>
+                  )}
+                  {/* <div className="rounded-full w-fit px-1.5 absolute right-6 top-[272px] text-white text-xs bg-red-500">{data.inboxNumber}</div> */}
+                  <MessageIcon className="mr-3 mt-3 " />
                 </div>
               </div>
-              <div>
-                {data.inboxNumber === "0" ? "" : <div className="rounded-full mt-1 w-fit px-1.5 py-[0.3px] absolute left-[380px] text-white text-xs bg-red-500">{data?.inboxNumber}</div>}
-                {/* <div className="rounded-full w-fit px-1.5 absolute right-6 top-[272px] text-white text-xs bg-red-500">{data.inboxNumber}</div> */}
-              <MessageIcon className="mr-3 mt-3 "/>
-              </div>
-            </div>
             ))}
             <div className="mt-4 cursor-pointer w-[382px] flex gap-4 border text-gray-500 rounded-full py-4 px-2 align-middle bg-[#FBFDFF] shadow-[0_5px_2px_0_rgba(87,159,255,0.25)]">
               <Image
@@ -424,6 +473,7 @@ function Header() {
           </div>
         </Popover>
       </div>
+      <ToastContainer />
     </header>
   );
 }

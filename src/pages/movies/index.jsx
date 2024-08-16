@@ -10,6 +10,7 @@ import city8 from "../../assets/images/city8.svg";
 import Link from "next/link";
 
 import MovieData from "./../../data/movieData";
+import Image from "next/image";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -100,7 +101,7 @@ const Movies = () => {
             <Link key={i} href={"/movies/view?id=" + m.id} className="h-full">
               <div className="shadow-lg rounded-lg cursor-pointer flex flex-col">
                 <div className="flex flex-1">
-                  <img src={m.imageUrl.src} alt="" />
+                  <Image height={10} width={10} src={m.imageUrl.src} alt="" />
                 </div>
                 <div className="flex justify-between p-4 gap-4">
                   <p className="">{m.title}</p>
