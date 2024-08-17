@@ -45,7 +45,6 @@ const OtpModal = ({ mobileNumber, token , setOtpModalOpen}) => {
     if (canResend) {
       try {
         const response = await resendSignUpOtp(mobileNumber, userId);
-        console.log(response, "Resend OTP DATA");
         toast.success("OTP resent successfully!!");
       } catch (error) {
         toast.error(
@@ -140,20 +139,20 @@ const OtpModal = ({ mobileNumber, token , setOtpModalOpen}) => {
           </button>
         </div>
         <div className="resend-text">
-          Didn{"'"}t receive the code?
+          Didn{"'"}t receive the OTP?
           {timeLeft > 0 ? (
             <span
               className="resend-link px-2"
               style={{ cursor: "not-allowed", color: "grey" }}
             >
-              Resend Code
+              Resend OTP
             </span>
           ) : (
             <span
               className="resend-link px-2 cursor-pointer"
               onClick={handleResendOtp}
             >
-              Resend Code
+              Resend OTP
             </span>
           )}
           <span id="timer" className="text-red-500">
