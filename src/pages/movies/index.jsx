@@ -101,7 +101,7 @@ const Movies = () => {
             <Link key={i} href={"/movies/view?id=" + m.id} className="h-full">
               <div className="shadow-lg rounded-lg cursor-pointer flex flex-col">
                 <div className="flex flex-1">
-                  <Image height={10} width={10} src={m.imageUrl.src} alt="" />
+                  <Image height={500} width={500} src={m.imageUrl.src} alt="" />
                 </div>
                 <div className="flex justify-between p-4 gap-4">
                   <p className="">{m.title}</p>

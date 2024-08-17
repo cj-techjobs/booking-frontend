@@ -248,7 +248,7 @@ const Account = () => {
                   />
                 </div>
                 <div className="justify-center items-center flex mt-5">
-                  <div className="rounded-full h-7 w-7 flex items-center justify-center bg-red-500 absolute top-[60px] right-[150px]">
+                  <div className="rounded-full h-7 w-7 flex items-center justify-center bg-red-500 absolute top-[65px] right-[165px]">
                     <BorderColorRoundedIcon
                       className="text-white"
                       fontSize="small"
@@ -802,7 +802,7 @@ const Account = () => {
             >
               <div className="p-4 w-[390px]">
                 <div className="flex justify-center mt-44 items-center">
-                  <Image src={emoji} height={40} width={40} alt="happy emoji"/>
+                  <Image src={emoji} height={40} width={50} alt="happy emoji"/>
                 </div>
                 <div className="text-2xl font-bold text-center">
                   Welcome new member

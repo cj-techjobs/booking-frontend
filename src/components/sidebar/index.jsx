@@ -535,7 +535,7 @@ const Sidebar = () => {
         <div className="text-5xl rounded-b-3xl h-[114px] flex justify-center shadow-[0_5px_2px_0_rgba(253,0,0,0.25)] items-center bg-[#F0F0F0] text-center">
         Properties
       </div>
-      <div className="shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] items-center justify-center rounded-md flex w-fit cursor-pointer ms-2 mt-4">
+      <div className="shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] items-center justify-center rounded-md flex w-fit cursor-pointer ms-2 mt-12">
         <div
           className={`px-6 py-1 rounded-md ${
             isActiveTab === "Buy"
@@ -558,10 +558,10 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="flex">
-        <div className="mt-5 w-1/3 border-r border-t">
+        <div className="mt-6 w-1/3 border-r border-t">
           {propertyFilterItem?.map((items) => (
             <div
-              className="py-5 flex items-center cursor-pointer"
+              className="py-6 flex items-center cursor-pointer"
               onClick={() => {
                 handleFilterClick(items?.title);
               }}
@@ -576,7 +576,7 @@ const Sidebar = () => {
             </div>
           ))}
         </div>
-        <div className="mt-5 w-2/3">
+        <div className="mt-6 w-2/3">
           {activeModal === "Budget" && (
             <div className="p-3 border">
               <div className="mb-4">Budget Range</div>

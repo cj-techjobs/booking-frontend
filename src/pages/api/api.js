@@ -18,21 +18,19 @@ export const signUp = async (mobileNumber, password) => {
 };
 
 // Resend OTP for sign-up
-export const resendSignUpOtp = async (mobileNumber , userId, token) => {
+export const resendSignUpOtp = async (mobileNumber, userId) => {
   try {
     const response = await axiosInstance.put('/signUp', {
       mobileNumber,
       userId
-    }, {
-      headers: {
-        'VerifyToken': token
-      }
     });
-    return response.data; 
+    return response.data;
   } catch (error) {
+    console.error('Error during OTP resend:', error);
     throw error.response ? error.response.data : new Error('An unexpected error occurred');
   }
 };
+
 
 // Verify OTP during sign-up
 export const verifyOtp = async ({mobileNumber , otp , token}) => {
@@ -47,6 +45,7 @@ export const verifyOtp = async ({mobileNumber , otp , token}) => {
     });
     return response?.data; 
   } catch (error) {
+    console.log("🚀 ~ verifyOtp ~ error:", error)
     throw error.response ? error.response.data : new Error('An unexpected error occurred');
   }
 };
