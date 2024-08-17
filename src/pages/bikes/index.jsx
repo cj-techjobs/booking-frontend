@@ -7,16 +7,13 @@ import {
 } from "../../utils";
 
 //navigation bar images
-import car from "/src/assets/carsSvg/i10.svg";
+import bike from "/src/assets/images/bike.jpeg";
 //main page car images
 import Image from "next/image";
 import Sidebar from "../../components/sidebar";
 
-const data = "";
-
-const Car = () => {
+const Bikes = () => {
   const router = useRouter();
-
   return (
     <div className="flex container mx-auto">
       <div className="w-1/4">
@@ -32,17 +29,17 @@ const Car = () => {
                 router.push("/cars/carItem");
               }}
             >
-              <Image src={car} width={400} alt="" />
+              <Image src={bike} width={400} alt="" />
               <div className="flex flex-col">
-                <span className="ms-4">Hyundai grand i10</span>
-                <span className="ms-4 mt-2 text-red-600">₹3,00,000</span>
+                <span className="ms-4">Dhoom Bike</span>
+                <span className="ms-4 mt-2 text-red-600 font-medium">₹300</span>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Car;
+export default Bikes
