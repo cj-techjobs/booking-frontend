@@ -5,20 +5,14 @@ import logo from "../../../public/images/logo.svg";
 import { FaFacebookF, FaUser } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { IoSearchOutline } from "react-icons/io5";
-import { FcGoogle } from "react-icons/fc";
-import Flag from "react-world-flags";
+
 import Modal from "../Modal";
 import { Popover } from "@mui/material";
-import { AiFillApple } from "react-icons/ai";
 import profilephoto from "/src/assets/accountImages/profile.svg";
 import { usePathname } from "next/navigation";
 import { GlobalContext } from "../../pages/api/context/context";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  signIn,
-  signUp,
-} from "../../pages/api/api";
 import Profile from "./profile";
 import OtpModal from "./otpModal";
 import SignIn_signUp from "./signIn_signUp";
