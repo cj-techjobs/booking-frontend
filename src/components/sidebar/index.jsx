@@ -24,6 +24,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 //material UI components
 import Slider from "@mui/material/Slider";
+import BuyRentButton from "../buttons/buyRentButton/buyRentButton";
 
 //price range filter
 const MAX = 1000000;
@@ -247,7 +248,7 @@ const Sidebar = () => {
               <div
                 className={`py-5 rounded-xl cursor-pointer ${
                   isActive === `${item?.title}`
-                    ? "bg-[#181616] w-[80px] text-white"
+                    ? "bg-[#181616] flex justify-center w-[60px] text-white"
                     : ""
                 }`}
                 onClick={() => {
@@ -255,38 +256,17 @@ const Sidebar = () => {
                 }}
                 key={item?.id}
               >
-                <div className="text-xs">
-                  <div className="flex justify-center">
-                    <Image src={item?.image} alt="" />
+                <div className="text-[10px] flex items-center flex-col">
+                  <div className="flex w-10 justify-center">
+                    <Image src={item?.image} height={10} width={35} alt="" />
                   </div>
                   <div className="flex justify-around">{item?.title}</div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] items-center justify-center rounded-md flex w-fit cursor-pointer ms-2 mt-3">
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Buy"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-l-md"
-              }`}
-              onClick={() => setIsActiveTab("Buy")}
-            >
-              Buy
-            </div>
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Rent"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-r-md"
-              }`}
-              onClick={() => setIsActiveTab("Rent")}
-            >
-              Rent
-            </div>
-          </div>
-          <div className="flex justify-between items-center mt-3 px-4">
+          <BuyRentButton />
+          <div className="flex justify-between items-center mt-2 px-4">
             <div>Filter</div>
             <div className="px-3 py-1 rounded-2xl shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-[#F9F2F2] text-red-500">
               Apply
@@ -297,7 +277,7 @@ const Sidebar = () => {
               {FilterList?.map((items) => (
                 <div
                   key={items.id}
-                  className={`py-2.5 px-1 cursor-pointer ${
+                  className={`py-3.5 px-1 cursor-pointer ${
                     activeModal === `${items?.title}` ? "bg-[#F6F2F9]" : ""
                   }`}
                   onClick={() => {
@@ -541,28 +521,7 @@ const Sidebar = () => {
           <div className="text-5xl rounded-b-3xl h-[114px] flex justify-center shadow-[0_5px_2px_0_rgba(253,0,0,0.25)] items-center bg-[#F0F0F0] text-center">
             Properties
           </div>
-          <div className="shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] items-center justify-center rounded-md flex w-fit cursor-pointer ms-2 mt-12">
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Buy"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-l-md"
-              }`}
-              onClick={() => setIsActiveTab("Buy")}
-            >
-              Buy
-            </div>
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Rent"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-r-md"
-              }`}
-              onClick={() => setIsActiveTab("Rent")}
-            >
-              Rent
-            </div>
-          </div>
+          <BuyRentButton />
           <div className="flex">
             <div className="mt-6 w-1/3 border-r border-t">
               {propertyFilterItem?.map((items) => (
@@ -890,7 +849,7 @@ const Sidebar = () => {
               <div
                 className={`py-5 rounded-xl cursor-pointer ${
                   isActive === `${item?.title}`
-                    ? "bg-[#181616] w-[80px] text-white"
+                    ? "bg-[#181616] text-center flex justify-center w-[65px] text-white"
                     : ""
                 }`}
                 onClick={() => {
@@ -898,52 +857,40 @@ const Sidebar = () => {
                 }}
                 key={item?.id}
               >
-                <div className="text-xs">
+                <div className="text-[10px]  w-12">
                   <div className="flex justify-center">
-                    <Image src={item?.image} alt="" />
+                    <Image src={item?.image} height={10} width={30} alt="" />
                   </div>
-                  <div className="flex justify-around">{item?.title}</div>
+                  <div className="flex text-center justify-around">
+                    {item?.title}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] items-center justify-center rounded-md flex w-fit cursor-pointer ms-2 mt-3">
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Buy"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-l-md"
-              }`}
-              onClick={() => setIsActiveTab("Buy")}
-            >
-              Buy
-            </div>
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Rent"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-r-md"
-              }`}
-              onClick={() => setIsActiveTab("Rent")}
-            >
-              Rent
-            </div>
-          </div>
+          <BuyRentButton />
           <div className="flex mt-3">
             <div className="ms-2 flex flex-col gap-4">
               {bikeFilterList?.map((items) => (
                 <div
                   key={items?.id}
                   className={`py-2.5 font-medium px-1 cursor-pointer ${
-                    activeModal === `${items?.title}` ? "bg-[#F6F2F9] rounded-md" : ""
+                    activeModal === `${items?.title}`
+                      ? "bg-[#F6F2F9] rounded-md"
+                      : ""
                   }`}
                   onClick={() => {
                     handleFilterClick(items?.title);
                   }}
                 >
                   <div className="flex gap-4 items-center">
-                  <Image src={items?.image} alt="brand" height={40} width={45}/>
-                 {items?.title}
+                    <Image
+                      src={items?.image}
+                      alt="brand"
+                      height={40}
+                      width={45}
+                    />
+                    {items?.title}
                   </div>
                 </div>
               ))}

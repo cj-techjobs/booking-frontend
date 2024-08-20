@@ -8,6 +8,7 @@ import {
 
 //navigation bar images
 import car from "/src/assets/carsSvg/i10.svg";
+import MayBach from '/src/assets/carsSvg/mayBach.png'
 //main page car images
 import Image from "next/image";
 import Sidebar from "../../components/sidebar";
@@ -32,10 +33,10 @@ const Car = () => {
                 router.push("/cars/carItem");
               }}
             >
-              <Image src={car} width={400} alt="" />
+              <Image src={MayBach} width={400} alt="" />
               <div className="flex flex-col">
-                <span className="ms-4">Hyundai grand i10</span>
-                <span className="ms-4 mt-2 text-red-600">₹3,00,000</span>
+                <span className="ms-4">Maybach</span>
+                <span className="ms-4 mt-2 text-red-600">₹3,00,00,000</span>
               </div>
             </div>
           ))}

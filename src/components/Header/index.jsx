@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import logo from "../../../public/images/logo.svg";
-import { FaFacebookF, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { IoSearchOutline } from "react-icons/io5";
 
@@ -11,22 +11,24 @@ import { Popover } from "@mui/material";
 import profilephoto from "/src/assets/accountImages/profile.svg";
 import { usePathname } from "next/navigation";
 import { GlobalContext } from "../../pages/api/context/context";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./profile";
 import OtpModal from "./otpModal";
 import SignIn_signUp from "./signIn_signUp";
+import ForgotPass from "./forgotPassword";
+import NewPassword from "./newPassword";
 
 function Header() {
   const context = useContext(GlobalContext);
-  const [isLogin, setIsLogin] = useState(true);
-  const [fullName, setFullName] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
   const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [token, setToken] = useState("");
-  const [password, setPassword] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [otpModalOpen, setOtpModalOpen] = useState(false);
+  const [forgotPassModal, setForgotPassModal] = useState(false);
+  const [newPassModal, setNewPassModal] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -91,16 +93,12 @@ function Header() {
         ) : (
           <div className="">
             <div className="text-gray-600 text-sm font-bold">Welcome</div>
-            <p className="text-gray-800 font-bold text-xl">
-              {name}
-            </p>
+            <p className="text-gray-800 font-bold text-xl">{name}</p>
           </div>
         )}
         {pathname === "/login" ? (
           <div>
-            <div
-              className="relative w-fit p-2 border border-black text-2xl rounded-full shadow-sm"
-            >
+            <div className="relative w-fit p-2 border border-black text-2xl rounded-full shadow-sm">
               <FaUser />
             </div>
           </div>
@@ -117,7 +115,15 @@ function Header() {
         )}
         {modalOpen && (
           <Modal isVisible={modalOpen} onClose={() => setModalOpen(false)}>
-            <SignIn_signUp setModalOpen={setModalOpen} setOtpModalOpen={setOtpModalOpen} mobileNumber={mobileNumber} setMobileNumber={setMobileNumber} setToken={setToken}/>
+            <SignIn_signUp
+              setModalOpen={setModalOpen}
+              setIsSignUp={setIsSignUp}
+              setForgotPassModal={setForgotPassModal}
+              setOtpModalOpen={setOtpModalOpen}
+              mobileNumber={mobileNumber}
+              setMobileNumber={setMobileNumber}
+              setToken={setToken}
+            />
           </Modal>
         )}
         {otpModalOpen && (
@@ -125,7 +131,40 @@ function Header() {
             isVisible={otpModalOpen}
             onClose={() => setOtpModalOpen(false)}
           >
-            <OtpModal mobileNumber={mobileNumber} token={token} setOtpModalOpen={setOtpModalOpen}/>
+            <OtpModal
+              mobileNumber={mobileNumber}
+              isSignUp={isSignUp}
+              setIsSignUp={setIsSignUp}
+              token={token}
+              setOtpModalOpen={setOtpModalOpen}
+              setNewPassModal={setNewPassModal}
+            />
+          </Modal>
+        )}
+        {forgotPassModal && (
+          <Modal
+            isVisible={forgotPassModal}
+            onClose={() => setForgotPassModal(false)}
+          >
+            <ForgotPass
+              mobileNumber={mobileNumber}
+              setMobileNumber={setMobileNumber}
+              setToken={setToken}
+              setOtpModalOpen={setOtpModalOpen}
+              setModalOpen={setModalOpen}
+              setForgotPassModal={setForgotPassModal}
+            />
+          </Modal>
+        )}
+        {newPassModal && (
+          <Modal
+            isVisible={newPassModal}
+            onClose={() => setNewPassModal(false)}
+          >
+            <NewPassword
+              setModalOpen={setModalOpen}
+              setNewPassModal={setNewPassModal}
+            />
           </Modal>
         )}
         <Popover
@@ -143,7 +182,7 @@ function Header() {
             horizontal: "right",
           }}
         >
-          <Profile name={name} id={id}/>
+          <Profile name={name} id={id} />
         </Popover>
       </div>
       <ToastContainer />

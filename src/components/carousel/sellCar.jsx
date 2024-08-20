@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Description } from "@mui/icons-material";
+import BuyRentButton from "../buttons/buyRentButton/buyRentButton";
+import SubmitButton from "../buttons/submitButton/submitButton";
 
 export default function SellCar({ modal }) {
   const [isActive, setIsActive] = useState("");
@@ -38,28 +40,7 @@ export default function SellCar({ modal }) {
       <div className="text-center text-2xl mb-4">Enter car details</div>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-center mt-2 mb-4">
-          <div className="shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] items-center justify-center rounded-md flex w-fit cursor-pointer">
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Buy"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-l-md"
-              }`}
-              onClick={() => setIsActiveTab("Buy")}
-            >
-              Buy
-            </div>
-            <div
-              className={`px-6 py-1 rounded-md ${
-                isActiveTab === "Rent"
-                  ? "bg-red-500 text-white"
-                  : "bg-[#FAFAFA] rounded-r-md"
-              }`}
-              onClick={() => setIsActiveTab("Rent")}
-            >
-              Rent
-            </div>
-          </div>
+          <BuyRentButton />
         </div>
         <div className="px-2 flex flex-col gap-3">
           <TextField
@@ -145,12 +126,7 @@ export default function SellCar({ modal }) {
             className="w-full"
           />
         </div>
-        <div
-          className="text-2xl font-bold mt-4 text-white rounded-xl bg-[#040A3F] w-full text-center py-2"
-          onClick={modal}
-        >
-          <button onClick={handleSubmit}>Next</button>
-        </div>
+        <SubmitButton className={'w-full text-2xl mt-2'} title={'Next'} click={handleSubmit}/>
       </form>
     </div>
   );

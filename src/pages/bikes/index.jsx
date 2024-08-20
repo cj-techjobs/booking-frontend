@@ -8,6 +8,7 @@ import {
 
 //navigation bar images
 import bike from "/src/assets/images/bike.jpeg";
+
 //main page car images
 import Image from "next/image";
 import Sidebar from "../../components/sidebar";

@@ -119,6 +119,7 @@ const CarouselComponent = () => {
 
     setQuickAccess([
       {
+        modal: setCarModal,
         path: "",
         content: "",
       },

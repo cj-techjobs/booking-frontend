@@ -36,6 +36,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
 import { orange, red } from "@mui/material/colors";
 import { GlobalContext, useData } from "../api/context/context";
+import SettingsButton from "../../components/buttons/settingsButton/settingsButton";
 
 const Account = () => {
   const context = useContext(GlobalContext);
@@ -57,16 +58,10 @@ const Account = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const nameLocal = localStorage.getItem("fullName");
-      const phone = localStorage.getItem("mobile Number");
-      const passwordLocal = localStorage.getItem("password");
-      const emailLocal = localStorage.getItem("email");
-      const dob = localStorage.getItem("dob");
+      const phone = localStorage.getItem("mobile_number");
 
       setFullName(nameLocal);
       setPhoneNumber(phone);
-      setPassword(passwordLocal);
-      setEmail(emailLocal);
-      setBirthdate(dob);
     }
   }, []);
 
@@ -78,9 +73,6 @@ const Account = () => {
     e.preventDefault();
     localStorage.setItem("fullName", fullName);
     localStorage.setItem("mobile Number", phoneNumber);
-    localStorage.setItem("password", password);
-    localStorage.setItem("email", email);
-    localStorage.setItem("dob", birthdate);
     setProfileModalOpen(false);
     context.setIsUpdateUser(!context.isUpdateUser);
   };
@@ -310,12 +302,7 @@ const Account = () => {
                         onChange={(e) => setBirthdate(e.target.value)}
                       />
                     </div>
-                    <button
-                      type="submit"
-                      className="bg-red-500 py-2 mt-3 text-center text-white font-semibold w-full rounded-md"
-                    >
-                      Save Changes
-                    </button>
+                    <SettingsButton title={"Save Changes"} />
                   </form>
                 </div>
               </div>
@@ -488,15 +475,13 @@ const Account = () => {
                     </div>
                   </div>
                 ))}
-                <button
-                  onClick={() => {
+                <SettingsButton
+                  title={"Continue"}
+                  click={() => {
                     setMembershipModalOpen(false);
                     setProMembershipModalOpen(true);
                   }}
-                  className="bg-red-500 py-2 mt-3 text-center text-white font-normal w-full rounded-md"
-                >
-                  Continue
-                </button>
+                />
               </div>
             </Modal>
           )}
@@ -531,7 +516,12 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
+                        <Image
+                          height={80}
+                          width={108}
+                          src={proMemeberSlider}
+                          alt="manage"
+                        />
                       </div>
                     </div>
                     <div>
@@ -545,7 +535,12 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
+                        <Image
+                          height={80}
+                          width={108}
+                          src={proMemeberSlider}
+                          alt="manage"
+                        />
                       </div>
                     </div>
                     <div>
@@ -559,7 +554,12 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
+                        <Image
+                          height={80}
+                          width={108}
+                          src={proMemeberSlider}
+                          alt="manage"
+                        />
                       </div>
                     </div>
                     <div>
@@ -573,7 +573,12 @@ const Account = () => {
                             files.
                           </div>
                         </div>
-                        <Image height={80} width={108} src={proMemeberSlider} alt="manage"/>
+                        <Image
+                          height={80}
+                          width={108}
+                          src={proMemeberSlider}
+                          alt="manage"
+                        />
                       </div>
                     </div>
                   </Slider>
@@ -605,15 +610,13 @@ const Account = () => {
                     {data?.benefit}
                   </div>
                 ))}
-                <button
-                  onClick={() => {
+                <SettingsButton
+                  title={"Proceed with payment"}
+                  click={() => {
                     setProMembershipModalOpen(false);
                     setPaymentModalOpen(true);
                   }}
-                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
-                >
-                  Proceed with payment
-                </button>
+                />
               </div>
             </Modal>
           )}
@@ -737,15 +740,13 @@ const Account = () => {
                 <div className="text-[#6D31ED] mt-3 text-center text-lg mb-10">
                   + Add New Card
                 </div>
-                <button
-                  onClick={() => {
+                <SettingsButton
+                  title={"Continue"}
+                  click={() => {
                     setPaymentModalOpen(false);
                     setPaymentConfirmModalOpen(true);
                   }}
-                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
-                >
-                  Continue
-                </button>
+                />
               </div>
             </Modal>
           )}
@@ -783,15 +784,13 @@ const Account = () => {
                     conditions.
                   </span>
                 </div>
-                <button
-                  onClick={() => {
+                <SettingsButton
+                  title={"Continue"}
+                  click={() => {
                     setPaymentConfirmModalOpen(false);
                     setLastModalOpen(true);
                   }}
-                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
-                >
-                  Continue
-                </button>
+                />
               </div>
             </Modal>
           )}
@@ -800,9 +799,9 @@ const Account = () => {
               isVisible={lastModalOpen}
               onClose={() => setLastModalOpen(false)}
             >
-              <div className="p-4 w-[390px]">
+              <div className="p-4">
                 <div className="flex justify-center mt-44 items-center">
-                  <Image src={emoji} height={40} width={50} alt="happy emoji"/>
+                  <Image src={emoji} height={40} width={50} alt="happy emoji" />
                 </div>
                 <div className="text-2xl font-bold text-center">
                   Welcome new member
@@ -811,21 +810,16 @@ const Account = () => {
                   Thank you for upgrading. Happy exploring and enjoy your Pro
                   membership to the fullest!
                 </div>
-                <button
-                  onClick={() => {
+                <SettingsButton
+                  title={"Start Exploring"}
+                  click={() => {
                     router.push("/");
                   }}
-                  className="bg-red-500 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
-                >
-                  Start Exploring
-                </button>
-                <button
-                  disabled
-                  onClick={{}}
-                  className="bg-red-300 py-2 text-lg mt-3 text-center text-white font-normal w-full rounded-md"
-                >
-                  Back to Home
-                </button>
+                />
+                <SettingsButton
+                  title={"Back to Home"}
+                  click={""}
+                />
               </div>
             </Modal>
           )}

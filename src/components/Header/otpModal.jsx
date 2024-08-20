@@ -1,32 +1,31 @@
 import { ToastContainer, toast } from "react-toastify";
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { verifyOtp, resendSignUpOtp } from "../../pages/api/api";
+import { verifyOtp, resendSignUpOtp, verifyForgotPasswordOtp } from "../../pages/api/api";
 import { useRouter } from "next/navigation";
 
-const OtpModal = ({ mobileNumber, token , setOtpModalOpen}) => {
+const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp, setNewPassModal }) => {
   const router = useRouter();
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [timeLeft, setTimeLeft] = useState(120);
-  const [canResend, setCanResend] = useState(true);
-  const timerDisplay = useRef(null);
+  const [canResend, setCanResend] = useState(false);
+  const timerId = useRef(null);
   const inputRefs = useRef([]);
 
   const handleSubmitOtp = async (e) => {
     e.preventDefault();
-    const Otp = otp.join("");
-    if (otp.length === 6) {
+    const otpCode = otp.join("");
+    if (otpCode.length === 6) {
       if (timeLeft > 0) {
         try {
-          const response = await verifyOtp({
-            mobileNumber: mobileNumber,
-            otp: Otp,
-            token: token,
-          });
-          if(response){
+          const response = isSignUp
+            ? await verifyOtp({ mobileNumber, otp: otpCode, token })
+            : await verifyForgotPasswordOtp({ mobileNumber, otp: otpCode, token });
+          if (response) {
             toast.success("OTP verified successfully!");
             setOtpModalOpen(false);
-            router.push("/");
+            isSignUp ? setIsSignUp(false) : setNewPassModal(true);
+            if (isSignUp) router.push("/");
           }
         } catch (error) {
           toast.error("Invalid OTP! Please check the code and try again.");
@@ -41,62 +40,55 @@ const OtpModal = ({ mobileNumber, token , setOtpModalOpen}) => {
 
   const handleResendOtp = async (e) => {
     e.preventDefault();
-    const userId = localStorage.getItem("user_id");
     if (canResend) {
       try {
-        const response = await resendSignUpOtp(mobileNumber, userId);
-        toast.success("OTP resent successfully!!");
+        await resendSignUpOtp(mobileNumber, localStorage.getItem("user_id"));
+        toast.success("OTP resent successfully!");
+        setOtp(Array(6).fill(""));
+        inputRefs.current[0]?.focus();
+        startTimer();
       } catch (error) {
-        toast.error(
-          "Error: " + (error.message || "An unexpected error occurred")
-        );
+        toast.error(`Error: ${error.message || "An unexpected error occurred"}`);
       }
-      startTimer();
-      setOtp(Array(6).fill(""));
-      inputRefs.current[0].focus();
     } else {
-      alert("Cannot resend code. Time has expired.");
+      toast.error("Cannot resend code. Time has expired.");
     }
   };
 
   useEffect(() => {
     startTimer();
-    return () => {
-      if (timerId.current) clearInterval(timerId.current);
-    };
+    return () => clearInterval(timerId.current);
   }, []);
+
+  const startTimer = () => {
+    setTimeLeft(120);
+    setCanResend(false);
+    clearInterval(timerId.current);
+    timerId.current = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timerId.current);
+          setCanResend(true);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+  };
 
   const handleInputChange = (index, event) => {
     const value = event.target.value.slice(0, 1);
     setOtp(otp.map((input, i) => (i === index ? value : input)));
 
-    if (value.length === 1 && index < otp.length - 1) {
-      inputRefs.current[index + 1].focus();
+    if (value && index < otp.length - 1) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
-  const handleInputKeyDown = (event) => {
-    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-      event.preventDefault();
+  const handleBackspace = (index) => {
+    if (index > 0 && otp[index] === "") {
+      inputRefs.current[index - 1]?.focus();
     }
-  };
-  const timerId = useRef(null);
-
-  const startTimer = () => {
-    setTimeLeft(120);
-    setCanResend(true);
-    if (timerId.current) clearInterval(timerId.current);
-    timerId.current = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(timerId.current);
-          setCanResend(true);
-          return 0;
-        } else {
-          return prevTime - 1;
-        }
-      });
-    }, 1000);
   };
 
   const minutes = Math.floor(timeLeft / 60);
@@ -124,7 +116,7 @@ const OtpModal = ({ mobileNumber, token , setOtpModalOpen}) => {
               className="border-2 border-black appearance-none rounded-md text-center mx-2 py-2"
               value={input}
               onChange={(e) => handleInputChange(index, e)}
-              onKeyDown={(e) => handleInputKeyDown(index, e)}
+              onKeyDown={(e) => e.key === "Backspace" && handleBackspace(index)}
               ref={(el) => (inputRefs.current[index] = el)}
               required
             />
@@ -140,21 +132,12 @@ const OtpModal = ({ mobileNumber, token , setOtpModalOpen}) => {
         </div>
         <div className="resend-text">
           Didn{"'"}t receive the OTP?
-          {timeLeft > 0 ? (
-            <span
-              className="resend-link px-2"
-              style={{ cursor: "not-allowed", color: "grey" }}
-            >
-              Resend OTP
-            </span>
-          ) : (
-            <span
-              className="resend-link px-2 cursor-pointer"
-              onClick={handleResendOtp}
-            >
-              Resend OTP
-            </span>
-          )}
+          <span
+            className={`resend-link px-2 ${timeLeft > 0 ? "text-grey cursor-not-allowed" : "cursor-pointer"}`}
+            onClick={timeLeft <= 0 ? handleResendOtp : undefined}
+          >
+            Resend OTP
+          </span>
           <span id="timer" className="text-red-500">
             {timeLeft > 0
               ? `(${minutes}:${seconds.toString().padStart(2, "0")})`
