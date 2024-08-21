@@ -9,6 +9,7 @@ import { signIn, signUp } from "../../pages/api/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SubmitButton from "../buttons/submitButton/submitButton";
+import Modal from "../Modal";
 
 const AuthForm = ({
   isLogin,
@@ -96,15 +97,7 @@ const SocialButton = ({ icon, label }) => (
   </div>
 );
 
-const SignIn_signUp = ({
-  setModalOpen,
-  setOtpModalOpen,
-  setForgotPassModal,
-  setIsSignUp,
-  mobileNumber,
-  setMobileNumber,
-  setToken,
-}) => {
+const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
   const context = useContext(GlobalContext);
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
@@ -116,7 +109,7 @@ const SignIn_signUp = ({
       const mobile = localStorage.getItem("mobile_number");
       setMobileNumber(mobile || "");
     }
-  }, [context]);
+  }, [context, setMobileNumber]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,7 +120,7 @@ const SignIn_signUp = ({
         if (response?.data?.authToken) {
           localStorage.setItem("authintication_token", response.data.authToken);
           toast.success("Login Successfully");
-          setModalOpen(false);
+          context?.setModalOpen(false);
           router.push("/");
         } else {
           throw new Error("Token not received in login response");
@@ -139,21 +132,23 @@ const SignIn_signUp = ({
           localStorage.setItem("verification_token", response.data.verifyToken);
           localStorage.setItem("user_id", response.data.id);
           toast.success("OTP sent successfully");
-          setIsSignUp(true);
-          setModalOpen(false);
-          setOtpModalOpen(true);
+          context?.setIsSignUp(true);
+          context?.setModalOpen(false);
+          context?.setOtpModalOpen(true);
         } else {
           throw new Error("Token not received in signUp response");
         }
       }
-      context.setIsUpdateUser(!context.isUpdateUser);
     } catch (error) {
       toast.error("Invalid Credentials");
     }
   };
 
   return (
-    <div>
+    <Modal
+      isVisible={context?.modalOpen}
+      onClose={() => context?.setModalOpen(false)}
+    >
       <div className="bg-white p-4 w-full relative rounded-2xl">
         <h1 className="text-5xl font-semibold mb-3 justify-start text-red-500">
           {isLogin ? "Login" : "Welcome"}
@@ -171,8 +166,8 @@ const SignIn_signUp = ({
           setPassword={setPassword}
           onSubmit={handleSubmit}
           onForgotPassword={() => {
-            setModalOpen(false);
-            setForgotPassModal(true);
+            context?.setModalOpen(false);
+            context?.setForgotPassModal(true);
           }}
         />
         <div className="flex items-center mt-4 mb-8">
@@ -186,7 +181,7 @@ const SignIn_signUp = ({
         <p className="text-center pt-6">
           {isLogin ? (
             <>
-              Don't have an account?{" "}
+              Don{"'"}t have an account?{" "}
               <a
                 href="#"
                 className="text-blue-500"
@@ -209,7 +204,7 @@ const SignIn_signUp = ({
           )}
         </p>
       </div>
-    </div>
+    </Modal>
   );
 };
 

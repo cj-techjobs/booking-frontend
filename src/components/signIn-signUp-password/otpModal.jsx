@@ -1,10 +1,21 @@
 import { ToastContainer, toast } from "react-toastify";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { GlobalContext } from "../../pages/api/context/context";
 import "react-toastify/dist/ReactToastify.css";
-import { verifyOtp, resendSignUpOtp, verifyForgotPasswordOtp } from "../../pages/api/api";
+import {
+  verifyOtp,
+  resendSignUpOtp,
+  verifyForgotPasswordOtp,
+} from "../../pages/api/api";
 import { useRouter } from "next/navigation";
+import Modal from "../Modal";
 
-const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp, setNewPassModal }) => {
+
+const OtpModal = ({
+  mobileNumber,
+  token,
+}) => {
+  const context = useContext(GlobalContext);
   const router = useRouter();
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [timeLeft, setTimeLeft] = useState(120);
@@ -18,14 +29,18 @@ const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp,
     if (otpCode.length === 6) {
       if (timeLeft > 0) {
         try {
-          const response = isSignUp
+          const response = context?.isSignUp
             ? await verifyOtp({ mobileNumber, otp: otpCode, token })
-            : await verifyForgotPasswordOtp({ mobileNumber, otp: otpCode, token });
+            : await verifyForgotPasswordOtp({
+                mobileNumber,
+                otp: otpCode,
+                token,
+              });
           if (response) {
             toast.success("OTP verified successfully!");
-            setOtpModalOpen(false);
-            isSignUp ? setIsSignUp(false) : setNewPassModal(true);
-            if (isSignUp) router.push("/");
+            context?.setOtpModalOpen(false);
+            context?.isSignUp ? context?.setIsSignUp(false) : context?.setNewPassModal(true);
+            if (context?.isSignUp) router.push("/");
           }
         } catch (error) {
           toast.error("Invalid OTP! Please check the code and try again.");
@@ -48,7 +63,9 @@ const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp,
         inputRefs.current[0]?.focus();
         startTimer();
       } catch (error) {
-        toast.error(`Error: ${error.message || "An unexpected error occurred"}`);
+        toast.error(
+          `Error: ${error.message || "An unexpected error occurred"}`
+        );
       }
     } else {
       toast.error("Cannot resend code. Time has expired.");
@@ -95,7 +112,10 @@ const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp,
   const seconds = timeLeft % 60;
 
   return (
-    <div>
+    <Modal
+      isVisible={context?.otpModalOpen}
+      onClose={() => context?.setOtpModalOpen(false)}
+    >
       <div className="p-4">
         <h1 className="text-3xl text-center text-red-500 mb-4">
           <span className="text-black">Verify</span> O.T.P
@@ -133,7 +153,9 @@ const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp,
         <div className="resend-text">
           Didn{"'"}t receive the OTP?
           <span
-            className={`resend-link px-2 ${timeLeft > 0 ? "text-grey cursor-not-allowed" : "cursor-pointer"}`}
+            className={`resend-link px-2 ${
+              timeLeft > 0 ? "text-grey cursor-not-allowed" : "cursor-pointer"
+            }`}
             onClick={timeLeft <= 0 ? handleResendOtp : undefined}
           >
             Resend OTP
@@ -145,7 +167,7 @@ const OtpModal = ({ mobileNumber, token, setOtpModalOpen, isSignUp, setIsSignUp,
           </span>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 

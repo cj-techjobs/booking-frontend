@@ -16,7 +16,11 @@ export const DataProvider = ({ children }) => {
   const [proMemebershipModalOpen, setProMembershipModalOpen] = useState(false);
   const [lastModalOpen, setLastModalOpen] = useState(false);
   const [isUpdateUser, setIsUpdateUser] = useState(false);
-
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
+  const [forgotPassModal, setForgotPassModal] = useState(false);
+  const [newPassModal, setNewPassModal] = useState(false);
 
   const value = {
     isUpdateUser,
@@ -35,8 +39,18 @@ export const DataProvider = ({ children }) => {
     setProMembershipModalOpen,
     lastModalOpen,
     setLastModalOpen,
+    isSignUp,
+    setIsSignUp,
+    modalOpen,
+    setModalOpen,
+    otpModalOpen,
+    setOtpModalOpen,
+    forgotPassModal,
+    setForgotPassModal,
+    newPassModal,
+    setNewPassModal,
   };
-
+  
   return (
     <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState , useContext } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
 import Image2 from "/src/assets/accountImages/lock.svg";
 import Image1 from "/src/assets/accountImages/profile.svg";
@@ -24,8 +24,6 @@ import ProMembership from "./pro-membership";
 const Account = () => {
   const router = useRouter();
   const context = useContext(GlobalContext);
-  const [lastModalOpen, setLastModalOpen] = useState(false);
-
   const [profileSettings, setProfileSettings] = useState([
     {
       title: `Profile`,
@@ -78,7 +76,7 @@ const Account = () => {
 
   return (
     <>
-      <div className="pt-10 h-[calc(100vh-80px)] container mx-auto">
+      <div className="pt-10 container mx-auto">
         <h2 className="mb-6 text-2xl font-bold">Your Account</h2>
         <div className="grid grid-cols-3 gap-8">
           {profileSettings.map((m, i) => (
@@ -96,12 +94,6 @@ const Account = () => {
               </div>
             </div>
           ))}
-          <Profile/>
-          <Payment/>
-          <Membership/>
-          <Help/>
-          <PaymentConfirmation/>
-          <ProMembership/>
           {context?.lastModalOpen && (
             <Modal
               isVisible={context?.lastModalOpen}
@@ -124,13 +116,17 @@ const Account = () => {
                     router.push("/");
                   }}
                 />
-                <SettingsButton
-                  title={"Back to Home"}
-                  click={""}
-                />
+                <SettingsButton title={"Back to Home"} click={""} />
               </div>
             </Modal>
           )}
+
+          <Profile />
+          <Payment />
+          <Membership />
+          <Help />
+          <PaymentConfirmation />
+          <ProMembership />
         </div>
       </div>
     </>

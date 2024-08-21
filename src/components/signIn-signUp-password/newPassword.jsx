@@ -1,8 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { resetPassword } from "../../pages/api/api";
 import { toast } from "react-toastify";
+import Modal from "../Modal";
+import { GlobalContext } from "../../pages/api/context/context";
 
-const NewPassword = ({ setNewPassModal, setModalOpen }) => {
+const NewPassword = () => {
+  const context = useContext(GlobalContext);
     const [passOne, setPassOne] = useState("");
     const [passTwo, setPassTwo] = useState("");
     const [isPasswordMatch, setIsPasswordMatch] = useState(false);
@@ -24,8 +27,8 @@ const NewPassword = ({ setNewPassModal, setModalOpen }) => {
         const response = await resetPassword(mobileNumber, passTwo);
         if (response && response.message) {
           toast.success('Password reset successfully!');
-          setNewPassModal(false);
-          setModalOpen(true);
+          context?.setNewPassModal(false);
+          context?.setModalOpen(true);
         } else {
           throw new Error("Unexpected response structure");
         }
@@ -36,6 +39,10 @@ const NewPassword = ({ setNewPassModal, setModalOpen }) => {
     };
   
   return (
+    <Modal
+    isVisible={context?.newPassModal}
+    onClose={() => context?.setNewPassModal(false)}
+  >
     <div className="p-4">
     <div className="text-center text-2xl">
       Create <span className="text-red-500">New Password</span>
@@ -77,6 +84,7 @@ const NewPassword = ({ setNewPassModal, setModalOpen }) => {
       </div>
     </form>
   </div>
+  </Modal>
   );
 };
 

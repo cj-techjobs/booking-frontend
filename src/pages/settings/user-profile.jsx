@@ -3,7 +3,7 @@ import profilephoto from "/src/assets/accountImages/profile.svg";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import Image from "next/image";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { GlobalContext, useData } from "../api/context/context";
+import { GlobalContext } from "../api/context/context";
 import SettingsButton from "../../components/buttons/settingsButton/settingsButton";
 import Modal from '/src/components/Modal.jsx'
 
@@ -17,9 +17,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const nameLocal = localStorage.getItem("fullName");
-      const phone = localStorage.getItem("mobile_number");
-
+      let nameLocal = localStorage.getItem("fullName");
+      let phone = localStorage.getItem("mobile_number");
       setFullName(nameLocal);
       setPhoneNumber(phone);
     }
@@ -30,8 +29,9 @@ const Profile = () => {
     localStorage.setItem("fullName", fullName);
     localStorage.setItem("mobile Number", phoneNumber);
     context?.setProfileModalOpen(false);
-    context.setIsUpdateUser(!context.isUpdateUser);
+    context?.setIsUpdateUser(context?.isUpdateUser);
   };
+
   return (
     <div>
       <Modal
