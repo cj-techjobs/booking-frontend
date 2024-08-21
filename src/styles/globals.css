@@ -70,3 +70,24 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.hotel-bg {
+  background-image: url('../assets/bookingsSvg/hotelBooking.svg');
+  height: 500px;
+}
+
+.css-1u308ej-control, .css-1u308ej-control:hover, .css-zt26c6-control:hover{
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+.css-1wy0on6{
+  display: none;
+}
+
+.css-19bb58m input, .css-1cfo1cf input,  .css-1dimb5e-singleValue{
+  margin-left: 12px !important;
+}
+
+.css-1jqq78o-placeholder{
+  margin-left: 16px !important;
+}

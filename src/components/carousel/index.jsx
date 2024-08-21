@@ -31,8 +31,8 @@ const CarouselComponent = () => {
   const [sellItemModal, setSelltemModal] = useState(false);
   const [carModal, setCarModal] = useState(false);
   const [uploadImageModal, setUploadImageModal] = useState(false);
-  const [amount, setAmount] = useState("")
-  
+  const [amount, setAmount] = useState("");
+
   useEffect(() => {
     const data = [
       {
@@ -69,7 +69,7 @@ const CarouselComponent = () => {
         bgColor: "#b8e2d8",
       },
       {
-        title: "Jobs",
+        title: "jobs",
         bgColor: "#ffbd31",
       },
       {
@@ -77,11 +77,11 @@ const CarouselComponent = () => {
         bgColor: "#c33863",
       },
       {
-        title: "Electronics",
+        title: "electronics",
         bgColor: "#5c7b5d",
       },
       {
-        title: "Vacation",
+        title: "vacation",
         bgColor: "#fec523",
       },
     ];
@@ -189,7 +189,17 @@ const CarouselComponent = () => {
               key={i}
               className="w-32 h-28 flex items-center justify-center rounded-lg cursor-pointer"
               style={{ backgroundColor: getBgColor(i) }}
-              onClick={() => router.push(`/${item?.title === "Movies & Events" ? "movies" : item?.title}`)}
+              onClick={() =>
+                router.push(
+                  `/${
+                    item?.title === "Movies & Events"
+                      ? "movies"
+                      : item?.title === "vacation"
+                      ? "bookings/hotel-booking"
+                      : item?.title
+                  }`
+                )
+              }
             >
               <div className="text-white capitalize font-bold text-center">
                 {item.title}
@@ -302,9 +312,7 @@ const CarouselComponent = () => {
                 className="w-full"
                 placeholder="Enter Your price*/No of days"
                 value={amount}
-                onChange={(e) =>
-                  setAmount(e.target.value )
-                }
+                onChange={(e) => setAmount(e.target.value)}
               />
               <div className="mt-4 text-base">
                 Rs. 5,000 will be your security money and the responsibility of
@@ -333,7 +341,10 @@ const CarouselComponent = () => {
               </div>
               <div className="text-xl mt-6">Upload Images of your Products</div>
               <div className="px-4 py-2 rounded-md border-2 border-black bg-[#FFB017] mt-8">
-                <button onClick={handleSubmit} className="text-base tracking-tighter">
+                <button
+                  onClick={handleSubmit}
+                  className="text-base tracking-tighter"
+                >
                   Click and Upload
                 </button>
               </div>
