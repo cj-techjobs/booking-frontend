@@ -18,7 +18,6 @@ import NewPassword from "../signIn-signUp-password/newPassword";
 
 const Header = () => {
   const context = useContext(GlobalContext);
-  const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [token, setToken] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,12 +25,6 @@ const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      let name = localStorage.getItem("fullName");
-      setName(name);
-    }
-  }, [context, context?.isUpdateUser]);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
@@ -63,7 +56,7 @@ const Header = () => {
           <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
         </div>
 
-        {pathname === "/login" ? (
+        {pathname === "/" ? (
           <div>
             <div className="text-gray-600 font-bold">New user?</div>
             <p
@@ -76,11 +69,11 @@ const Header = () => {
         ) : (
           <div>
             <div className="text-gray-600 text-sm font-bold">Welcome</div>
-            <p className="text-gray-800 font-bold text-xl">{name}</p>
+            <p className="text-gray-800 font-bold text-xl">{context?.name}</p>
           </div>
         )}
 
-        {pathname === "/login" ? (
+        {pathname === "/" ? (
           <div className="relative w-fit p-2 border border-black text-2xl rounded-full shadow-sm">
             <FaUser />
           </div>
@@ -103,7 +96,7 @@ const Header = () => {
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           transformOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          <Profile name={name} id={id} />
+          <Profile name={context?.name} id={id} />
         </Popover>
       </div>
       <SignIn_signUp
@@ -118,7 +111,7 @@ const Header = () => {
         setToken={setToken}
       />
       <NewPassword />
-      <ToastContainer position="top-center" autoClose={2000} transition={Flip}/>
+      <ToastContainer autoClose={2000} transition={Flip} />
     </header>
   );
 };

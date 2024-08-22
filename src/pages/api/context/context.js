@@ -21,6 +21,9 @@ export const DataProvider = ({ children }) => {
   const [otpModalOpen, setOtpModalOpen] = useState(false);
   const [forgotPassModal, setForgotPassModal] = useState(false);
   const [newPassModal, setNewPassModal] = useState(false);
+  const [name, setName] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
+
 
   const value = {
     isUpdateUser,
@@ -49,6 +52,10 @@ export const DataProvider = ({ children }) => {
     setForgotPassModal,
     newPassModal,
     setNewPassModal,
+    name,
+    setName,
+    isLogin,
+    setIsLogin
   };
   
   return (

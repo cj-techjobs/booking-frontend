@@ -9,6 +9,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import orderIcon from "/src/assets/settingsModalSvg/order.svg";
 import MessageIcon from "@mui/icons-material/Message";
 import "react-toastify/dist/ReactToastify.css";
+import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 
 const Profile = ({ name, id }) => {
   const router = useRouter();
@@ -51,21 +52,34 @@ const Profile = ({ name, id }) => {
     </div>
   );
 
+  const handleLogout = () => {
+    localStorage.clear();
+    router.push("/");
+  };
+
   return (
     <div className="p-4 bg-white w-[420px]">
-      <div className="flex gap-4">
-        <div
-          className="relative w-fit rounded-full shadow-sm cursor-pointer"
-          onClick={handleClick}
-          aria-describedby={id}
-        >
-          <Image src={profilephoto} width={45} height={45} alt="profile" />
+      <div className="flex justify-between items-center">
+        <div className="flex gap-4">
+          <div
+            className="relative w-fit rounded-full shadow-sm cursor-pointer"
+            onClick={handleClick}
+            aria-describedby={id}
+          >
+            <Image src={profilephoto} width={45} height={45} alt="profile" />
+          </div>
+          <div>
+            <div className="text-gray-600 font-bold text-xl">Welcome</div>
+            <p className="text-gray-800 text-sm font-bold cursor-pointer">
+              {name}
+            </p>
+          </div>
         </div>
-        <div>
-          <div className="text-gray-600 font-bold text-xl">Welcome</div>
-          <p className="text-gray-800 text-sm font-bold cursor-pointer">
-            {name}
-          </p>
+        <div
+          className="mr-2 cursor-pointer hover:text-white p-1 hover:bg-gray-500 hover:rounded-full"
+          onClick={handleLogout}
+        >
+          <PowerSettingsNewRoundedIcon />
         </div>
       </div>
 
@@ -80,7 +94,9 @@ const Profile = ({ name, id }) => {
         text="Inbox"
         extraClasses="bg-[#000852] text-white"
       >
-        <div className="px-1 absolute end-12 text-sm mt-0.5 rounded-md bg-gray-500">12</div>
+        <div className="px-1 absolute end-12 text-sm mt-0.5 rounded-md bg-gray-500">
+          12
+        </div>
       </ProfileButton>
 
       <div className="mt-4 flex justify-between">
@@ -116,7 +132,15 @@ const Profile = ({ name, id }) => {
       ))}
 
       <ProfileButton
-        icon={<Image src={orderIcon} className="ml-4" alt="order icon" width={25} height={25} />}
+        icon={
+          <Image
+            src={orderIcon}
+            className="ml-4"
+            alt="order icon"
+            width={25}
+            height={25}
+          />
+        }
         text="My Orders"
         extraClasses="border text-gray-500 bg-[#FBFDFF] shadow-[0_5px_2px_0_rgba(87,159,255,0.25)]"
         onClick={() => router.push("/orders")}

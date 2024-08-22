@@ -10,11 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 import Modal from "../Modal";
 
-
-const OtpModal = ({
-  mobileNumber,
-  token,
-}) => {
+const OtpModal = ({ mobileNumber, token }) => {
   const context = useContext(GlobalContext);
   const router = useRouter();
   const [otp, setOtp] = useState(Array(6).fill(""));
@@ -39,8 +35,11 @@ const OtpModal = ({
           if (response) {
             toast.success("OTP verified successfully!");
             context?.setOtpModalOpen(false);
-            context?.isSignUp ? context?.setIsSignUp(false) : context?.setNewPassModal(true);
-            if (context?.isSignUp) router.push("/");
+            context?.isSignUp
+              ? context?.setIsSignUp(false)
+              : context?.setNewPassModal(true);
+            if (context?.isSignUp) context?.setModalOpen(true);
+            context?.setIsLogin(true);
           }
         } catch (error) {
           toast.error("Invalid OTP! Please check the code and try again.");

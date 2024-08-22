@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import bgImage from "/public/images/bgImage.png";
-import Image from "next/image";
+import React from "react";
 import CarouselComponent from "../components/carousel";
 
-function Page () {
+function Page() {
   return (
     <div>
-        <CarouselComponent />
+      <CarouselComponent />
     </div>
   );
 }
