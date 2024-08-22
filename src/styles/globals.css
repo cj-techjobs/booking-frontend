@@ -75,6 +75,11 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 500px;
 }
 
+.flight-bg {
+  background-image: url('../assets/bookingsSvg/flightBookingBg.svg');
+  height: 500px;
+}
+
 .css-1u308ej-control, .css-1u308ej-control:hover, .css-zt26c6-control:hover{
   border-color: none !important;
   box-shadow: none !important;
