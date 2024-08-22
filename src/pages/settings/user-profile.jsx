@@ -5,31 +5,39 @@ import Image from "next/image";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { GlobalContext } from "../api/context/context";
 import SettingsButton from "../../components/buttons/settingsButton/settingsButton";
-import Modal from '/src/components/Modal.jsx'
+import Modal from "/src/components/Modal.jsx";
+import { toast } from "react-toastify";
+import { getUserProfile, updateUserProfile } from "../api/api";
 
 const Profile = () => {
   const context = useContext(GlobalContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  const [birthDate, setBirthdate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [fullName, setFullName] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      let nameLocal = localStorage.getItem("fullName");
       let phone = localStorage.getItem("mobile_number");
-      setFullName(nameLocal);
       setPhoneNumber(phone);
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("fullName", fullName);
+    context?.setName(fullName);
     localStorage.setItem("mobile Number", phoneNumber);
     context?.setProfileModalOpen(false);
     context?.setIsUpdateUser(context?.isUpdateUser);
+
+    try {
+      await updateUserProfile(email, fullName, birthDate);
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      console.log("🚀 ~ handleSubmit ~ error:", error);
+      toast.error(`Error: ${error.message || "An unexpected error occurred"}`);
+    }
   };
 
   return (
@@ -97,7 +105,7 @@ const Profile = () => {
                 <input
                   type="text"
                   className="py-2 bg-gray-100 appearance-none outline-none rounded-md ps-2"
-                  value={birthdate}
+                  value={birthDate}
                   onChange={(e) => setBirthdate(e.target.value)}
                 />
               </div>

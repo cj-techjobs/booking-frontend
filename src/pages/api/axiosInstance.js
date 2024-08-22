@@ -1,10 +1,10 @@
 // axiosInstance.js
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:1008/api/v1/auth/', // Replace with your API base URL
+  baseURL: "http://localhost:1008/api/v1/", // Replace with your API base URL
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 

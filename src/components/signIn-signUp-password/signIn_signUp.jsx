@@ -99,7 +99,6 @@ const SocialButton = ({ icon, label }) => (
 
 const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
   const context = useContext(GlobalContext);
-  const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
 
   const router = useRouter();
@@ -115,13 +114,13 @@ const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
     e.preventDefault();
     localStorage.setItem("mobile_number", mobileNumber);
     try {
-      if (isLogin) {
+      if (context?.isLogin) {
         const response = await signIn(mobileNumber, password);
         if (response?.data?.authToken) {
-          localStorage.setItem("authintication_token", response.data.authToken);
+          localStorage.setItem("auth_token", response.data.authToken);
           toast.success("Login Successfully");
           context?.setModalOpen(false);
-          router.push("/");
+          router.push("/home");
         } else {
           throw new Error("Token not received in login response");
         }
@@ -151,15 +150,15 @@ const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
     >
       <div className="bg-white p-4 w-full relative rounded-2xl">
         <h1 className="text-5xl font-semibold mb-3 justify-start text-red-500">
-          {isLogin ? "Login" : "Welcome"}
+          {context?.isLogin ? "Login" : "Welcome"}
         </h1>
         <p className="mb-6 text-black font-medium">
-          {isLogin
+          {context?.isLogin
             ? "Welcome back, enter your login credentials below"
             : "Create an account to get started"}
         </p>
         <AuthForm
-          isLogin={isLogin}
+          isLogin={context?.isLogin}
           mobileNumber={mobileNumber}
           password={password}
           setMobileNumber={setMobileNumber}
@@ -179,13 +178,13 @@ const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
         </div>
         <SocialButtons />
         <p className="text-center pt-6">
-          {isLogin ? (
+          {context?.isLogin ? (
             <>
               Don{"'"}t have an account?{" "}
               <a
                 href="#"
                 className="text-blue-500"
-                onClick={() => setIsLogin(false)}
+                onClick={() => context?.setIsLogin(false)}
               >
                 Sign up
               </a>
@@ -196,7 +195,7 @@ const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
               <a
                 href="#"
                 className="text-blue-500"
-                onClick={() => setIsLogin(true)}
+                onClick={() => context?.setIsLogin(true)}
               >
                 Log in
               </a>
