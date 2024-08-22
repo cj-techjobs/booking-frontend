@@ -120,6 +120,7 @@ const SignIn_signUp = ({ mobileNumber, setMobileNumber, setToken }) => {
           localStorage.setItem("auth_token", response.data.authToken);
           toast.success("Login Successfully");
           context?.setModalOpen(false);
+          context?.setIsLoggedin(true);
           router.push("/home");
         } else {
           throw new Error("Token not received in login response");

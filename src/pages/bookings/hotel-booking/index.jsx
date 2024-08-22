@@ -7,6 +7,9 @@ import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import Icon from "/src/assets/bookingsSvg/icon.svg";
 import Image from "next/image";
+import dayjs from "dayjs";
+import styled from "styled-components";
+import { TextField } from "@mui/material";
 
 const HotelBooking = () => {
   const data = [
@@ -19,6 +22,41 @@ const HotelBooking = () => {
   ];
 
   const [selectedOption, setSelectedOption] = useState(null);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [totalNight, setTotalNight] = useState(0);
+
+  const StyledDateRangePicker = styled(DateRangePicker)(({ theme }) => ({
+    "& .MuiInputBase-root": {
+      backgroundColor: "transparent",
+      border: "none",
+    },
+    "& .css-10botns-MuiInputBase-input-MuiFilledInput-input": {
+      backgroundColor: "none",
+      border: "none",
+    },
+    "& .css-hwkq3c-MuiInputBase-root-MuiFilledInput-root": {
+      backgroundColor: "trasnparent",
+      background: "transparent",
+    },
+    "& .css-hwkq3c-MuiInputBase-root-MuiFilledInput-root::after": {
+      border: "none",
+    },
+    "& .css-hwkq3c-MuiInputBase-root-MuiFilledInput-root::before": {
+      borderBottom: "none",
+    },
+    "& .MuiMultiInputDateRangeField-separator": {
+      backgroundColor: "#e5e7eb",
+      padding: "2px",
+      color: "#374151",
+      borderRadius: "5px",
+      fontSize: "14px",
+    },
+    "& .MuiInputBase-input": {
+      fontSize: "14px",
+      backgroundColor: "transparent",
+      border: "none",
+    },
+  }));
 
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -34,8 +72,17 @@ const HotelBooking = () => {
     setIsHover(false);
   };
 
-  const style = {
-    borderColor: isHover ? "red" : "red",
+  const handleDateChange = (newValue) => {
+    setDateRange(newValue);
+
+    if (newValue[0] && newValue[1]) {
+      const startDate = dayjs(newValue[0]);
+      const endDate = dayjs(newValue[1]);
+      const nights = endDate.diff(startDate, "day"); // Calculate difference in days
+      setTotalNight(nights);
+    } else {
+      setTotalNight(0);
+    }
   };
   return (
     <div className="container mx-auto">
@@ -62,7 +109,6 @@ const HotelBooking = () => {
               isSearchable
               className="w-[500px]"
               styles={{
-                style,
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   padding: "10px",
@@ -71,25 +117,31 @@ const HotelBooking = () => {
               }}
             />
           </div>
-          <div className="bg-white w-[500px] flex items-center justify-evenly py-2 rounded-lg mt-3">
-            <div className="flex flex-col">
-              <label htmlFor="startDate" className="text-[10px] text-gray-600">
-                CHECK-IN
-              </label>
-              <input
-                type="date"
-                name="start"
-                id="startDate"
-                className="p-0 appearance-none outline-none"
+          <div className="bg-white w-[500px] px-2 rounded-lg mt-3">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <StyledDateRangePicker
+                calendars={1}
+                value={dateRange}
+                onChange={handleDateChange}
+                format="DD MMM ddd'YYYY"
+                localeText={{ start: "CHECK-IN", end: "CHECK-OUT" }}
+                slotProps={{
+                  field: {
+                    dateSeparator: `${totalNight}NIGHT${
+                      totalNight !== 1 ? "S" : ""
+                    }`,
+                  },
+                  textField: { variant: "filled" },
+                }}
+                renderInput={(startProps, endProps) => (
+                  <>
+                    <TextField {...startProps} variant="filled" />
+                    <span>{startProps?.inputProps?.value}</span>
+                    <TextField {...endProps} variant="filled" />
+                  </>
+                )}
               />
-            </div>
-            <span className="bg-gray-100 text-gray-500">1 NIGHT</span>
-            <div className="flex flex-col">
-              <label htmlFor="endDate" className="text-[10px] text-gray-600">
-                CHECK-OUT
-              </label>
-              <input type="date" name="end" id="endDate" />
-            </div>
+            </LocalizationProvider>
           </div>
           <div className="bg-white w-[500px] flex gap-3 items-center py-2 rounded-lg mt-3">
             <AccountCircleRoundedIcon
@@ -118,19 +170,14 @@ const HotelBooking = () => {
           <div className="w-[300px] shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] flex justify-center py-3 rounded-lg mb-36 bg-white mt-3 text-xl">
             <button>SEARCH</button>
           </div>
-          {/* <div className="bg-white px-2 py-2 rounded-lg mt-3">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateRangePicker
-            localeText={{ start: "Check-in", end: "Check-out" }}
-            />
-            </LocalizationProvider>
-            </div> */}
         </div>
       </div>
       <div className="flex justify-center items-center mt-24">
         <Image src={Icon} width={150} height={150} alt="icon" />
       </div>
-        <div className="text-center text-2xl mt-2">Search for 1000+ hotels around you</div>
+      <div className="text-center text-2xl mt-2">
+        Search for 1000+ hotels around you
+      </div>
     </div>
   );
 };

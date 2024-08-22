@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import profilephoto from "/src/assets/accountImages/profile.svg";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import EmailIcon from "@mui/icons-material/Email";
@@ -10,8 +10,10 @@ import orderIcon from "/src/assets/settingsModalSvg/order.svg";
 import MessageIcon from "@mui/icons-material/Message";
 import "react-toastify/dist/ReactToastify.css";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
+import { GlobalContext } from "../../pages/api/context/context";
 
 const Profile = ({ name, id }) => {
+  const context = useContext(GlobalContext);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -54,6 +56,7 @@ const Profile = ({ name, id }) => {
 
   const handleLogout = () => {
     localStorage.clear();
+    context?.setIsLoggedin(false);
     router.push("/");
   };
 

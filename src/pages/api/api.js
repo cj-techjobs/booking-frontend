@@ -9,16 +9,11 @@ export const getUserProfile = async () => {
       console.error("Auth token not found");
       return;
     }
-    const response = await axiosInstance.get(
-      "/user/profile",
-
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
-    console.log(response?.data, "response");
+    const response = await axiosInstance.get("/user/profile", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
     return response?.data;
   } catch (error) {
     throw error?.response
@@ -93,7 +88,6 @@ export const signIn = async (mobileNumber, password) => {
       mobileNumber,
       password,
     });
-    console.log("response_data_sign_in", response.data);
     if (response.data.authToken) {
       localStorage.setItem("auth_token", response.data.authToken);
     }

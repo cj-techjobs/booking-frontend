@@ -23,6 +23,7 @@ export const DataProvider = ({ children }) => {
   const [newPassModal, setNewPassModal] = useState(false);
   const [name, setName] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoggedin, setIsLoggedin] = useState(false)
 
 
   const value = {
@@ -55,7 +56,9 @@ export const DataProvider = ({ children }) => {
     name,
     setName,
     isLogin,
-    setIsLogin
+    setIsLogin,
+    isLoggedin,
+    setIsLoggedin
   };
   
   return (

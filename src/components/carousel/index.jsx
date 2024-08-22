@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { IoMdSettings } from "react-icons/io";
@@ -20,10 +20,13 @@ import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import uploadSvg from "/src/assets/homeModalSvg/uploadSvg.svg";
+import { GlobalContext } from "../../pages/api/context/context";
 import TextField from "@mui/material/TextField";
 import PostAnAdd from "./postAnAdd";
+import { toast } from "react-toastify";
 
 const CarouselComponent = () => {
+  const context = useContext(GlobalContext);
   const router = useRouter();
   const [carouselData, setCarouselData] = useState([]);
   const [quickAccess, setQuickAccess] = useState([]);
@@ -222,10 +225,12 @@ const CarouselComponent = () => {
               <div
                 key={i}
                 className="flex items-center justify-center cursor-pointer w-16 h-16 rounded-full bg-[#fc6e6e]"
-                onClick={
-                  item.path
-                    ? () => router.push(item?.path)
-                    : () => item.modal(true)
+                onClick={() =>
+                  context?.isLoggedin
+                    ? item.path
+                      ? router.push(item?.path)
+                      : item.modal(true)
+                    : {}
                 }
               >
                 {item?.content}

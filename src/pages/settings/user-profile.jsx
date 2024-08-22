@@ -27,7 +27,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     context?.setName(fullName);
-    localStorage.setItem("mobile Number", phoneNumber);
+    localStorage.setItem("mobile_number", phoneNumber);
     context?.setProfileModalOpen(false);
     context?.setIsUpdateUser(context?.isUpdateUser);
 

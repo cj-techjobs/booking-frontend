@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { IoSearchOutline } from "react-icons/io5";
 import { Popover } from "@mui/material";
 import profilephoto from "/src/assets/accountImages/profile.svg";
-import { usePathname } from "next/navigation";
 import { GlobalContext } from "../../pages/api/context/context";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,7 +22,6 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -56,7 +54,7 @@ const Header = () => {
           <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
         </div>
 
-        {pathname === "/" ? (
+        {!context?.isLoggedin ? (
           <div>
             <div className="text-gray-600 font-bold">New user?</div>
             <p
@@ -73,7 +71,7 @@ const Header = () => {
           </div>
         )}
 
-        {pathname === "/" ? (
+        {!context?.isLoggedin ? (
           <div className="relative w-fit p-2 border border-black text-2xl rounded-full shadow-sm">
             <FaUser />
           </div>
