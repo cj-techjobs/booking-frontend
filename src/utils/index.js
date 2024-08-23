@@ -623,6 +623,7 @@ export const filterItems = [
     price:"999"
   }
 ]
+
 export const airLines = [
   {
     id:"1",
@@ -639,4 +640,83 @@ export const airLines = [
     label:"IndiGo",
     price:"8999"
   },
+]
+
+export const flightDetails = [
+  {
+    id:"1",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  },
+  {
+    id:"2",
+    name:"Air India",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"21:10",
+    departureFrom:"Mwanza",
+    totalTime:"13 h 25 m",
+    stop:"1 stop via dubai",
+    arrivalTime:"10:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"2,457"
+  },
+  {
+    id:"3",
+    name:"Emirates",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"02:10",
+    departureFrom:"Mwanza",
+    totalTime:"02 h 25 m",
+    arrivalTime:"04:25",
+    arrivalTo:"Dar es Salaam",
+    price:"4,257"
+  },
+  {
+    id:"4",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  },
+  {
+    id:"5",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  },
+  {
+    id:"6",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  }
 ]
