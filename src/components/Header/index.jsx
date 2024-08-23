@@ -30,7 +30,7 @@ const Header = () => {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <header className="bg-white sticky top-0 shadow-md">
+    <header className="bg-white sticky top-0 z-20 shadow-md">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex gap-8 items-center">
           <Link href="/">

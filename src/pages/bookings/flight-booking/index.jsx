@@ -1,17 +1,75 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import Image from "next/image";
-import Icon1 from "/src/assets/bookingsSvg/icon1.svg";
+import React from 'react';
+import TextField from '@mui/material/TextField';
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import FlightLandIcon from '@mui/icons-material/FlightLand';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import Image from 'next/image';
+import Icon1 from '/src/assets/bookingsSvg/icon1.svg';
 
 const FlightBooking = () => {
+  const DatePickerStyled = ({ label }) => (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+        placeholder=""
+        format="DD MMM ddd, YYYY"
+        label={label}
+        slotProps={{ textField: { variant: 'filled' } }}
+        sx={{
+          '& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root::before': {
+            borderBottom: 'none !important',
+          },
+          '& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root::after': {
+            borderBottom: 'none !important',
+          },
+          '& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root': {
+            backgroundColor: 'transparent !important',
+          },
+        }}
+      />
+    </LocalizationProvider>
+  );
+
+  const InputField = ({ icon: Icon, label, placeholder }) => (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        bgcolor: '#f5f5f5',
+        p: 1,
+        paddingBottom: 2,
+        paddingTop: 2,
+        borderRadius: '8px',
+      }}
+    >
+      <Icon sx={{ mr: 1, color: '#9095A1' }} />
+      <Box sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="subtitle2"
+          sx={{ color: '#9095A1', lineHeight: 1 }}
+        >
+          {label}
+        </Typography>
+        <TextField
+          variant="standard"
+          fullWidth
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              fontWeight: 'bold',
+              fontSize: '1rem',
+            },
+          }}
+          placeholder={placeholder}
+        />
+      </Box>
+    </Box>
+  );
+
   return (
     <div className="container mx-auto">
       <div className="w-full bg-cover flex justify-center items-center flight-bg">
@@ -24,139 +82,20 @@ const FlightBooking = () => {
               </div>
             </div>
             <div className="bg-white rounded-lg">
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  bgcolor: "#f5f5f5",
-                  p: 1,
-                  paddingBottom: 2,
-                  paddingTop: 2,
-                  borderRadius: "8px",
-                }}
-              >
-                <FlightTakeoffIcon sx={{ mr: 1, color: "#9095A1" }} />
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ color: "#9095A1", lineHeight: 1 }}
-                  >
-                    FROM
-                  </Typography>
-                  <TextField
-                    variant="standard"
-                    fullWidth
-                    InputProps={{
-                      disableUnderline: true,
-                      // startAdornment: (
-                      //   <InputAdornment position="start">
-                      //     <Typography variant="body1">Ranchi IXR</Typography>
-                      //   </InputAdornment>
-                      // ),
-                      sx: {
-                        fontWeight: "bold",
-                        fontSize: "1rem",
-                      },
-                    }}
-                    placeholder="Ranchi IXR"
-                  />
-                </Box>
-              </Box>
+              <InputField icon={FlightTakeoffIcon} label="FROM" placeholder="Ranchi IXR" />
               <br />
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  bgcolor: "#f5f5f5",
-                  p: 1,
-                  paddingBottom: 2,
-                  paddingTop: 2,
-                  borderRadius: "8px",
-                }}
-              >
-                <FlightLandIcon sx={{ mr: 1, color: "#9095A1" }} />
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ color: "#9095A1", lineHeight: 1 }}
-                  >
-                    TO
-                  </Typography>
-                  <TextField
-                    variant="standard"
-                    fullWidth
-                    InputProps={{
-                      disableUnderline: true,
-                      // startAdornment: (
-                      //   <InputAdornment position="start">
-                      //     <Typography variant="body1">Ranchi IXR</Typography>
-                      //   </InputAdornment>
-                      // ),
-                      sx: {
-                        fontWeight: "bold",
-                        fontSize: "1rem",
-                      },
-                    }}
-                    placeholder="Mumbai IXR"
-                  />
-                </Box>
-              </Box>
+              <InputField icon={FlightLandIcon} label="TO" placeholder="Mumbai IXR" />
             </div>
-            <div className="grid grid-cols-2 gap-4 ">
+            <div className="grid grid-cols-2 gap-4">
               <div className="bg-white rounded-lg py-1">
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    placeholder=""
-                    format="DD MMM ddd, YYYY"
-                    label="DEPARTURE DATE"
-                    slotProps={{ textField: { variant: "filled" } }}
-                    sx={{
-                      "& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root::before":
-                        {
-                          borderBottom: "none !important",
-                        },
-                      "& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root::after":
-                        {
-                          borderBottom: "none !important",
-                        },
-                      "& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root": {
-                        backgroundColor: "transparent !important;",
-                      },
-                    }}
-                  />
-                </LocalizationProvider>
+                <DatePickerStyled label="DEPARTURE DATE" />
               </div>
-              <div className=" bg-white rounded-lg py-1">
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    placeholder=""
-                    format="DD MMM ddd, YYYY"
-                    label="RETURN DATE"
-                    slotProps={{
-                      textField: { variant: "filled", focused: false },
-                    }}
-                    sx={{
-                      "& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root::before":
-                        {
-                          borderBottom: "none !important",
-                        },
-                      "& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root::after":
-                        {
-                          borderBottom: "none !important",
-                        },
-                      "& .css-1bl45wc-MuiInputBase-root-MuiFilledInput-root": {
-                        backgroundColor: "transparent !important;",
-                      },
-                    }}
-                  />
-                </LocalizationProvider>
+              <div className="bg-white rounded-lg py-1">
+                <DatePickerStyled label="RETURN DATE" />
               </div>
             </div>
             <div className="bg-white flex gap-3 items-center py-2 rounded-lg">
-              <AccountCircleRoundedIcon
-                fontSize="small"
-                className="ms-3 text-gray-400"
-              />
+              <AccountCircleRoundedIcon fontSize="small" className="ms-3 text-gray-400" />
               <div className="flex flex-col">
                 <label htmlFor="option" className="text-[14px] text-gray-400">
                   TRAVELLER & CLASS
@@ -166,9 +105,7 @@ const FlightBooking = () => {
                   id="options"
                   className="appearance-none outline-none text-sm"
                 >
-                  <option selected value="1">
-                    SELECT
-                  </option>
+                  <option value="1">SELECT</option>
                   <option value="1">1 Eco</option>
                   <option value="2">1 Premium</option>
                   <option value="3">2 Eco,1 Premium</option>

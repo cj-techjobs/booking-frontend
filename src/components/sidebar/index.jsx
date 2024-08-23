@@ -25,6 +25,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 //material UI components
 import Slider from "@mui/material/Slider";
 import BuyRentButton from "../buttons/buyRentButton/buyRentButton";
+import { red } from "@mui/material/colors";
 
 //price range filter
 const MAX = 1000000;
@@ -291,7 +292,7 @@ const Sidebar = () => {
             <div className="w-2/3 mt-4">
               {activeModal === "Price Range" && (
                 <div className="p-4 w-[240px]">
-                  <div className="text-center py-2">{val}</div>
+                  <div className="text-center py-2">₹{val}</div>
                   <Slider
                     marks={marks}
                     step={10}
@@ -299,6 +300,27 @@ const Sidebar = () => {
                     min={MIN}
                     max={MAX}
                     onChange={handleChange}
+                    sx={{
+                      color: "rgb(239 68 68)",
+                      "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                        boxShadow: "none",
+                      },
+                      "& .MuiSlider-track": {
+                        border: "none",
+                      },
+                      "& .MuiSlider-thumb": {
+                        width: 24,
+                        height: 24,
+                        backgroundColor: "#fff",
+                        "&::before": {
+                          boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
+                        },
+                        "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                          boxShadow: "none",
+                        },
+                       
+                      },
+                    }}
                   />
                 </div>
               )}

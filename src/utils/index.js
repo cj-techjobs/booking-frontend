@@ -596,3 +596,47 @@ export const carOverview = [
     data:"Deoghar,Jharkhand"
   },
 ]
+
+export const filterItems = [
+  {
+    id:"1",
+    label:"Non Stop",
+    price:"8999"
+  },
+  {
+    id:"2",
+    label:"Air India Express",
+    price:"8999"
+  },
+  {
+    id:"3",
+    label:"Morning Departures",
+    price:"8999"
+  },
+  {
+    id:"4",
+    label:"IndiGo",
+    price:"999"
+  },{
+    id:"5",
+    label:"IndiGo",
+    price:"999"
+  }
+]
+export const airLines = [
+  {
+    id:"1",
+    label:"Air India",
+    price:"8999"
+  },
+  {
+    id:"2",
+    label:"Emirates",
+    price:"8999"
+  },
+  {
+    id:"3",
+    label:"IndiGo",
+    price:"8999"
+  },
+]
