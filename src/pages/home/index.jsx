@@ -1,20 +1,24 @@
-import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import bgImage from "../../../public/images/bgImage.png";
-import Image from "next/image";
-import Account from "../settings";
+import React, { useContext, useEffect, useState } from "react";
 import CarouselComponent from "../../components/carousel";
-// import React from "react";
+import { getUserProfile } from "../api/api";
+import { GlobalContext } from "../api/context/context";
 
-function Home () {
-  return (
-      <div className="container mx-auto">
-        <h2 className="text-center text-2xl py-5 font-bold text-gray-800">
-          SHOP WHAT YOU LIKE USING{" "}
-          <span className="text-red-500">CATEGORIES</span>
-        </h2>
-        <CarouselComponent />
-      </div>
-  );
+function Home() {
+  const context = useContext(GlobalContext);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const { data } = await getUserProfile();
+        context?.setName(data?.fullName);
+        context?.setIsUpdateUser(context?.isUpdateUser);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [context, context?.isUpdateUser]);
+  return <CarouselComponent />;
 }
 export default Home;

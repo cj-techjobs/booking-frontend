@@ -20,6 +20,7 @@ import luxarySedan from "../../assets/images/luxarySedan.svg";
 import Tabs from "../../components/tabs";
 import { useRouter } from "next/router";
 import { title } from "process";
+import Image from "next/image";
 
 const Product = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const Product = () => {
     if (type) {
       setProducts(type);
     }
-  }, [router]);
+  }, [router, type]);
 
   useEffect(() => {
     const optionData = [
@@ -448,9 +449,9 @@ const Product = () => {
 
   return (
     <div className="relative container mx-auto pt-4 ">
-      <div className="relative conatiner-full flex gap-8">
+      <div className="relative container-full flex gap-8">
         {/* Sidebar */}
-        {product && product.length > 0 && (
+        {product && (
           <div className="flex basis-1/3 sticky top-0 flex-col">
             <h2 className="w-full bg-[#f14c4c] text-center py-8 text-2xl text-white rounded-b-2xl h-max">
               Shop in {type?.charAt(0)?.toUpperCase() + type?.slice(1)}
@@ -459,8 +460,10 @@ const Product = () => {
             <div className="flex gap-2  mt-8">
               {option?.map((m, i) => (
                 <div key={i} className="flex flex-col  items-center">
-                  <img
+                  <Image
                     src={m.image.src}
+                    height={100}
+                    width={100}
                     className="flex flex-1 object-contain"
                     alt=""
                   />
@@ -482,20 +485,20 @@ const Product = () => {
             <div className="flex gap-2 mt-8">
               <div className="flex justify-between items-center w-full overflow-hidden rounded-lg">
                 <p className="text-lg">Filter</p>
-                <button className="px-8 rounded-lg py-2 text-xl text-red-500 bg-[#f9f2f2] shadow_ bg-[#fafafa]">
+                <button className="px-8 rounded-lg py-2 text-xl text-red-500 shadow_ bg-[#fafafa]">
                   Apply
                 </button>
               </div>
             </div>
             <div className="flex gap-2 ">
               <div className="flex justify-between items-center w-full ">
-                {tab.length > 0 && <Tabs data={tab}></Tabs>}
+                 <Tabs data={tab}></Tabs>
               </div>
             </div>
           </div>
         )}
         {/* Main Content */}
-        {product && product.length > 0 && (
+        {product && (
           <div className="flex basis-2/3">
             <div className="grid grid-cols-4 gap-4">
               {product.map((m, i) => (
@@ -503,7 +506,7 @@ const Product = () => {
                   key={i}
                   className="rounded-[2rem] shadow-[0_5px_2px_0_rgba(192,192,192,1)] overflow-hidden"
                 >
-                  {<img src={m.image["src"]} alt="" />}
+                  {<Image src={m.image["src"]} alt="" />}
                   <div className="p-2 pb-4">
                     <h1 className="text-black">{m.title}</h1>
                     <h1 className="font-bold text-red-500">{m.price}</h1>

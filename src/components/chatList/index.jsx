@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import timeTransform from "../../functions/timeTransform";
+import Image from "next/image";
 
 const ChatList = () => {
   const [active, setActive] = useState(0);
@@ -50,7 +51,7 @@ const ChatList = () => {
             style={{ backgroundColor: m.bgColor }}
           >
             {m?.profileUrl ? (
-              <img src={m?.profileUrl} alt="" />
+              <Image width={20} height={20} src={m?.profileUrl} alt="" />
             ) : (
               <p className="text-xl text-white">{m?.name.charAt(0)}</p>
             )}

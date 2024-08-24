@@ -7,6 +7,27 @@ import mpv from "/src/assets/carsSvg/mpv.svg";
 import sedan from "/src/assets/carsSvg/sedan.svg";
 import suv from "/src/assets/carsSvg/suv.svg";
 
+//bike category Images
+import sportBike from '/src/assets/bikesSvg/sportBike.svg';
+import adventure from '/src/assets/bikesSvg/adventure.svg';
+import cafeRider from '/src/assets/bikesSvg/cafeRider.svg';
+import cruiser from '/src/assets/bikesSvg/cruiser.svg';
+import scooter from '/src/assets/bikesSvg/scooter.svg';
+import superBike from '/src/assets/bikesSvg/superBike.svg';
+
+//bike brand Images
+import aprilla from '/src/assets/bikesSvg/brand/aprilla.svg';
+import bmw from '/src/assets/bikesSvg/brand/bmw.svg';
+import harly from '/src/assets/bikesSvg/brand/harly.svg';
+import hero from '/src/assets/bikesSvg/brand/hero.svg';
+import honda from '/src/assets/bikesSvg/brand/honda.svg';
+import indian from '/src/assets/bikesSvg/brand/indian.svg';
+import jawa from '/src/assets/bikesSvg/brand/jawa.svg';
+import ktm from '/src/assets/bikesSvg/brand/ktm.svg';
+import royal from '/src/assets/bikesSvg/brand/royal.svg';
+import suzuki from '/src/assets/bikesSvg/brand/suzuki.svg';
+import ola from '/src/assets/bikesSvg/brand/ola.svg';
+
 //car specification icons
 import milage from '/src/assets/carsSvg/specificationIcon/milage.svg'
 import groundClear from '/src/assets/carsSvg/specificationIcon/groundClear.svg'
@@ -48,6 +69,94 @@ export const carCategory = [
     image: lsuv,
   },
 ];
+
+//bike category list
+export const bikeCategory = [
+  {
+    id: "1",
+    title: "Sport Bike",
+    image: sportBike,
+  },
+  {
+    id: "2",
+    title: "Scooter",
+    image: scooter,
+  },
+  {
+    id: "3",
+    title: "Adventure",
+    image: adventure,
+  },
+  {
+    id: "4",
+    title: "Cafe Rider",
+    image: cafeRider,
+  },
+  {
+    id: "5",
+    title: "Cruiser",
+    image: cruiser,
+  },
+  {
+    id: "6",
+    title: "Super Bike",
+    image: superBike,
+  },
+];
+
+//bike brand list
+export const bikeFilterList = [
+  {
+    id:"1",
+    title:"Harley - Davidson",
+    image:harly
+  },
+  {
+    id:"2",
+    title:"Royal - Enfield",
+    image:royal
+  },
+  {
+    id:"3",
+    title:"OLA",
+    image:ola
+  },
+  {
+    id:"4",
+    title:"Honda",
+    image:honda
+  },
+  {
+    id:"5",
+    title:"Suzuki",
+    image:suzuki
+  },
+  {
+    id:"6",
+    title:"Jawa",
+    image:jawa
+  },
+  {
+    id:"7",
+    title:"K.T.M",
+    image:ktm
+  },
+  {
+    id:"8",
+    title:"B.M.W",
+    image:bmw
+  },
+  {
+    id:"9",
+    title:"Aprila",
+    image:aprilla
+  },
+  {
+    id:"10",
+    title:"Indian motorcycle",
+    image:indian
+  },
+]
 
 //filter list
 export const FilterList = [
@@ -486,4 +595,128 @@ export const carOverview = [
     title:"Car Location",
     data:"Deoghar,Jharkhand"
   },
+]
+
+export const filterItems = [
+  {
+    id:"1",
+    label:"Non Stop",
+    price:"8999"
+  },
+  {
+    id:"2",
+    label:"Air India Express",
+    price:"8999"
+  },
+  {
+    id:"3",
+    label:"Morning Departures",
+    price:"8999"
+  },
+  {
+    id:"4",
+    label:"IndiGo",
+    price:"999"
+  },{
+    id:"5",
+    label:"IndiGo",
+    price:"999"
+  }
+]
+
+export const airLines = [
+  {
+    id:"1",
+    label:"Air India",
+    price:"8999"
+  },
+  {
+    id:"2",
+    label:"Emirates",
+    price:"8999"
+  },
+  {
+    id:"3",
+    label:"IndiGo",
+    price:"8999"
+  },
+]
+
+export const flightDetails = [
+  {
+    id:"1",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  },
+  {
+    id:"2",
+    name:"Air India",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"21:10",
+    departureFrom:"Mwanza",
+    totalTime:"13 h 25 m",
+    stop:"1 stop via dubai",
+    arrivalTime:"10:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"2,457"
+  },
+  {
+    id:"3",
+    name:"Emirates",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"02:10",
+    departureFrom:"Mwanza",
+    totalTime:"02 h 25 m",
+    arrivalTime:"04:25",
+    arrivalTo:"Dar es Salaam",
+    price:"4,257"
+  },
+  {
+    id:"4",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  },
+  {
+    id:"5",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  },
+  {
+    id:"6",
+    name:"IndiGo",
+    flightNumber:"6E 209, 6E 796",
+    departureTime:"19:10",
+    departureFrom:"Mwanza",
+    totalTime:"05 h 15 m",
+    stop:"1 stop via Chennai",
+    arrivalTime:"00:15",
+    days:"1",
+    arrivalTo:"Dar es Salaam",
+    price:"7,857"
+  }
 ]

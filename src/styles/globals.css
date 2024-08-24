@@ -37,30 +37,97 @@ body {
   scrollbar-width: none !important;
 }
 
-.slick-dots{
+.slick-dots {
   bottom: 0 !important;
   font-size: 7px !important;
 }
-.slick-dots li button:hover, .slick-dots li button:focus 
- { outline: none; }
 
-
-.slick-dots li button:before 
- { color: #BDC1CA !important;border-radius:10px; font-size: 10px !important;}
-
-.slick-dots li.slick-active button:before 
- { color: #BDC1CA !important;   background-color:#BDC1CA !important; height: 15px; width: 15px;
- }
-.slick-dots li button::before {
-   content: "";
-   }
-   
-/* slider color car page pricerange filer */
-.css-188mx6n-MuiSlider-root{
-  color: red !important;
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+  outline: none;
 }
 
-.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-  border-radius: 9999px !important;
-  padding: 0px !important;
+
+.slick-dots li button:before {
+  color: #BDC1CA !important;
+  border-radius: 10px;
+  font-size: 10px !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #BDC1CA !important;
+  background-color: #BDC1CA !important;
+  height: 15px;
+  width: 15px;
+}
+
+.slick-dots li button::before {
+  content: "";
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgb(156 163 175);
+  border-radius: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hotel-bg {
+  background-image: url('../assets/bookingsSvg/hotelBooking.svg');
+  height: 500px;
+}
+
+.flight-bg {
+  background-image: url('../assets/bookingsSvg/flightBookingBg.svg');
+  height: 500px;
+}
+
+.train-bg {
+  background-image: url('../assets/bookingsSvg/trainBookingBg.svg');
+  height: 500px;
+}
+
+.flight-background {
+  background-image: url('../assets/bookingsSvg/flight.png');
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.css-1u308ej-control,
+.css-1u308ej-control:hover,
+.css-zt26c6-control:hover {
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+.css-1wy0on6 {
+  display: none;
+}
+
+.css-19bb58m input,
+.css-1cfo1cf input,
+.css-1dimb5e-singleValue {
+  margin-left: 12px !important;
+}
+
+.css-1jqq78o-placeholder {
+  margin-left: 16px !important;
 }
