@@ -13,7 +13,7 @@ const Matrimony = () => {
   }, []);
 
   return (
-    <div className="mt-2">
+    <div className="container mx-auto mt-2">
       <div className="grid grid-cols-3 gap-4">
         {data.map((m, i) => (
           <Link href={`/matrimony/${m.id}`}>
