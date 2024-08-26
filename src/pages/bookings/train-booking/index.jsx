@@ -110,7 +110,7 @@ const TrainBooking = () => {
                   </option>
                 </select>
                 <Typography className="font-bold" variant="h4">
-                  16<span className="text-xl font-normal"> Jun'24</span>
+                  16<span className="text-xl font-normal">{`Jun'24`}</span>
                 </Typography>
                 <Typography className="text-xs text-gray-500">
                   Sunday
