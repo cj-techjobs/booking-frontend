@@ -108,8 +108,8 @@ const FlightBooking = () => {
                   <option value="1">SELECT</option>
                   <option value="1">1 Eco</option>
                   <option value="2">1 Premium</option>
-                  <option value="3">2 Eco,1 Premium</option>
-                  <option value="4">2 Eco,2 Premium</option>
+                  <option value="3">2 Eco, 1 Premium</option>
+                  <option value="4">2 Eco, 2 Premium</option>
                 </select>
               </div>
             </div>
@@ -121,7 +121,7 @@ const FlightBooking = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center mt-24">
+      <div className="flex justify-center items-center mt-16">
         <Image src={Icon1} width={206} height={206} alt="icon" />
       </div>
       <div className="text-center text-4xl mt-5">Book flights across world</div>

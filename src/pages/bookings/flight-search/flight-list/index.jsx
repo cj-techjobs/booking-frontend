@@ -71,7 +71,7 @@ const FlightSearch = () => {
                       variant="body2"
                       className="text-xs text-sky-500 font-semibold"
                     >
-                     {item?.stop ?  item?.stop : "Non Stop"}
+                      {item?.stop ? item?.stop : "Non Stop"}
                     </Typography>
                   </div>
                   <div className="text-center flex flex-col justify-center items-center">
@@ -110,7 +110,7 @@ const FlightSearch = () => {
                         per adult
                       </Typography>
                     </div>
-                    <div className="px-4 py-1 rounded-3xl bg-blue-100 border-2 border-blue-600">
+                    <div className="px-3 py-1 rounded-3xl bg-blue-100 border-2 border-blue-600 cursor-pointer">
                       <Typography
                         variant="body"
                         className="text-md font-semibold text-blue-500"
@@ -125,9 +125,11 @@ const FlightSearch = () => {
                     <Typography>Card offer or coupan code goes here</Typography>
                   </div>
                 </div>
-                <Typography className="text-blue-400 font-medium text-sm mt-2 flex justify-end mr-4">
-                  View Flight Details
-                </Typography>
+                <div className="flex justify-end mr-4">
+                  <Typography className="text-blue-400 font-medium text-sm mt-2 cursor-pointer">
+                    View Flight Details
+                  </Typography>
+                </div>
               </div>
             ))}
           </div>
