@@ -1,18 +1,24 @@
+"use client";
+
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import matrimonyData from "../../data/matrimonalData";
+import Image from "next/image";
 
-const User = () => {
+const Id = () => {
   const router = useRouter();
-  const { user } = router.query;
+  const { id } = router.query;
 
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    let data = matrimonyData.filter((f) => f.id == user);
-    console.log(data);
-    setUserData(data);
-  }, [router]);
+    if (matrimonyData) {
+      let data = matrimonyData.filter((f) => f.id == id);
+      if (data) {
+        setUserData(data);
+      }
+    }
+  }, [router, id]);
   return (
     <div className="container mx-auto mt-2">
       {userData.map((m, i) => (
@@ -20,7 +26,7 @@ const User = () => {
           <div className="flex-1 flex flex-col gap-24">
             <div className="flex flex-col gap-4">
               <div>
-                <img
+                <Image
                   className="w-[100%] h-[30rem]"
                   src={m?.profile_full?.src || m?.profile?.src}
                   alt=""
@@ -59,4 +65,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Id;

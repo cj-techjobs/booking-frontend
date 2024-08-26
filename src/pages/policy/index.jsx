@@ -1,12 +1,17 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import policyData from "../../data/policyData";
+import CardBg from "../../assets/policyIcons/policyCardBg.svg";
+import Image from "next/image";
 
 const Policy = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log(policyData);
-    setData(policyData);
+    if (policyData) {
+      setData(policyData);
+    }
   }, []);
 
   return (
@@ -19,9 +24,13 @@ const Policy = () => {
       <div className="container mx-auto mt-4 text-white">
         <div className="grid grid-cols-3 gap-x-24 gap-y-8">
           {data.map((m, i) => (
-            <div key={i} className="flex items-center gap-4 bg-white p-[0.6rem] rounded-lg">
+            <div
+              key={i}
+              className="flex items-center gap-4 bg-white p-[0.6rem] rounded-lg"
+              style={{ backgroundImage: `url('${CardBg.src}')` }}
+            >
               <div>
-                <img src={m[`icons_${i + 1}`].src} alt="" />
+                <Image src={m[`icons_${i + 1}`].src} alt="" />
               </div>
               <p className="font-bold text-lg text-black flex-1">{m.title}</p>
             </div>
