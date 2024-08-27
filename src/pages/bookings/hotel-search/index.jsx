@@ -9,10 +9,11 @@ import Icon from "/src/assets/bookingsSvg/icon.svg";
 import Image from "next/image";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import SearchIcon from "/src/assets/bookingsSvg/searchIcon.svg"
+import { Autocomplete, TextField } from "@mui/material";
 
 const HotelBooking = () => {
-  const data = [
+  const options = [
     { value: "nyc", label: "New York City, New York, United States" },
     { value: "buffalo", label: "Buffalo, New York, United States" },
     { value: "la", label: "Los Angeles, California, United States" },
@@ -25,24 +26,51 @@ const HotelBooking = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [totalNight, setTotalNight] = useState(0);
 
+  const CustomTextField = styled(TextField)({
+    width: "100%",
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#6B7280 !important",
+    },
+
+    "& .MuiInputBase-input": {
+      color: "black",
+      fontSize: "15px",
+      padding: "0px",
+    },
+    "& .MuiInput-underline:before": {
+      borderBottom: "none !important",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottom: "none !important",
+    },
+  });
+
+  const CustomAutocomplete = styled(Autocomplete)({
+    "& .MuiAutocomplete-endAdornment": {
+      display: "none",
+    },
+    "& .MuiAutocomplete-root": {
+      width: "100% !important",
+    },
+  });
+
   const StyledDateRangePicker = styled(DateRangePicker)(({ theme }) => ({
     "& .MuiInputBase-root": {
       backgroundColor: "transparent",
       border: "none",
     },
-    "& .css-10botns-MuiInputBase-input-MuiFilledInput-input": {
-      backgroundColor: "none",
+    "& .MuiFilledInput-root": {
+      backgroundColor: "transparent !important",
       border: "none",
-    },
-    "& .css-hwkq3c-MuiInputBase-root-MuiFilledInput-root": {
-      backgroundColor: "trasnparent",
-      background: "transparent",
-    },
-    "& .css-hwkq3c-MuiInputBase-root-MuiFilledInput-root::after": {
-      border: "none",
-    },
-    "& .css-hwkq3c-MuiInputBase-root-MuiFilledInput-root::before": {
-      borderBottom: "none",
+      "&:before": {
+        borderBottom: "none !important",
+      },
+      "&:after": {
+        borderBottom: "none !important",
+      },
+      "&:hover:before": {
+        borderBottom: "none !important",
+      },
     },
     "& .MuiMultiInputDateRangeField-separator": {
       backgroundColor: "#e5e7eb",
@@ -57,20 +85,6 @@ const HotelBooking = () => {
       border: "none",
     },
   }));
-
-  const handleChange = (selectedOption) => {
-    setSelectedOption(selectedOption);
-    console.log("Selected:", selectedOption);
-  };
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
 
   const handleDateChange = (newValue) => {
     setDateRange(newValue);
@@ -88,18 +102,16 @@ const HotelBooking = () => {
     <div className="container mx-auto">
       <div className="w-full bg-cover hotel-bg">
         <div className="flex flex-col h-[calc(100vh-85px)] justify-center items-center">
-          <div className="flex">
-            <label
+          <div className="flex gap-2 items-center bg-white w-[500px] rounded-xl p-1">
+            <Image src={SearchIcon} alt="search" width={25} height={25} />
+            {/* <label
               htmlFor="search Hotel"
               className="absolute ms-8 z-20 text-xs text-gray-400 mt-0.5"
             >
               SELECT DESTINATION
             </label>
-            <SearchRoundedIcon
-              className="absolute mt-4 ms-2 z-10 text-gray-400"
-              fontSize="medium"
-            />
-            <Select
+             */}
+            {/* <Select
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               options={data}
@@ -108,6 +120,9 @@ const HotelBooking = () => {
               onChange={handleChange}
               isSearchable
               className="w-[500px]"
+              InputProps={{
+                disableUnderline: true,
+              }}
               styles={{
                 control: (baseStyles, state) => ({
                   ...baseStyles,
@@ -115,6 +130,19 @@ const HotelBooking = () => {
                   borderRadius: "8px",
                 }),
               }}
+            /> */}
+            <CustomAutocomplete
+              id="standard-basic"
+              options={options}
+              sx={{ width: "100%", padding: "0px" }}
+              renderInput={(params) => (
+                <CustomTextField
+                  {...params}
+                  sx={{ padding: "0px" }}
+                  label="SELECT DESTINATION"
+                  variant="standard"
+                />
+              )}
             />
           </div>
           <div className="bg-white w-[500px] px-2 rounded-lg mt-3">

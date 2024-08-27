@@ -720,3 +720,12 @@ export const flightDetails = [
     price:"7,857"
   }
 ]
+export const timeSlots = [
+  { time: "6 AM - 12 PM", isDeparture: true },
+  { time: "12 PM - 6 PM", isDeparture: true },
+  { time: "After 6 PM", isDeparture: true },
+  { time: "Before 6 AM", isArrival: true },
+  { time: "6 AM - 12 PM", isArrival: true },
+  { time: "12 PM - 6 PM", isArrival: true },
+  { time: "After 6 PM", isArrival: true },
+];

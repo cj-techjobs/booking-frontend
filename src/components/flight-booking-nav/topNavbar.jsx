@@ -1,8 +1,10 @@
 import { AppBar, Box, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import { useRouter } from "next/navigation";
 
 const FlightNavbar = () => {
-    
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -15,14 +17,20 @@ const FlightNavbar = () => {
         className="bg-white w-full shadow-none sticky top-[84px] z-20"
       >
         <Toolbar className="flex justify-between items-center">
-          <Box className="flex flex-col">
-            <Typography variant="h6" className="text-black font-semibold">
-              Mwanza - Dar es Salaam
-            </Typography>
-            <span className="text-gray-500 text-xs">
-              16 Jun | 1 Adult | Economy
-            </span>
-          </Box>
+          <div className="flex gap-2 items-center">
+            <ArrowBackRoundedIcon
+              className="text-gray-400 cursor-pointer"
+              onClick={() => router.push("/bookings/flight-search")}
+            />
+            <Box className="flex flex-col">
+              <Typography variant="h6" className="text-black font-semibold">
+                Mwanza - Dar es Salaam
+              </Typography>
+              <span className="text-gray-500 text-xs">
+                16 Jun | 1 Adult | Economy
+              </span>
+            </Box>
+          </div>
           <Tabs
             value={selectedTab}
             onChange={handleChange}
@@ -46,7 +54,7 @@ const FlightNavbar = () => {
                   </span>
                   <span
                     className={`${
-                      selectedTab === 0 ? "text-white" : "text-black"
+                      selectedTab === 0 ? "text-white" : "text-green-400"
                     }`}
                   >
                     ₹ 1999
