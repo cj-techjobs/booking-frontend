@@ -21,9 +21,18 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import uploadSvg from "/src/assets/homeModalSvg/uploadSvg.svg";
 import { GlobalContext } from "../../pages/api/context/context";
-import TextField from "@mui/material/TextField";
-import PostAnAdd from "./postAnAdd";
-import { toast } from "react-toastify";
+import Cars from "../../assets/homeMenuIcons/cars.svg";
+import Bikes from "../../assets/homeMenuIcons/bikes.svg";
+import Appliances from "../../assets/homeMenuIcons/appliances.svg";
+import Books from "../../assets/homeMenuIcons/books.svg";
+import Clothing from "../../assets/homeMenuIcons/clothing.svg";
+import Jobs from "../../assets/homeMenuIcons/jobs.svg";
+import Electronics from "../../assets/homeMenuIcons/electronics.svg";
+import Free_Auctions from "../../assets/homeMenuIcons/free_auctions.svg";
+import Property from "../../assets/homeMenuIcons/property.svg";
+import Vacations from "../../assets/homeMenuIcons/vacations.svg";
+import Furniture from "../../assets/homeMenuIcons/furniture.svg";
+import Movie_Events from "../../assets/homeMenuIcons/movie_&_events.svg";
 
 const CarouselComponent = () => {
   const context = useContext(GlobalContext);
@@ -41,51 +50,63 @@ const CarouselComponent = () => {
       {
         title: "cars",
         bgColor: "#d96849",
+        icons: Cars,
         modal: setCarModal,
       },
       {
         title: "bikes",
         bgColor: "#ead795",
+        icons: Bikes,
       },
       {
         title: "property",
         bgColor: "#b0d0db",
+        icons: Property,
       },
       {
         title: "appliances",
         bgColor: "#fbe0c4",
+        icons: Appliances,
       },
       {
         title: "books",
         bgColor: "#6d8891",
+        icons: Books,
       },
       {
         title: "furniture",
         bgColor: "#44596e",
+        icons: Furniture,
       },
       {
         title: "clothing",
         bgColor: "#e3af99",
+        icons: Clothing,
       },
       {
         title: "Free Auctions",
         bgColor: "#b8e2d8",
+        icons: Free_Auctions,
       },
       {
         title: "jobs",
         bgColor: "#ffbd31",
+        icons: Jobs,
       },
       {
         title: "Movies & Events",
         bgColor: "#c33863",
+        icons: Movie_Events,
       },
       {
         title: "electronics",
         bgColor: "#5c7b5d",
+        icons: Electronics,
       },
       {
         title: "vacation",
         bgColor: "#fec523",
+        icons: Vacations,
       },
     ];
 
@@ -170,7 +191,8 @@ const CarouselComponent = () => {
   }, []);
 
   const getBgColor = (index) => {
-    return carouselData[index].bgColor;
+    console.log(carouselData[index]?.icons?.src);
+    return carouselData[index].icons.src;
   };
 
   const handleSubmit = (e) => {
@@ -190,8 +212,12 @@ const CarouselComponent = () => {
           {carouselData.map((item, i) => (
             <div
               key={i}
-              className="w-32 h-28 flex items-center justify-center rounded-lg cursor-pointer"
-              style={{ backgroundColor: getBgColor(i) }}
+              className="w-32 h-28 flex items-start justify-center rounded-lg cursor-pointer"
+              style={{
+                backgroundImage: `url(${getBgColor(i)})`,
+                backgroundRepeat: `no-repeat`,
+                backgroundSize: `100% 100%`,
+              }}
               onClick={() =>
                 router.push(
                   `/${
@@ -204,7 +230,7 @@ const CarouselComponent = () => {
                 )
               }
             >
-              <div className="text-white capitalize font-bold text-center">
+              <div className="text-white text-lg capitalize font-bold text-center">
                 {item.title}
               </div>
             </div>
