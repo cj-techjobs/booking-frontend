@@ -25,6 +25,8 @@ export const DataProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoggedin, setIsLoggedin] = useState(false)
 
+  const [youraddresses, setYouraddresses] = useState(false);
+
 
   const value = {
     isUpdateUser,
@@ -58,7 +60,9 @@ export const DataProvider = ({ children }) => {
     isLogin,
     setIsLogin,
     isLoggedin,
-    setIsLoggedin
+    setIsLoggedin,
+    youraddresses,
+    setYouraddresses
   };
   
   return (
