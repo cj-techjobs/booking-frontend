@@ -24,6 +24,7 @@ import { GlobalContext } from "../../pages/api/context/context";
 import TextField from "@mui/material/TextField";
 import PostAnAdd from "./postAnAdd";
 import { toast } from "react-toastify";
+import Category from "../Choose-Category/Category";
 
 const CarouselComponent = () => {
   const context = useContext(GlobalContext);
@@ -278,7 +279,7 @@ const CarouselComponent = () => {
       )}
       {carModal && (
         <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
-          <SellCar
+          <Category
             modal={() => {
               setCarModal(false);
               setUploadImageModal(true);
