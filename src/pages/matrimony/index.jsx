@@ -23,7 +23,7 @@ const Matrimony = () => {
           <Link key={i} href={`/matrimony/${m.id}`}>
             <div className="flex gap-4  shadow-[0px_5px_5px_0px_rgba(0,0,0,0.25)] rounded-[1.5rem] p-1.5 pr-6">
               <div>
-                <Image src={m?.profile?.src} alt="" />
+                <Image src={m?.profile?.src} height={100} width={100} alt="" />
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <p className="text-4xl">{m?.name}</p>

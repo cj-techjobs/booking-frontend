@@ -21,7 +21,7 @@ let matrimonyData = [
   {
     id: 2,
     profile: Arika,
-    name: `Arika Jha`,
+    name: `Anika Shing`,
     age: `32 Years`,
     profession: `MBA`,
     location: `Mumbai, India`,

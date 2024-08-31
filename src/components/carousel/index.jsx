@@ -199,7 +199,9 @@ const CarouselComponent = () => {
                     item?.title === "Movies & Events"
                       ? "movies"
                       : item?.title === "vacation"
-                      ? "bookings/hotel-booking"
+                      ? "bookings/hotel-search"
+                      : item?.title === "clothing"
+                      ? "matrimony"
                       : item?.title
                   }`
                 )
