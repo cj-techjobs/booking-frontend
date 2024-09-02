@@ -1,36 +1,9 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
-import Image91 from '../../assets/settingsModalSvg/Image91.png';
-import Sorttool from '../../assets/settingsModalSvg/Sorttool.png';
-import Image92 from '../../assets/sporttypeimages/Image92.png';
-import Rating8 from '../../assets/sporttypeimages/Rating8.png';
-import Image97 from '../../assets/sporttypeimages/Image97.png';
-import Image98 from '../../assets/sporttypeimages/Image98.png';
-import Image94 from '../../assets/sporttypeimages/Image94.png';
-import Image96 from '../../assets/sporttypeimages/Image96.png';
-import Image95 from '../../assets/sporttypeimages/Image95.png';
-import Image93 from '../../assets/sporttypeimages/Image93.png';
-import Image123 from '../../assets/sporttypeimages/Image123.png';
 import { FaStar } from "react-icons/fa";
 import 'animate.css';
 import { Range, getTrackBackground } from 'react-range';
 
 const Rightmodal = ({ isOpen, onClose }) => {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isModalOpens, setIsModalOpens] = useState(false);
-
-    // Function to open the modal
-    const openModal = () => setIsModalOpen(true);
-
-    // Function to close the modal
-    const closeModal = () => setIsModalOpen(false);
-
-    // Function to open the modal
-    const openModals = () => setIsModalOpens(true);
-
-    // Function to close the modal
-    const closeModals = () => setIsModalOpens(false);
 
     const [selectedBrands, setSelectedBrands] = useState([]); // State to track multiple selected brands
 
@@ -44,18 +17,7 @@ const Rightmodal = ({ isOpen, onClose }) => {
             setSelectedBrands([...selectedBrands, brand]);
         }
     };
-    const [value, setValue] = useState(20);
 
-    const handleChange = (event) => {
-        setValue(Number(event.target.value));
-    };
-
-    const [selectedOption, setSelectedOption] = useState('');
-
-    // Function to handle the change of the selected option
-    const handleOptionChange = (option) => {
-        setSelectedOption(option);
-    };
 
     const [selectedColor, setSelectedColor] = useState('');
 
