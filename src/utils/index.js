@@ -747,10 +747,54 @@ export const timeSlots = [
 export const category =[
   {
     image:Cars,
-    title:"Cars"
+    title:"Cars & Vechiles"
   },
   {
-    image:Cars,
-    title:"Cars"
+    image:property,
+    title:"Property"
+  },
+  {
+    image:Mobile,
+    title:"Mobile"
+  },
+  {
+    image:Electronics,
+    title:"Electronics"
+  },
+  {
+    image:Books,
+    title:"Books"
+  },
+  {
+    image:bikes,
+    title:"Bikes"
+  },
+  {
+    image:Sports,
+    title:"Sports"
+  },
+  {
+    image:Homedecor,
+    title:"Home decor & Furniture"
+  },
+  {
+    image:Clothing,
+    title:"Clothing"
+  },
+  {
+    image:accesories,
+    title:"Accesories"
+  },
+  {
+    image:pet,
+    title:"pets"
+  },
+  {
+    image:vaca,
+    title:"Vacation"
+  },
+  {
+    image:job,
+    title:"Jobs"
   },
 ]
