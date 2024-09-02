@@ -1,19 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaChevronRight } from "react-icons/fa6"
-import Cars from '../../assets/settingsModalSvg/Cars.png'
-import property from '../../assets/settingsModalSvg/property.png'
-import Mobile from '../../assets/settingsModalSvg/Mobile.png';
-import Electronics from '../../assets/settingsModalSvg/Electronics.png';
-import Books from '../../assets/settingsModalSvg/Books.png';
-import bikes from '../../assets/settingsModalSvg/bikes.png';
-import Sports from '../../assets/settingsModalSvg/Sports.png';
-import Homedecor from '../../assets/settingsModalSvg/Homedecor.png';
-import Clothing from '../../assets/settingsModalSvg/Clothing.png';
-import accesories from '../../assets/settingsModalSvg/accesories.png';
-import pet from '../../assets/settingsModalSvg/pet.png';
-import vaca from '../../assets/settingsModalSvg/vaca.png';
-import job from '../../assets/settingsModalSvg/job.png';
 import { category } from "../../utils";
 
 const Category = () => {
