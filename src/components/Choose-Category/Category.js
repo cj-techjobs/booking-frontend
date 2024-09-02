@@ -30,15 +30,6 @@ const Category = () => {
                 <FaChevronRight className="text-[]" />
             </div>
             ))}
-            {/*
-
-            <div className=" cursor-pointer hover:translate-x-2 duration-200 flex mb-[5px] items-center justify-between">
-                <div className="flex gap-[1rem] items-center">
-                    <Image src={job} />
-                    <h1 className="text-[16px] font-medium text-[#070000]">Jobs</h1>
-                </div>
-                <FaChevronRight className="text-[]" />
-            </div> */}
         </div>
     )
 }
