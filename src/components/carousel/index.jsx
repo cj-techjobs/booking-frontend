@@ -195,14 +195,13 @@ const CarouselComponent = () => {
               style={{ backgroundColor: getBgColor(i) }}
               onClick={() =>
                 router.push(
-                  `/${
-                    item?.title === "Movies & Events"
-                      ? "movies"
-                      : item?.title === "vacation"
+                  `/${item?.title === "Movies & Events"
+                    ? "movies"
+                    : item?.title === "vacation"
                       ? "bookings/hotel-search"
                       : item?.title === "clothing"
-                      ? "matrimony"
-                      : item?.title
+                        ? "matrimony"
+                        : item?.title
                   }`
                 )
               }
@@ -281,14 +280,17 @@ const CarouselComponent = () => {
       )}
       {carModal && (
         <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
-          <SellCar
-            modal={() => {
-              setCarModal(false);
-              setUploadImageModal(true);
-            }}
-          />
+          <SellCar>
+            <Category
+              modal={() => {
+                setCarModal(false);
+                setUploadImageModal(true);
+              }}
+            />
+          </SellCar>
         </Modal>
       )}
+
       {uploadImageModal && (
         <Modal
           isVisible={uploadImageModal}
