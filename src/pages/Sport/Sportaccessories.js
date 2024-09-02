@@ -133,13 +133,13 @@ const Sportaccessories = () => {
             <div className='flex mb-[2px] gap-[1rem] items-center ml-[30px]'>
                 <div className='shadow-xl rounded-[15px] w-[252px] h-[100px]'>
                     <div className='flex items-center gap-[1rem]'>
-                        <Image src={Image92} />
+                    <Image src={Image92} alt="Product Image" width={94} height={94} />
                         <div>
                             <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹924</h1>
                             <h1 className='text-[#000000] text-[14px] font-semibold'>Premium Ten...</h1>
                             <h1 className='text-[#9095A1] text-[11px] font-semibold'>A long, straight metal...</h1>
                             <div className='flex items-center'>
-                                <Image src={Rating8} />
+                                <Image src={Rating8} alt='Rating' width={20} height={20} />
                                 <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                             </div>
                         </div>
@@ -148,13 +148,13 @@ const Sportaccessories = () => {
 
                 <div className='shadow-xl  rounded-[15px] w-[252px] h-[100px]'>
                     <div className='flex items-center gap-[1rem]'>
-                        <Image src={Image97} />
+                        <Image src={Image97} alt="Product Image" width={94} height={94} />
                         <div>
                             <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹99</h1>
                             <h1 className='text-[#000000] text-[14px] font-semibold'>Tennis Ra...</h1>
                             <h1 className='text-[#9095A1] text-[11px] font-semibold'>hey help boost energy,...</h1>
                             <div className='flex items-center'>
-                                <Image src={Rating8} />
+                                <Image src={Rating8} alt='Rating' width={20} height={20} />
                                 <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                             </div>
                         </div>
@@ -164,7 +164,7 @@ const Sportaccessories = () => {
 
             <div className='flex justify-center items-center mb-[38px] gap-[3rem]'>
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image98} />
+                    <Image className='mb-[10px]' src={Image98} alt="Product Image" width={170} height={170} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹999</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Wilson Pro Rat</h1>
@@ -174,14 +174,14 @@ const Sportaccessories = () => {
                         <div className='w-[16px] h-[16px] rounded-full bg-[#8E61F1]'></div>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mt-[-10px]' width={164} height={114} src={Image123} />
+                    <Image className='mt-[-10px]' alt="Product Image" width={170} height={170}src={Image123} />
                     <h1 className='text-[12px] text-[#565D6D]'>Zebhyr</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹400</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Versatile Yoga Mat</h1>
@@ -194,27 +194,27 @@ const Sportaccessories = () => {
                         <h1>+2</h1>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image93} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image93} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹600</h1>
                     <h1 className='text-[#323743] text-[14px] mb-[12px] font-semibold'>Basketball system with Adjustable</h1>
 
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image95} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image95} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>$99</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Tennis Racket</h1>
@@ -224,19 +224,19 @@ const Sportaccessories = () => {
                         <div className='w-[16px] h-[16px] rounded-full bg-[#8E61F1]'></div>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image96} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image96} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>$2</h1>
                     <h1 className='text-[#323743] mb-[13px] text-[14px] font-semibold'>The Essential Equipment for Badminton</h1>
 
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
@@ -245,7 +245,7 @@ const Sportaccessories = () => {
 
             <div className='flex justify-center items-center gap-[3rem]'>
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image94} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image94} />
                     <h1 className='text-[12px] text-[#565D6D]'>BlitzFit</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹1000</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Fitness Trackert</h1>
@@ -255,14 +255,14 @@ const Sportaccessories = () => {
                         <div className='w-[16px] h-[16px] rounded-full bg-[#8E61F1]'></div>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mt-[-10px]' width={164} height={114} src={Image123} />
+                    <Image className='mt-[-10px]' alt="Product Image" width={170} height={170} src={Image123} />
                     <h1 className='text-[12px] text-[#565D6D]'>Zebhyr</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹400</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Versatile Yoga Mat</h1>
@@ -275,14 +275,14 @@ const Sportaccessories = () => {
                         <h1>+2</h1>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image98} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image98} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹999</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Wilson Pro Rat</h1>
@@ -292,26 +292,26 @@ const Sportaccessories = () => {
                         <div className='w-[16px] h-[16px] rounded-full bg-[#8E61F1]'></div>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image93} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image93} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>₹600</h1>
                     <h1 className='text-[#323743] text-[14px] mb-[12px] font-semibold'>Basketball system with Adjustable</h1>
 
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
 
                 <div className='shadow-2xl rounded-[15px] w-[201px] h-[269px] p-[18px]'>
-                    <Image className='mb-[10px]' src={Image95} />
+                    <Image className='mb-[10px]' alt="Product Image" width={170} height={170} src={Image95} />
                     <h1 className='text-[12px] text-[#565D6D]'>StrideForce</h1>
                     <h1 className='text-[#6D31ED] text-[14px] font-bold'>$99</h1>
                     <h1 className='text-[#323743] text-[14px] font-semibold'>Tennis Racket</h1>
@@ -321,7 +321,7 @@ const Sportaccessories = () => {
                         <div className='w-[16px] h-[16px] rounded-full bg-[#8E61F1]'></div>
                     </div>
                     <div className='flex items-center'>
-                        <Image src={Rating8} />
+                        <Image src={Rating8} alt='Rating' width={20} height={20} />
                         <h1 className='text-[12px] ml-[4px] text-[#171A1F]'>4.5 <span className=' text-[#8E949F]'>(99)</span></h1>
                     </div>
                 </div>
