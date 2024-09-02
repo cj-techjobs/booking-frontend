@@ -279,15 +279,13 @@ const CarouselComponent = () => {
         </Modal>
       )}
       {carModal && (
-        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
-          <SellCar>
+        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>         
             <Category
               modal={() => {
                 setCarModal(false);
                 setUploadImageModal(true);
               }}
-            />
-          </SellCar>
+            />          
         </Modal>
       )}
 
