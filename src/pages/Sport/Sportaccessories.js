@@ -101,7 +101,7 @@ const Sportaccessories = () => {
         <div>
             <div className="flex justify-between">
                 <div>
-                    <h1 className="text-[32px] text-[#565D6D] font-semibold ml-[29px] pt-[10px]">Results for "Sport accessories"</h1>
+                    <h1 className="text-[32px] text-[#565D6D] font-semibold ml-[29px] pt-[10px]"> Results for &quot;Sport accessories&quot;</h1>
                     <div className="flex gap-[2rem] p-1">
                         <h1 className="text-[#9095A1] text-[12px] ml-[29px] font-normal">Price when purchased online</h1>
                         <p className="text-[#9095A1] text-[12px] ml-[29px] font-normal">(+2003)</p>
