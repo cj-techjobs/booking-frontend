@@ -281,7 +281,7 @@ const CarouselComponent = () => {
       )}
       {carModal && (
         <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
-          <Category
+          <SellCar
             modal={() => {
               setCarModal(false);
               setUploadImageModal(true);
