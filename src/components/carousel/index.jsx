@@ -33,6 +33,19 @@ import Property from "../../assets/homeMenuIcons/property.svg";
 import Vacations from "../../assets/homeMenuIcons/vacations.svg";
 import Furniture from "../../assets/homeMenuIcons/furniture.svg";
 import Movie_Events from "../../assets/homeMenuIcons/movie_&_events.svg";
+import axiosInstance from "../../pages/api/axiosInstance";
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
+import Slider from "react-slick";
+
+const settings = {
+  dots: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  auto: 100,
+  infinite: true,
+};
 
 const CarouselComponent = () => {
   const context = useContext(GlobalContext);
@@ -44,6 +57,11 @@ const CarouselComponent = () => {
   const [carModal, setCarModal] = useState(false);
   const [uploadImageModal, setUploadImageModal] = useState(false);
   const [amount, setAmount] = useState("");
+
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(null);
+  const [limit, setLimit] = useState(10);
+  const [skip, setSkip] = useState(0);
 
   useEffect(() => {
     const data = [
@@ -186,13 +204,23 @@ const CarouselComponent = () => {
       },
       //
     ]);
-
-    setCarouselData(data);
   }, []);
 
+  useEffect(() => {
+    axiosInstance
+      .get(`cms/category?skip=${skip}&limit=${limit}`)
+      .then((res) => {
+        setTotal(Math.ceil(res?.data?.data?.total / 10));
+        setCarouselData(res?.data?.data?.category);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [limit, skip]);
+
   const getBgColor = (index) => {
-    console.log(carouselData[index]?.icons?.src);
-    return carouselData[index].icons.src;
+    console.log(carouselData[index]?.image);
+    return carouselData[index].image;
   };
 
   const handleSubmit = (e) => {
@@ -201,6 +229,11 @@ const CarouselComponent = () => {
     setUploadImageModal(false);
   };
 
+  useEffect(() => {
+    setLimit(page * 10);
+    setSkip((page - 1) * 10);
+  }, [page]);
+
   return (
     <div className="container mx-auto">
       <div className="mb-8">
@@ -208,38 +241,52 @@ const CarouselComponent = () => {
           SHOP WHAT YOU LIKE USING
           <span className="text-red-500"> CATAGORIES</span>
         </h2>
-        <div className="flex items-center justify-center gap-4">
-          {carouselData.map((item, i) => (
-            <div
-              key={i}
-              className="w-32 h-28 flex items-start justify-center rounded-lg cursor-pointer"
-              style={{
-                backgroundImage: `url(${getBgColor(i)})`,
-                backgroundRepeat: `no-repeat`,
-                backgroundSize: `100% 100%`,
-              }}
-              onClick={() =>
-                router.push(
-                  `/${
-                    item?.title === "Movies & Events"
-                      ? "movies"
-                      : item?.title === "vacation"
-                      ? "bookings/hotel-booking"
-                      : item?.title
-                  }`
-                )
-              }
-            >
-              <div className="text-white text-lg capitalize font-bold text-center">
-                {item.title}
+        <div className="flex items-center justify-center ">
+          <button disabled={page === 1} className="disabled:opacity-75">
+            <GrFormPrevious
+              className="text-4xl cursor-pointer"
+              onClick={(e) => setPage(page - 1)}
+            />
+          </button>
+          <div className="flex flex-1 gap-2 justify-center overflow-x-auto max-sm:justify-start">
+            {carouselData.map((item, i) => (
+              <div
+                key={i}
+                className="w-32 h-28 p-2 min-w-[120px] flex items-start justify-center rounded-lg cursor-pointer"
+                style={{
+                  backgroundImage: `url(${getBgColor(i)})`,
+                  backgroundRepeat: `no-repeat`,
+                  backgroundSize: `100% 100%`,
+                }}
+                onClick={() =>
+                  router.push(
+                    `/${
+                      item?.title === "Movies & Events"
+                        ? "movies"
+                        : item?.title === "vacation"
+                        ? "bookings/hotel-booking"
+                        : item?.title
+                    }`
+                  )
+                }
+              >
+                <div className="flex-1 text-white text-lg capitalize font-bold text-center">
+                  {item.title}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <button disabled={page === total} className="disabled:opacity-75">
+            <MdNavigateNext
+              className="text-4xl cursor-pointer"
+              onClick={(e) => setPage(page + 1)}
+            />
+          </button>
         </div>
       </div>
 
-      <div className="flex mb-8 gap-8">
-        <div className="h-56 w-1/3 bg-[#50006d] rounded-lg flex items-end justify-center">
+      <div className="flex mb-8 gap-8 max-sm:flex-col">
+        <div className="h-56 w-1/3 bg-[#50006d] rounded-lg flex items-end justify-center max-sm:w-[100%]">
           <h2 className="text-white font-bold text-2xl py-12">
             Best Product At Lowest Price
           </h2>
@@ -267,7 +314,7 @@ const CarouselComponent = () => {
       </div>
 
       <div className="mb-8">
-        <div className="grid grid-cols-6 gap-4">
+        <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 max-sm:grid-cols-2">
           {products.map((m, i) => (
             <div
               key={i}
