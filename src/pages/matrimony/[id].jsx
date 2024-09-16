@@ -30,6 +30,8 @@ const Id = () => {
                   className="w-[100%] h-[30rem]"
                   src={m?.profile_full?.src || m?.profile?.src}
                   alt=""
+                  width={1000}
+                  height={1000}
                 />
               </div>
               <div className="flex justify-between">
@@ -41,7 +43,7 @@ const Id = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              <button className="px-2 py-2 w-[80%] mx-auto text-xl text-center bg-[#EFEFEF] shadow-[0px_3px_2px_0px_rgba(255,0,0,0.25)] rounded-lg">
+              <button onClick={() => router.push('/message')} className="px-2 py-2 w-[80%] mx-auto text-xl text-center bg-[#EFEFEF] shadow-[0px_3px_2px_0px_rgba(255,0,0,0.25)] rounded-lg">
                 Chat Now
               </button>
             </div>

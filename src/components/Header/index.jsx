@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
@@ -20,11 +20,77 @@ const Header = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [token, setToken] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [searchValue, setSearchValue] = useState(""); // State to hold search input value
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const router = useRouter();
+  const suggestionsRef = useRef();
+
+  const suggestions = [
+    "Sport accessories",
+    "Sports Shoes",
+    "Sports Technology",
+    "Team Sports Gear",
+    "Outdoor Sports Gear",
+    "Sports Supplements",
+    "Sports Books and DVDs",
+    "Sports Memorabilia",
+  ];
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+
+  // Handle search bar click and redirect to the search page
+  const handleSearchClick = () => {
+    if (searchValue === "") {
+      router.push("/search"); // Redirect to the search page only if input is empty
+    }
+  };
+
+  // Handle search input changes to show suggestions
+  const handleSearchChange = (event) => {
+    const input = event.target.value;
+    setSearchValue(input);
+    setShowSuggestions(true);
+
+    if (input.trim() !== "") {
+      const filtered = suggestions.filter((suggestion) =>
+        suggestion.toLowerCase().includes(input.toLowerCase())
+      );
+      setFilteredSuggestions(filtered);
+    } else {
+      setFilteredSuggestions([]);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchValue(""); // Clear the search input
+    setShowSuggestions(false); // Hide suggestions
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setShowSuggestions(false);
+    setSearchValue(suggestion);
+    
+    if (suggestion === "Sport accessories") {
+      router.push(`/Sport/Sportaccessories`); // Redirect only if it's "Sport accessories"
+    }
+  };
+  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -49,9 +115,28 @@ const Header = () => {
             type="search"
             className="rounded-lg border bg-white w-full drop-shadow-md py-2 px-10 outline-none"
             placeholder="Search"
-            onClick={() => router.push("/search")}
+            value={searchValue}
+            onClick={handleSearchClick} // Redirect on click if input is empty
+            onChange={handleSearchChange} // Show suggestions dynamically
           />
           <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+          {/* Clear Button */}
+          {showSuggestions && filteredSuggestions.length > 0 && (
+            <div
+              ref={suggestionsRef}
+              className="absolute top-full mt-1 w-full bg-white shadow-md rounded-lg z-10"
+            >
+              {filteredSuggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  className="p-2 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {!context?.isLoggedin ? (

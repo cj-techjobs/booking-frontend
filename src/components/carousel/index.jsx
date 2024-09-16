@@ -21,18 +21,10 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import uploadSvg from "/src/assets/homeModalSvg/uploadSvg.svg";
 import { GlobalContext } from "../../pages/api/context/context";
-import Cars from "../../assets/homeMenuIcons/cars.svg";
-import Bikes from "../../assets/homeMenuIcons/bikes.svg";
-import Appliances from "../../assets/homeMenuIcons/appliances.svg";
-import Books from "../../assets/homeMenuIcons/books.svg";
-import Clothing from "../../assets/homeMenuIcons/clothing.svg";
-import Jobs from "../../assets/homeMenuIcons/jobs.svg";
-import Electronics from "../../assets/homeMenuIcons/electronics.svg";
-import Free_Auctions from "../../assets/homeMenuIcons/free_auctions.svg";
-import Property from "../../assets/homeMenuIcons/property.svg";
-import Vacations from "../../assets/homeMenuIcons/vacations.svg";
-import Furniture from "../../assets/homeMenuIcons/furniture.svg";
-import Movie_Events from "../../assets/homeMenuIcons/movie_&_events.svg";
+import TextField from "@mui/material/TextField";
+import PostAnAdd from "./postAnAdd";
+import { toast } from "react-toastify";
+import Category from "../Choose-Category/Category";
 
 const CarouselComponent = () => {
   const context = useContext(GlobalContext);
@@ -220,12 +212,13 @@ const CarouselComponent = () => {
               }}
               onClick={() =>
                 router.push(
-                  `/${
-                    item?.title === "Movies & Events"
-                      ? "movies"
-                      : item?.title === "vacation"
-                      ? "bookings/hotel-booking"
-                      : item?.title
+                  `/${item?.title === "Movies & Events"
+                    ? "movies"
+                    : item?.title === "vacation"
+                      ? "bookings/hotel-search"
+                      : item?.title === "clothing"
+                        ? "matrimony"
+                        : item?.title
                   }`
                 )
               }
@@ -303,15 +296,16 @@ const CarouselComponent = () => {
         </Modal>
       )}
       {carModal && (
-        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
-          <SellCar
-            modal={() => {
-              setCarModal(false);
-              setUploadImageModal(true);
-            }}
-          />
+        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>         
+            <Category
+              modal={() => {
+                setCarModal(false);
+                setUploadImageModal(true);
+              }}
+            />          
         </Modal>
       )}
+
       {uploadImageModal && (
         <Modal
           isVisible={uploadImageModal}

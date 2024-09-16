@@ -20,6 +20,7 @@ import Membership from "./select-membership";
 import Help from "./user-help";
 import PaymentConfirmation from "./payment-confirmation";
 import ProMembership from "./pro-membership";
+import Youraddresses from "./youraddresses";
 
 const Account = () => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const Account = () => {
       title: `Your Addresses`,
       nmae: `Address`,
       about: `Edit addresses for orders and gifts`,
+      modalOpen: context?.setYouraddresses,
       img: Image4,
     },
     {
@@ -82,7 +84,11 @@ const Account = () => {
           {profileSettings.map((m, i) => (
             <div
               key={i}
-              onClick={() => m.modalOpen(true)}
+              onClick={() => {
+                if (typeof m.modalOpen === 'function') {
+                  m.modalOpen(true); // Call the modal function only if it exists
+                }
+              }}
               className="flex gap-4 border rounded-md py-4 cursor-pointer px-2 shadow-[0_5px_2px_0_rgba(255,233,228,1)]"
             >
               <div className=" flex ml-2">
@@ -127,6 +133,7 @@ const Account = () => {
           <Help />
           <PaymentConfirmation />
           <ProMembership />
+          <Youraddresses />
         </div>
       </div>
     </>

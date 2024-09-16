@@ -36,6 +36,20 @@ import bootSpace from '/src/assets/carsSvg/specificationIcon/bootSpace.svg'
 import seating from '/src/assets/carsSvg/specificationIcon/seating.svg'
 import tankCapacity from '/src/assets/carsSvg/specificationIcon/tankCapacity.svg'
 
+//.
+import Cars from '/src/assets/settingsModalSvg/Cars.png'
+import property from '/src/assets/settingsModalSvg/property.png'
+import Mobile from '/src/assets/settingsModalSvg/Mobile.png';
+import Electronics from '/src/assets/settingsModalSvg/Electronics.png';
+import Books from '/src/assets/settingsModalSvg/Books.png';
+import bikes from '/src/assets/settingsModalSvg/bikes.png';
+import Sports from '/src/assets/settingsModalSvg/Sports.png';
+import Homedecor from '/src/assets/settingsModalSvg/Homedecor.png';
+import Clothing from '/src/assets/settingsModalSvg/Clothing.png';
+import accesories from '/src/assets/settingsModalSvg/accesories.png';
+import pet from '/src/assets/settingsModalSvg/pet.png';
+import vaca from '/src/assets/settingsModalSvg/vaca.png';
+import job from '/src/assets/settingsModalSvg/job.png';
 //car category list
 export const carCategory = [
   {
@@ -729,3 +743,58 @@ export const timeSlots = [
   { time: "12 PM - 6 PM", isArrival: true },
   { time: "After 6 PM", isArrival: true },
 ];
+
+export const category =[
+  {
+    image:Cars,
+    title:"Cars & Vechiles"
+  },
+  {
+    image:property,
+    title:"Property"
+  },
+  {
+    image:Mobile,
+    title:"Mobile"
+  },
+  {
+    image:Electronics,
+    title:"Electronics"
+  },
+  {
+    image:Books,
+    title:"Books"
+  },
+  {
+    image:bikes,
+    title:"Bikes"
+  },
+  {
+    image:Sports,
+    title:"Sports"
+  },
+  {
+    image:Homedecor,
+    title:"Home decor & Furniture"
+  },
+  {
+    image:Clothing,
+    title:"Clothing"
+  },
+  {
+    image:accesories,
+    title:"Accesories"
+  },
+  {
+    image:pet,
+    title:"pets"
+  },
+  {
+    image:vaca,
+    title:"Vacation"
+  },
+  {
+    image:job,
+    title:"Jobs"
+  },
+]
