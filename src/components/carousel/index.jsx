@@ -21,10 +21,32 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import uploadSvg from "/src/assets/homeModalSvg/uploadSvg.svg";
 import { GlobalContext } from "../../pages/api/context/context";
-import TextField from "@mui/material/TextField";
-import PostAnAdd from "./postAnAdd";
-import { toast } from "react-toastify";
+import Cars from "../../assets/homeMenuIcons/cars.svg";
+import Bikes from "../../assets/homeMenuIcons/bikes.svg";
+import Appliances from "../../assets/homeMenuIcons/appliances.svg";
+import Books from "../../assets/homeMenuIcons/books.svg";
+import Clothing from "../../assets/homeMenuIcons/clothing.svg";
+import Jobs from "../../assets/homeMenuIcons/jobs.svg";
+import Electronics from "../../assets/homeMenuIcons/electronics.svg";
+import Free_Auctions from "../../assets/homeMenuIcons/free_auctions.svg";
+import Property from "../../assets/homeMenuIcons/property.svg";
+import Vacations from "../../assets/homeMenuIcons/vacations.svg";
+import Furniture from "../../assets/homeMenuIcons/furniture.svg";
+import Movie_Events from "../../assets/homeMenuIcons/movie_&_events.svg";
+import axiosInstance from "../../pages/api/axiosInstance";
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
+import Slider from "react-slick";
 import Category from "../Choose-Category/Category";
+
+const settings = {
+  dots: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  auto: 100,
+  infinite: true,
+};
 
 const CarouselComponent = () => {
   const context = useContext(GlobalContext);
@@ -37,56 +59,73 @@ const CarouselComponent = () => {
   const [uploadImageModal, setUploadImageModal] = useState(false);
   const [amount, setAmount] = useState("");
 
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(null);
+  const [limit, setLimit] = useState(10);
+  const [skip, setSkip] = useState(0);
+
   useEffect(() => {
     const data = [
       {
         title: "cars",
         bgColor: "#d96849",
+        icons: Cars,
         modal: setCarModal,
       },
       {
         title: "bikes",
         bgColor: "#ead795",
+        icons: Bikes,
       },
       {
         title: "property",
         bgColor: "#b0d0db",
+        icons: Property,
       },
       {
         title: "appliances",
         bgColor: "#fbe0c4",
+        icons: Appliances,
       },
       {
         title: "books",
         bgColor: "#6d8891",
+        icons: Books,
       },
       {
         title: "furniture",
         bgColor: "#44596e",
+        icons: Furniture,
       },
       {
         title: "clothing",
         bgColor: "#e3af99",
+        icons: Clothing,
       },
       {
         title: "Free Auctions",
         bgColor: "#b8e2d8",
+        icons: Free_Auctions,
       },
       {
         title: "jobs",
         bgColor: "#ffbd31",
+        icons: Jobs,
       },
       {
         title: "Movies & Events",
         bgColor: "#c33863",
+        icons: Movie_Events,
       },
       {
         title: "electronics",
         bgColor: "#5c7b5d",
+        icons: Electronics,
       },
       {
         title: "vacation",
         bgColor: "#fec523",
+        icons: Vacations,
       },
     ];
 
@@ -166,12 +205,23 @@ const CarouselComponent = () => {
       },
       //
     ]);
-
-    setCarouselData(data);
   }, []);
 
+  useEffect(() => {
+    axiosInstance
+      .get(`cms/category?skip=${skip}&limit=${limit}`)
+      .then((res) => {
+        setTotal(Math.ceil(res?.data?.data?.total / 10));
+        setCarouselData(res?.data?.data?.category);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [limit, skip]);
+
   const getBgColor = (index) => {
-    return carouselData[index].bgColor;
+    console.log(carouselData[index]?.image);
+    return carouselData[index].image;
   };
 
   const handleSubmit = (e) => {
@@ -180,6 +230,11 @@ const CarouselComponent = () => {
     setUploadImageModal(false);
   };
 
+  useEffect(() => {
+    setLimit(page * 10);
+    setSkip((page - 1) * 10);
+  }, [page]);
+
   return (
     <div className="container mx-auto">
       <div className="mb-8">
@@ -187,35 +242,52 @@ const CarouselComponent = () => {
           SHOP WHAT YOU LIKE USING
           <span className="text-red-500"> CATAGORIES</span>
         </h2>
-        <div className="flex items-center justify-center gap-4">
-          {carouselData.map((item, i) => (
-            <div
-              key={i}
-              className="w-32 h-28 flex items-center justify-center rounded-lg cursor-pointer"
-              style={{ backgroundColor: getBgColor(i) }}
-              onClick={() =>
-                router.push(
-                  `/${item?.title === "Movies & Events"
-                    ? "movies"
-                    : item?.title === "vacation"
-                      ? "bookings/hotel-search"
-                      : item?.title === "clothing"
-                        ? "matrimony"
+        <div className="flex items-center justify-center ">
+          <button disabled={page === 1} className="disabled:opacity-75">
+            <GrFormPrevious
+              className="text-4xl cursor-pointer"
+              onClick={(e) => setPage(page - 1)}
+            />
+          </button>
+          <div className="flex flex-1 gap-2 justify-center overflow-x-auto max-sm:justify-start">
+            {carouselData.map((item, i) => (
+              <div
+                key={i}
+                className="w-32 h-28 p-2 min-w-[120px] flex items-start justify-center rounded-lg cursor-pointer"
+                style={{
+                  backgroundImage: `url(${getBgColor(i)})`,
+                  backgroundRepeat: `no-repeat`,
+                  backgroundSize: `100% 100%`,
+                }}
+                onClick={() =>
+                  router.push(
+                    `/${
+                      item?.title === "Movies & Events"
+                        ? "movies"
+                        : item?.title === "vacation"
+                        ? "bookings/hotel-booking"
                         : item?.title
-                  }`
-                )
-              }
-            >
-              <div className="text-white capitalize font-bold text-center">
-                {item.title}
+                    }`
+                  )
+                }
+              >
+                <div className="flex-1 text-white text-lg capitalize font-bold text-center">
+                  {item.title}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <button disabled={page === total} className="disabled:opacity-75">
+            <MdNavigateNext
+              className="text-4xl cursor-pointer"
+              onClick={(e) => setPage(page + 1)}
+            />
+          </button>
         </div>
       </div>
 
-      <div className="flex mb-8 gap-8">
-        <div className="h-56 w-1/3 bg-[#50006d] rounded-lg flex items-end justify-center">
+      <div className="flex mb-8 gap-8 max-sm:flex-col">
+        <div className="h-56 w-1/3 bg-[#50006d] rounded-lg flex items-end justify-center max-sm:w-[100%]">
           <h2 className="text-white font-bold text-2xl py-12">
             Best Product At Lowest Price
           </h2>
@@ -243,7 +315,7 @@ const CarouselComponent = () => {
       </div>
 
       <div className="mb-8">
-        <div className="grid grid-cols-6 gap-4">
+        <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 max-sm:grid-cols-2">
           {products.map((m, i) => (
             <div
               key={i}
