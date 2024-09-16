@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  httpAgent: httpAgent,
+  httpsAgent: httpAgent,
 });
 
 export default axiosInstance;
