@@ -37,6 +37,7 @@ import axiosInstance from "../../pages/api/axiosInstance";
 import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import Slider from "react-slick";
+import Category from "../Choose-Category/Category";
 
 const settings = {
   dots: true,
