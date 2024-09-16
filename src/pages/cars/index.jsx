@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 //filter data from utils
-import {
-  FilterList,
-} from "../../utils";
+import { FilterList } from "../../utils";
 
 //navigation bar images
 import car from "/src/assets/carsSvg/i10.svg";
-import MayBach from '/src/assets/carsSvg/mayBach.png'
+import MayBach from "/src/assets/carsSvg/mayBach.png";
 //main page car images
 import Image from "next/image";
 import Sidebar from "../../components/sidebar";
@@ -20,11 +18,11 @@ const Car = () => {
 
   return (
     <div className="flex container mx-auto">
-      <div className="w-1/4">
-      <Sidebar />
+      <div className="w-1/4 md:block hidden">
+        <Sidebar />
       </div>
       <div className="pt-12 ps-12 pe-12 w-3/4">
-        <div className="grid grid-cols-4 gap-10">
+        <div className="xl:grid xl:grid-cols-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-2 grid grid-cols-1 gap-10">
           {FilterList?.map((items) => (
             <div
               key={items.id}

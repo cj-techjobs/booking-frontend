@@ -55,7 +55,7 @@ const Profile = () => {
             />
           </div>
           <div className="justify-center items-center flex mt-5">
-            <div className="rounded-full h-7 w-7 flex items-center justify-center bg-red-500 absolute top-[65px] right-[165px]">
+            <div className="rounded-full h-7 w-7 flex items-center justify-center bg-red-500 absolute top-[65px] right-[160px]">
               <BorderColorRoundedIcon className="text-white" fontSize="small" />
             </div>
             <div className=" w-fit rounded-full border-4 border-gray-400 shadow-sm cursor-pointer">

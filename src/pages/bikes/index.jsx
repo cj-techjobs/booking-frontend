@@ -17,11 +17,11 @@ const Bikes = () => {
   const router = useRouter();
   return (
     <div className="flex container mx-auto">
-      <div className="w-1/4">
+      <div className="w-1/4 md:block hidden">
       <Sidebar />
       </div>
       <div className="pt-12 ps-12 pe-12 w-3/4">
-        <div className="grid grid-cols-4 gap-10">
+        <div className="xl:grid xl:grid-cols-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-2 grid grid-cols-1 gap-10">
           {FilterList?.map((items) => (
             <div
               key={items.id}

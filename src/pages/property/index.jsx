@@ -42,16 +42,16 @@ const Properties = () => {
   ];
   return (
     <div className="container mx-auto border-l flex">
-      <div className="w-1/4">
+      <div className="w-1/4 md:block hidden">
       <Sidebar />
         {/* <SideBar /> */}
       </div>
       <div className="pt-12 ps-12 pe-12 w-3/4">
-        <div className="grid grid-cols-4 gap-10">
+        <div className="xl:grid xl:grid-cols-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-2 grid grid-cols-1 gap-10">
           {propertyFilterItem?.map((items) => (
             <div
               key={items?.id}
-              className="rounded-3xl pb-4 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] cursor-pointer"
+              className="rounded-3xl pb-4 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] cursor-pointer "
             //   onClick={() => {
             //     router.push("/cars/carItem");
             //   }}

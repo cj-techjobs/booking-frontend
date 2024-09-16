@@ -102,35 +102,8 @@ const HotelBooking = () => {
     <div className="container mx-auto">
       <div className="w-full bg-cover hotel-bg">
         <div className="flex flex-col h-[calc(100vh-85px)] justify-center items-center">
-          <div className="flex gap-2 items-center bg-white w-[500px] rounded-xl p-1">
+          <div className="flex gap-2 items-center bg-white w-[380px] md:w-[500] rounded-xl p-1">
             <Image src={SearchIcon} alt="search" width={25} height={25} />
-            {/* <label
-              htmlFor="search Hotel"
-              className="absolute ms-8 z-20 text-xs text-gray-400 mt-0.5"
-            >
-              SELECT DESTINATION
-            </label>
-             */}
-            {/* <Select
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              options={data}
-              placeholder={""}
-              value={selectedOption}
-              onChange={handleChange}
-              isSearchable
-              className="w-[500px]"
-              InputProps={{
-                disableUnderline: true,
-              }}
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  padding: "10px",
-                  borderRadius: "8px",
-                }),
-              }}
-            /> */}
             <CustomAutocomplete
               id="standard-basic"
               options={options}
@@ -145,7 +118,7 @@ const HotelBooking = () => {
               )}
             />
           </div>
-          <div className="bg-white w-[500px] px-2 rounded-lg mt-3">
+          <div className="bg-white w-[380px] md:w-[500] px-2 rounded-lg mt-3">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StyledDateRangePicker
                 calendars={1}
@@ -171,7 +144,7 @@ const HotelBooking = () => {
               />
             </LocalizationProvider>
           </div>
-          <div className="bg-white w-[500px] flex gap-3 items-center py-2 rounded-lg mt-3">
+          <div className="bg-white w-[380px] md:w-[500] flex gap-3 items-center py-2 rounded-lg mt-3">
             <AccountCircleRoundedIcon
               fontSize="large"
               className="ms-3 text-gray-400"
@@ -195,7 +168,7 @@ const HotelBooking = () => {
               </select>
             </div>
           </div>
-          <div className="w-[300px] shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] flex justify-center py-3 rounded-lg mb-36 bg-white mt-3 text-xl">
+          <div className="w-[200px] md:w-[300px] shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] flex justify-center py-3 rounded-lg mb-36 bg-white mt-3 text-xl">
             <button>SEARCH</button>
           </div>
         </div>

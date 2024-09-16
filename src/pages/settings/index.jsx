@@ -80,7 +80,7 @@ const Account = () => {
     <>
       <div className="pt-10 container mx-auto">
         <h2 className="mb-6 text-2xl font-bold">Your Account</h2>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="md:grid md:grid-cols-2 grid grid-cols-1 lg:grid lg:grid-cols-3 gap-8 px-4">
           {profileSettings.map((m, i) => (
             <div
               key={i}

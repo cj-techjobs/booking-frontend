@@ -73,7 +73,7 @@ const FlightBooking = () => {
   return (
     <div className="container mx-auto">
       <div className="w-full bg-cover flex justify-center items-center flight-bg">
-        <div className="w-[450px] mt-28">
+        <div className="w-[380px] md:w-[450] mt-28">
           <div className="flex flex-col gap-2">
             <div className="grid grid-cols-2 justify-evenly bg-white rounded-lg">
               <div className="text-center py-3">ONE WAY</div>

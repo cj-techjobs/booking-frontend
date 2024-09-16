@@ -64,7 +64,7 @@ const TrainBooking = () => {
     <div className="container mx-auto">
       <div className="w-full bg-cover train-bg">
         <div className="flex justify-center items-center h-[calc(100vh-85px)]">
-          <div className="bg-white w-[1164px] p-2">
+          <div className="bg-white w-[750px] lg:w-[1000px] xl:w-[1164px] p-2">
             <div className="flex justify-between items-center">
               <div>
                 <FormControl>

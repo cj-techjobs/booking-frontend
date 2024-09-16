@@ -14,21 +14,22 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 //car specificaiton data
 import { carSpecification, carOverview } from "../../../utils";
 
-
 const CarItem = () => {
   return (
     <div className="container mx-auto mt-4 bg-white">
-      <div className="grid grid-cols-2">
+      <div className="xl:grid xl:grid-cols-2 gap-4 grid grid-cols-1">
         <div className="flex flex-col items-center">
-          <div className="mb-7">
+          <div className="md:w-[527px] w-[400px] xl:w-full">
+
+          <div className="mb-7 flex justify-center">
             <Image src={carImage} height={298} width={544} alt="" />
           </div>
-          <div className="w-[527px]">
+          <div className="">
             <div className="border rounded-md border-gray-200 p-2 mb-2">
               <div className="flex items-center justify-center gap-3">
-                <Image src={roundView} height={98} width={155} alt="" />
-                <Image src={carLoading} height={98} width={155} alt="" />
-                <Image src={fullImage} height={98} width={155} alt="" />
+                <Image src={roundView} height={98} width={135} alt="" />
+                <Image src={carLoading} height={98} width={135} alt="" />
+                <Image src={fullImage} height={98} width={135} alt="" />
               </div>
               <div className="text-3xl w-4/5 mt-3">
                 2022 Maruti Suzuki Baleno Zeta AMT Petrol
@@ -68,81 +69,89 @@ const CarItem = () => {
               </div>
             </div>
           </div>
+          </div>
         </div>
-        <div>
-          <div className="border border-gray-200 rounded-lg p-2 mb-4">
-            <div className="text-2xl mb-2">Car Overview</div>
-            <div className="flex flex-col gap-3">
-              <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
-                <div className="flex flex-col text-lg">
-                  <span className="text-gray-400 text-xs">Make Year</span>
-                  Nov 2022
+        <div className="flex items-center justify-center gap-3">
+          <div className="w-[400px] md:w-[527px] xl:full ">
+            <div className="border border-gray-200 rounded-lg p-2 mb-4">
+              <div className="text-2xl mb-2">Car Overview</div>
+              <div className="flex flex-col gap-3">
+                <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
+                  <div className="flex flex-col text-lg">
+                    <span className="text-gray-400 text-xs">Make Year</span>
+                    Nov 2022
+                  </div>
+                  <div className="flex flex-col col-span-2 text-lg">
+                    <span className="text-gray-400 text-xs">Reg. Year</span>
+                    Nov 2022
+                  </div>
                 </div>
-                <div className="flex flex-col col-span-2 text-lg">
-                  <span className="text-gray-400 text-xs">Reg. Year</span>
-                  Nov 2022
+                <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
+                  <div className="flex flex-col text-lg">
+                    <span className="text-gray-400 text-xs">Fuel</span>
+                    Petrol
+                  </div>
+                  <div className="flex flex-col col-span-2 text-lg">
+                    <span className="text-gray-400 text-xs">Km driven</span>
+                    10K km
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
-                <div className="flex flex-col text-lg">
-                  <span className="text-gray-400 text-xs">Fuel</span>
-                  Petrol
+                <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
+                  <div className="flex flex-col text-lg">
+                    <span className="text-gray-400 text-xs">Transmission</span>
+                    Automatic {"("}AMT{")"} @
+                  </div>
+                  <div className="flex flex-col col-span-2 text-lg">
+                    <span className="text-gray-400 text-xs">
+                      No. of Owner{"("}s{")"}
+                    </span>
+                    1st Owner
+                  </div>
                 </div>
-                <div className="flex flex-col col-span-2 text-lg">
-                  <span className="text-gray-400 text-xs">Km driven</span>
-                  10K km
+                <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
+                  <div className="flex flex-col text-lg">
+                    <span className="text-gray-400 text-xs">
+                      Insurance Validity
+                    </span>
+                    Nov 2024
+                  </div>
+                  <div className="flex flex-col col-span-2 text-lg">
+                    <span className="text-gray-400 text-xs">
+                      Insurance Type
+                    </span>
+                    Comprehensive
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
-                <div className="flex flex-col text-lg">
-                  <span className="text-gray-400 text-xs">Transmission</span>
-                  Automatic {"("}AMT{")"} @
-                </div>
-                <div className="flex flex-col col-span-2 text-lg">
-                  <span className="text-gray-400 text-xs">
-                    No. of Owner{"("}s{")"}
-                  </span>
-                  1st Owner
-                </div>
-              </div>
-              <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
-                <div className="flex flex-col text-lg">
-                  <span className="text-gray-400 text-xs">
-                    Insurance Validity
-                  </span>
-                  Nov 2024
-                </div>
-                <div className="flex flex-col col-span-2 text-lg">
-                  <span className="text-gray-400 text-xs">Insurance Type</span>
-                  Comprehensive
-                </div>
-              </div>
-              <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
-                <div className="flex flex-col text-lg">
-                  <span className="text-gray-400 text-xs">RTO</span>
-                  MH47
-                </div>
-                <div className="flex flex-col col-span-2 text-lg">
-                  <span className="text-gray-400 text-xs">Car Location</span>
-                  Deoghar,Jharkhand
+                <div className="grid grid-cols-3 border border-gray-200 rounded-lg p-1 shadow-[0_5px_2px_0_rgba(0,0,0,0.25)]">
+                  <div className="flex flex-col text-lg">
+                    <span className="text-gray-400 text-xs">RTO</span>
+                    MH47
+                  </div>
+                  <div className="flex flex-col col-span-2 text-lg">
+                    <span className="text-gray-400 text-xs">Car Location</span>
+                    Deoghar,Jharkhand
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="border border-gray-200 rounded-lg p-2">
-            <div className="text-2xl mb-2">Car Specifications</div>
-            <div className="flex flex-col">
-              {carSpecification?.map((items) => (
-                <div key={items?.id} className="flex border border-gray-200 rounded-lg p-1">
-                <Image src={items?.icon} alt="milage" className="me-2"/>
-                <div className="flex flex-col text-lg">
-                  <span className="text-gray-400 text-xs">
-                    {items?.title}
-                  </span>
-                  {items?.data}
-                </div>
+            <div className="border border-gray-200 rounded-lg p-2 w-full">
+              <div className="text-2xl mb-2">Car Specifications</div>
+              <div className="flex flex-col">
+                {carSpecification?.map((items) => (
+                  <div
+                    key={items?.id}
+                    className="flex border border-gray-200 rounded-lg p-1"
+                  >
+                    <Image src={items?.icon} alt="milage" className="me-2" />
+                    <div className="flex flex-col text-lg">
+                      <span className="text-gray-400 text-xs">
+                        {items?.title}
+                      </span>
+                      {items?.data}
+                    </div>
+                  </div>
+                ))}
               </div>
-              ))}
             </div>
           </div>
         </div>

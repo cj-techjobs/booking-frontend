@@ -9,7 +9,7 @@ import { flightDetails } from "../../../../utils";
 const FlightSearch = () => {
   return (
     <div className="container scrollbar-hide mx-auto">
-      <div className="sticky top-[84px] z-20">
+      <div className="sticky top-[84px]">
         <FlightNavbar />
       </div>
       <div className="flight-background">
@@ -20,7 +20,7 @@ const FlightSearch = () => {
           <div className="w-full bg-gray-300 mr-2 flex flex-col gap-3 scrollbar h-[calc(100vh-163px)] overflow-auto">
             {flightDetails.map((item, index) => (
               <div key={index} className="p-2 bg-white">
-                <div className="grid px-4 py-2 grid-cols-5">
+                <div className="lg:grid px-4 py-2 lg:gap-0 gap-3 lg:grid-cols-5 grid gird-cols-3">
                   <div className="flex gap-2">
                     <Image
                       src={FlightLogo}
