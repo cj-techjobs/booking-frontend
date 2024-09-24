@@ -84,7 +84,7 @@ export const verifyOtp = async ({ mobileNumber, otp, token }) => {
 // Sign in an existing user
 export const signIn = async (mobileNumber, password) => {
   try {
-    const response = await axiosInstance.post("/auth/signIn", {
+    const response = await axiosInstance.post("http://sixback.eu-north-1.elasticbeanstalk.com/api/v1/auth/signIn", {
       mobileNumber,
       password,
     });

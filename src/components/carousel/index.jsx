@@ -38,6 +38,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import Slider from "react-slick";
 import Category from "../Choose-Category/Category";
+import MapRoutes from "./mapRoutes";
 
 const settings = {
   dots: true,
@@ -209,7 +210,9 @@ const CarouselComponent = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`cms/category?skip=${skip}&limit=${limit}`)
+      .get(
+        `http://sixback.eu-north-1.elasticbeanstalk.com/api/v1/cms/category?skip=${skip}&limit=${limit}`
+      )
       .then((res) => {
         setTotal(Math.ceil(res?.data?.data?.total / 10));
         setCarouselData(res?.data?.data?.category);
@@ -220,7 +223,7 @@ const CarouselComponent = () => {
   }, [limit, skip]);
 
   const getBgColor = (index) => {
-    console.log(carouselData[index]?.image);
+    // console.log(carouselData[index]?.image);
     return carouselData[index].image;
   };
 
@@ -234,6 +237,11 @@ const CarouselComponent = () => {
     setLimit(page * 10);
     setSkip((page - 1) * 10);
   }, [page]);
+
+  const handleRoute = (title) => {
+    console.log(title)
+    router.push(`/${MapRoutes.filter((f) => f.title === title)[0]?.route || 'not-found'}`);
+  };
 
   return (
     <div className="container mx-auto">
@@ -259,17 +267,18 @@ const CarouselComponent = () => {
                   backgroundRepeat: `no-repeat`,
                   backgroundSize: `100% 100%`,
                 }}
-                onClick={() =>
-                  router.push(
-                    `/${
-                      item?.title === "Movies & Events"
-                        ? "movies"
-                        : item?.title === "vacation"
-                        ? "bookings/hotel-booking"
-                        : item?.title
-                    }`
-                  )
-                }
+                // onClick={() =>
+                //   router.push(
+                //     `/${
+                //       item?.title === "Movies & Events"
+                //         ? "movies"
+                //         : item?.title === "Vacation"
+                //         ? "bookings/hotel-search"
+                //         : item?.title
+                //     }`
+                //   )
+                // }
+                onClick={() => handleRoute(item.title)}
               >
                 <div className="flex-1 text-white text-lg capitalize font-bold text-center">
                   {item.title}
@@ -351,13 +360,13 @@ const CarouselComponent = () => {
         </Modal>
       )}
       {carModal && (
-        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>         
-            <Category
-              modal={() => {
-                setCarModal(false);
-                setUploadImageModal(true);
-              }}
-            />          
+        <Modal isVisible={carModal} onClose={() => setCarModal(false)}>
+          <Category
+            modal={() => {
+              setCarModal(false);
+              setUploadImageModal(true);
+            }}
+          />
         </Modal>
       )}
 
