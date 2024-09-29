@@ -11,7 +11,6 @@ import Image96 from '../../assets/sporttypeimages/Image96.png';
 import Image95 from '../../assets/sporttypeimages/Image95.png';
 import Image93 from '../../assets/sporttypeimages/Image93.png';
 import Image123 from '../../assets/sporttypeimages/image123.png';
-import { FaStar } from "react-icons/fa";
 import 'animate.css';
 import { Range, getTrackBackground } from 'react-range';
 import Rightmodal from './Rightmodal';
