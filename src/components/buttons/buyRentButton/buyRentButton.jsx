@@ -13,7 +13,7 @@ const BuyRentButton = () => {
           }`}
           onClick={() => setIsActiveTab("Buy")}
         >
-          Buy
+          Used
         </div>
         <div
           className={`px-6 py-1 rounded-md ${
@@ -23,7 +23,7 @@ const BuyRentButton = () => {
           }`}
           onClick={() => setIsActiveTab("Rent")}
         >
-          Rent
+          New
         </div>
       </div>
     </div>

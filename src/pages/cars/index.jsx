@@ -17,7 +17,7 @@ const Car = () => {
   const router = useRouter();
 
   return (
-    <div className="flex container mx-auto">
+    <div className="flex ">
       <div className="w-1/4 md:block hidden">
         <Sidebar />
       </div>
@@ -31,10 +31,12 @@ const Car = () => {
                 router.push("/cars/carItem");
               }}
             >
-              <Image src={MayBach} width={400} alt="" />
+              <Image src={MayBach} width={400}
+                height={300}
+                alt="" className="rounded-t-3xl object-cover" />
               <div className="flex flex-col">
-                <span className="ms-4">Maybach</span>
-                <span className="ms-4 mt-2 text-red-600">₹3,00,00,000</span>
+                <span className="ms-4 font-semibold">Maybach</span>
+                <span className="ms-4 mt-2 text-red-500 font-semibold">₹3,00,00,000</span>
               </div>
             </div>
           ))}
