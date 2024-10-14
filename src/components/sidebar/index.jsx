@@ -300,37 +300,40 @@ const Sidebar = () => {
 
             <div className="w-full md:w-2/3">
               {activeModal === "Price Range" && (
-                <div className="p-4 w-full md:w-[240px]">
-                  <div className="text-center py-2">₹{val}</div>
-                  <Slider
-                    marks={marks}
-                    step={10}
-                    value={val}
-                    min={MIN}
-                    max={MAX}
-                    onChange={handleChange}
-                    sx={{
-                      color: "rgb(239 68 68)",
-                      "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                        boxShadow: "none",
-                      },
-                      "& .MuiSlider-track": {
-                        border: "none",
-                      },
-                      "& .MuiSlider-thumb": {
-                        width: 24,
-                        height: 24,
-                        backgroundColor: "#fff",
-                        "&::before": {
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
-                        },
-                        "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                          boxShadow: "none",
-                        },
-                      },
-                    }}
-                  />
-                </div>
+               <div className="p-4 w-full md:w-[240px]">
+               <div className="text-center py-2">₹{val}</div>
+               <Slider
+                 marks={marks}
+                 step={10}
+                 value={val}
+                 min={MIN}
+                 max={MAX}
+                 onChange={handleChange}
+                 sx={{
+                   color: "rgb(239 68 68)", // Red color
+                   height: 10, // Make the track thicker
+                   "& .MuiSlider-track": {
+                     border: "none",
+                     height: 10, // Make the track thicker
+                   },
+                   "& .MuiSlider-rail": {
+                     height: 10, // Make the rail thicker
+                   },
+                   "& .MuiSlider-thumb": {
+                     width: 28, // Increase thumb size
+                     height: 28, // Increase thumb size
+                     backgroundColor: "#fff",
+                     "&::before": {
+                       boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
+                     },
+                     "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                       boxShadow: "none",
+                     },
+                   },
+                 }}
+               />
+             </div>
+             
               )}
 
               {activeModal === "Color" && (
