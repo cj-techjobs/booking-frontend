@@ -1,16 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-
+import carImage from "/src/assets/carsSvg/baleno.png";
+import { useRouter } from "next/navigation";
 const Search = () => {
   const [searchOptions, setSearchOptions] = useState([]);
   const [recentSearch, setRecentSearch] = useState([]);
   const [recommandProduct, setRecommandProduct] = useState([]);
-
   const [isSearch, setIsSearchData] = useState([""]);
-
+  const router = useRouter();
+  // State to manage modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  // Function to handle navigation
+  const handleNavigation = (path) => {
+    router.push(path); // Navigate to the specified path
+  };
   useEffect(() => {
     const data = [
       {
@@ -63,7 +69,7 @@ const Search = () => {
       },
     ];
     const search = [
-      `Kitchen applicances`,
+      `Kitchen appliances`,
       `High heels`,
       `Iphone 14 pro max`,
       `Headphone`,
@@ -84,6 +90,19 @@ const Search = () => {
 
   const isSearchData = () => {
     return isSearch.length > 0 ? true : false;
+  };
+
+  const openModal = (category, event) => {
+    event.preventDefault(); // Prevent default navigation
+    if (category === "Cars") {
+      setSelectedCategory(category);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedCategory("");
   };
 
   return (
@@ -118,7 +137,7 @@ const Search = () => {
                   <div className="w-12 h-full border-r">
                     <Image height={10} width={10} src="" alt="fwe" />
                   </div>
-                  <a href={m.toLowerCase().replaceAll(' ', '_')}>{m}</a>
+                  <a href={m.toLowerCase().replaceAll(" ", "_")}>{m}</a>
                 </div>
               ))}
             </div>
@@ -153,8 +172,8 @@ const Search = () => {
             {searchOptions.map((m, i) => (
               <div
                 key={i}
-                className="w-32 h-16 flex items-center border justify-center rounded-lg"
-                //   style={{ backgroundColor: getBgColor(i) }}
+                className="w-32 h-16 flex items-center border justify-center rounded-lg cursor-pointer"
+                onClick={(event) => openModal(m.title, event)}
               >
                 <a
                   href={m.title.replaceAll(" ", "_").toLowerCase()}
@@ -168,6 +187,85 @@ const Search = () => {
         </div>
       )}
       {!isSearchData() && <div className="flex flex-1"></div>}
+
+      {/* Modal Popup */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full relative">
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              &times;
+            </button>
+
+            {/* Modal Title */}
+            <h2 className="text-center text-2xl font-bold mb-6">
+              Types of Cars
+            </h2>
+
+            {/* Modal Content */}
+            <div className="flex">
+              {/* Left Section - Category Cards */}
+              <div className="w-2/3 space-y-4">
+                {/* New Card */}
+                <div className="bg-gray-100 rounded-lg p-4 flex items-center justify-between cursor-pointer"
+                  onClick={() => handleNavigation("/cars")}
+                >
+                  <div className="flex items-center space-x-4">
+                    <Image
+                      src={carImage}
+                      alt="Cars"
+                      width={60}
+                      height={60}
+                      className="rounded-lg"
+                    />
+                    <div>
+                      <h3 className="text-xl font-semibold">Used Cars</h3>
+                      <p className="text-gray-500">XXX available</p>
+                    </div>
+                  </div>
+                  <span className="text-gray-500 text-xl">&rarr;</span>
+                </div>
+                {/* Used Card */}
+                <div className="bg-gray-100 rounded-lg p-4 flex items-center justify-between cursor-pointer"
+                  onClick={() => handleNavigation("/new-cars")}
+                >
+                  <div className="flex items-center space-x-4">
+                    <Image
+                      src={carImage}// Replace with actual bike image path
+                      alt="Bikes"
+                      width={60}
+                      height={60}
+                      className="rounded-lg"
+                    />
+                    <div>
+                      <h3 className="text-xl font-semibold">New Cars</h3>
+                      <p className="text-gray-500">XXX available</p>
+                    </div>
+                  </div>
+                  <span className="text-gray-500 text-xl">&rarr;</span>
+                </div>
+              </div>
+
+              {/* Right Section - Ad Section */}
+              <div className="w-1/3 ml-6">
+                <div className="bg-blue-100 rounded-lg p-4 flex items-center justify-center">
+                  <Image
+                    src="/path-to-ad-image.jpg" // Replace with actual ad image path
+                    alt="Ad"
+                    width={150}
+                    height={150}
+                    className="rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
