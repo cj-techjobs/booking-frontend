@@ -1,6 +1,9 @@
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Image from "next/image";
+import { IoMdArrowBack } from "react-icons/io";
+import { FiSearch } from "react-icons/fi";
+
 //filter data from utils
 import {
   carCategory,
@@ -240,27 +243,30 @@ const Sidebar = () => {
   return (
     <div>
       {pathname === "/cars" && (
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-3xl sm:text-4xl rounded-b-lg h-[114px] flex justify-center items-center bg-red-500 text-white text-center">
+        <div className="p-3">
+          <div className="text-2xl sm:text-3xl md:text-4xl rounded-b-2xl h-[70px] sm:h-[100px] md:h-[114px] flex justify-center items-center bg-red-500 text-white text-centerr">
             Shop in Cars
           </div>
 
-          <div className="mt-3 rounded-xl px-2 md:flex md:flex-row flex-wrap flex gap-2 justify-center shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-gray-200">
+          <div className="mt-3 rounded-xl px-1 md:flex md:flex-row flex-wrap flex  shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-gray-200">
             {carCategory?.map((item) => (
               <div
-                className={`py-3 px-1 rounded-xl cursor-pointer ${
-                  isActive === `${item?.title}`
-                    ? "bg-[#181616] flex justify-center w-[60px] text-white"
-                    : "bg-gray-300"
-                }`}
+                className={`py-1 px-1 rounded-xl cursor-pointer ${isActive === `${item?.title}`
+                  ? "bg-[#181616] flex justify-center w-[50px] text-white"
+                  : ""
+                  }`}
                 onClick={() => setIsActive(`${item?.title}`)}
                 key={item?.id}
               >
                 <div className="text-[10px] flex items-center flex-col">
                   <div className="flex w-10 justify-center">
-                    <Image src={item?.image} height={10} width={35} alt="" />
+                    <Image src={item?.image} height={20} width={35} alt="" />
                   </div>
-                  <div className="flex justify-around">{item?.title}</div>
+                  <div className="flex flex-col text-center">
+                    {item?.title.split(' ').map((word, index) => (
+                      <span key={index}>{word}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -268,21 +274,23 @@ const Sidebar = () => {
 
           <BuyRentButton />
 
-          <div className="flex flex-col sm:flex-row justify-between items-center mt-2 px-4">
-            <div className="text-lg">Filter</div>
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-4 px-4">
+            <div className="text-lg flex items-center justify-center gap-2">
+              <IoMdArrowBack />
+              Filter</div>
             <div className="px-3 py-1 rounded-2xl shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-[#F9F2F2] text-red-500 mt-2 sm:mt-0">
-              Apply
+              Done
             </div>
           </div>
+          <hr className="mt-2" />
 
           <div className="flex flex-col md:flex-row mt-4">
             <div className="w-full md:w-1/3 mb-4 md:mb-0">
               {FilterList?.map((items) => (
                 <div
                   key={items.id}
-                  className={`py-3.5 px-1 cursor-pointer ${
-                    activeModal === `${items?.title}` ? "bg-[#F6F2F9]" : ""
-                  }`}
+                  className={`py-3.5 px-1 cursor-pointer ${activeModal === `${items?.title}` ? "bg-[#F6F2F9] text-purple-600" : ""
+                    }`}
                   onClick={() => handleFilterClick(items?.title)}
                 >
                   {items.title}
@@ -292,37 +300,40 @@ const Sidebar = () => {
 
             <div className="w-full md:w-2/3">
               {activeModal === "Price Range" && (
-                <div className="p-4 w-full md:w-[240px]">
-                  <div className="text-center py-2">₹{val}</div>
-                  <Slider
-                    marks={marks}
-                    step={10}
-                    value={val}
-                    min={MIN}
-                    max={MAX}
-                    onChange={handleChange}
-                    sx={{
-                      color: "rgb(239 68 68)",
-                      "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                        boxShadow: "none",
-                      },
-                      "& .MuiSlider-track": {
-                        border: "none",
-                      },
-                      "& .MuiSlider-thumb": {
-                        width: 24,
-                        height: 24,
-                        backgroundColor: "#fff",
-                        "&::before": {
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
-                        },
-                        "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                          boxShadow: "none",
-                        },
-                      },
-                    }}
-                  />
-                </div>
+               <div className="p-4 w-full md:w-[240px]">
+               <div className="text-center py-2">₹{val}</div>
+               <Slider
+                 marks={marks}
+                 step={10}
+                 value={val}
+                 min={MIN}
+                 max={MAX}
+                 onChange={handleChange}
+                 sx={{
+                   color: "rgb(239 68 68)", // Red color
+                   height: 10, // Make the track thicker
+                   "& .MuiSlider-track": {
+                     border: "none",
+                     height: 10, // Make the track thicker
+                   },
+                   "& .MuiSlider-rail": {
+                     height: 10, // Make the rail thicker
+                   },
+                   "& .MuiSlider-thumb": {
+                     width: 28, // Increase thumb size
+                     height: 28, // Increase thumb size
+                     backgroundColor: "#fff",
+                     "&::before": {
+                       boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
+                     },
+                     "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                       boxShadow: "none",
+                     },
+                   },
+                 }}
+               />
+             </div>
+             
               )}
 
               {activeModal === "Color" && (
@@ -434,12 +445,15 @@ const Sidebar = () => {
 
               {activeModal === "Brands + Models" && (
                 <div className="flex flex-col ms-3">
-                  <input
-                    type="search"
-                    name="Search Modal"
-                    placeholder="Search"
-                    className="py-2 border-2 outline-none rounded-lg w-full px-2 mb-4"
-                  />
+                  <div className="relative w-full ">
+                    <input
+                      type="search"
+                      name="Search Modal"
+                      placeholder="Search"
+                      className="py-2 border-2 outline-none rounded-lg w-full px-2 pr-10 mb-4"
+                    />
+                    <FiSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
+                  </div>
                   <div className="text-xs text-gray-400 py-2">Top Brands</div>
                   {brand?.map((item) => (
                     <div
@@ -566,9 +580,8 @@ const Sidebar = () => {
                   key={items?.id}
                 >
                   <div
-                    className={`py-5 me-2 w-2 ${
-                      activeModal === `${items?.title}` ? "bg-red-500" : ""
-                    }`}
+                    className={`py-5 me-2 w-2 ${activeModal === `${items?.title}` ? "bg-red-500" : ""
+                      }`}
                   ></div>
                   {items?.title}
                 </div>
@@ -887,13 +900,12 @@ const Sidebar = () => {
           </div>
 
           <div className="mt-3 rounded-xl ps-2 pe-2 justify-between shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-gray-200 md:flex md:flex-row flex flex-wrap">
-             {bikeCategory?.map((item) => (
+            {bikeCategory?.map((item) => (
               <div
-                className={`py-5 rounded-xl cursor-pointer ${
-                  isActive === `${item?.title}`
-                    ? "bg-[#181616] text-center flex justify-center w-[65px] text-white"
-                    : ""
-                }`}
+                className={`py-5 rounded-xl cursor-pointer ${isActive === `${item?.title}`
+                  ? "bg-[#181616] text-center flex justify-center w-[65px] text-white"
+                  : ""
+                  }`}
                 onClick={() => {
                   setIsActive(`${item?.title}`);
                 }}
@@ -919,9 +931,8 @@ const Sidebar = () => {
             {bikeFilterList?.map((items) => (
               <div
                 key={items?.id}
-                className={`py-2 px-3 rounded-md cursor-pointer ${
-                  activeModal === `${items?.title}` ? "bg-[#F6F2F9]" : ""
-                }`}
+                className={`py-2 px-3 rounded-md cursor-pointer ${activeModal === `${items?.title}` ? "bg-[#F6F2F9]" : ""
+                  }`}
                 onClick={() => handleFilterClick(items?.title)}
               >
                 <div className="flex items-center gap-3 sm:gap-4">
