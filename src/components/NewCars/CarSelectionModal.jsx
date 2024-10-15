@@ -27,50 +27,6 @@ const CarSelectionModal = ({ isOpen, onClose }) => {
       name: "Toyota",
       models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser", "Yaris"],
     },
-    {
-      name: "Maruti Suzuki",
-      models: [
-        "Fronx",
-        "Brezza",
-        "Grand Vitara",
-        "Swift",
-        "Alto K10",
-        "Ertiga",
-        "Baleno",
-        "Wagon R",
-        "XL6",
-      ],
-    },
-    {
-      name: "Tata",
-      models: ["Nexon", "Harrier", "Safari", "Punch", "Altroz"],
-    },
-    {
-      name: "Toyota",
-      models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser", "Yaris"],
-    },
-    {
-      name: "Maruti Suzuki",
-      models: [
-        "Fronx",
-        "Brezza",
-        "Grand Vitara",
-        "Swift",
-        "Alto K10",
-        "Ertiga",
-        "Baleno",
-        "Wagon R",
-        "XL6",
-      ],
-    },
-    {
-      name: "Tata",
-      models: ["Nexon", "Harrier", "Safari", "Punch", "Altroz"],
-    },
-    {
-      name: "Toyota",
-      models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser", "Yaris"],
-    },
     // Add more brands and models here...
   ];
 
