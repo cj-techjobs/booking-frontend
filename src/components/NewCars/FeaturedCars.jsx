@@ -5,24 +5,13 @@ import Image from "next/image";
 const FeaturedCars = () => {
   const router = useRouter();
   const featuredCars = [
-    { imageSrc: carImage, name: "Mahindra Thar", price: "Rs. 15.5 lakh" },
-    { imageSrc: carImage1, name: "Tata Nexon", price: "Rs. 12.7 lakh" },
-    { imageSrc: carImage, name: "Hyundai Verna", price: "Rs. 13.4 lakh" },
-    {
-      imageSrc: carImage1,
-      name: "Maruti Suzuki Brezza",
-      price: "Rs. 10.5 lakh",
-    },
+    { id: 1, imageSrc: carImage, name: "Mahindra Thar", price: "Rs. 15.5 lakh" },
+    { id: 2, imageSrc: carImage1, name: "Tata Nexon", price: "Rs. 12.7 lakh" },
+    { id: 3, imageSrc: carImage, name: "Hyundai Verna", price: "Rs. 13.4 lakh" },
+    { id: 4, imageSrc: carImage1, name: "Maruti Suzuki Brezza", price: "Rs. 10.5 lakh" },
   ];
   const handleClick = (car) => {
-    router.push({
-      pathname: "/new-cars/carItem",
-      query: {
-        name: car.name,
-        price: car.price,
-        imageSrc: car.imageSrc.src,
-      },
-    });
+    router.push(`/new-cars/${car.id}`);
   };
   return (
     <div>

@@ -5,10 +5,10 @@ import roundView from "/src/assets/carsSvg/360View.png";
 import carLoading from "/src/assets/carsSvg/loadingCar.png";
 import fullImage from "/src/assets/carsSvg/fullImage.png";
 
-import Accordian from "../../../components/NewCars/Accordian";
-import Variants from "../../../components/NewCars/Variants";
+import Accordian from "../../components/NewCars/Accordian";
+import Variants from "../../components/NewCars/Variants";
 import { useState } from "react";
-import LocationPopup from "../../../components/NewCars/LocationPopup";
+import LocationPopup from "../../components/NewCars/LocationPopup";
 
 
 export default function Home() {

@@ -36,11 +36,11 @@ export const CarBrands = () => {
         { imageSrc: bmwLogo, brandName: "BMW" },
         { imageSrc: hyundaiLogo, brandName: "HYUNDAI" },
         { imageSrc: hondaLogo, brandName: "HONDA" },
-        { imageSrc: tataLogo, brandName: "TATA MOTORS" },
-        { imageSrc: volksLogo, brandName: "VOLKSWAGEN" },
-        { imageSrc: bmwLogo, brandName: "BMW" },
-        { imageSrc: hyundaiLogo, brandName: "HYUNDAI" },
-        { imageSrc: hondaLogo, brandName: "HONDA" },
+        // { imageSrc: tataLogo, brandName: "TATA MOTORS" },
+        // { imageSrc: volksLogo, brandName: "VOLKSWAGEN" },
+        // { imageSrc: bmwLogo, brandName: "BMW" },
+        // { imageSrc: hyundaiLogo, brandName: "HYUNDAI" },
+        // { imageSrc: hondaLogo, brandName: "HONDA" },
       ];
     return (
         <>
