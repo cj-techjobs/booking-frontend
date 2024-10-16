@@ -1,45 +1,93 @@
+
 import React, { useState } from "react";
+import { useRouter } from "next/router"; // For navigation
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const CarSelectionModal = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrand, setSelectedBrand] = useState(null); // Track selected brand
+  const [selectedCars, setSelectedCars] = useState([]); // Track selected cars
+
+  const router = useRouter();
 
   const carBrands = [
     {
       name: "Maruti Suzuki",
       models: [
-        "Fronx",
-        "Brezza",
-        "Grand Vitara",
-        "Swift",
-        "Alto K10",
-        "Ertiga",
-        "Baleno",
-        "Wagon R",
-        "XL6",
+        { id: 1, name: "Fronx" },
+        { id: 2, name: "Brezza" },
+        { id: 3, name: "Grand Vitara" },
+        { id: 4, name: "Swift" },
+        { id: 5, name: "Alto K10" },
+        { id: 6, name: "Ertiga" },
+        { id: 7, name: "Baleno" },
+        { id: 8, name: "Wagon R" },
+        { id: 9, name: "XL6" },
       ],
     },
     {
       name: "Tata",
-      models: ["Nexon", "Harrier", "Safari", "Punch", "Altroz"],
+      models: [
+        { id: 10, name: "Nexon" },
+        { id: 11, name: "Harrier" },
+        { id: 12, name: "Safari" },
+        { id: 13, name: "Punch" },
+        { id: 14, name: "Altroz" },
+      ],
     },
     {
       name: "Toyota",
-      models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser", "Yaris"],
+      models: [
+        { id: 15, name: "Innova" },
+        { id: 16, name: "Fortuner" },
+        { id: 17, name: "Glanza" },
+        { id: 18, name: "Urban Cruiser" },
+        { id: 19, name: "Yaris" },
+      ],
     },
     {
       name: "Mahindra",
-      models: ["XUV700", "Scorpio", "Bolero", "Thar", "XUV300"],
+      models: [
+        { id: 20, name: "XUV700" },
+        { id: 21, name: "Scorpio" },
+        { id: 22, name: "Bolero" },
+        { id: 23, name: "Thar" },
+        { id: 24, name: "XUV300" },
+      ],
     },
     // Add more brands and models here...
   ];
 
   const handleBrandClick = (brandName) => {
-    // Toggle the brand's model list
     setSelectedBrand((prevBrand) =>
       prevBrand === brandName ? null : brandName
     );
+  };
+
+  const handleCarSelect = (car) => {
+    // Limit to only two cars selected
+    if (selectedCars.length < 2) {
+      setSelectedCars((prevSelected) => [...prevSelected, car]);
+    } else {
+      alert("You can only select two cars for comparison.");
+    }
+  };
+
+  const handleRemoveCar = (carId) => {
+    setSelectedCars(selectedCars.filter((car) => car.id !== carId));
+  };
+
+  const handleCompare = () => {
+    // Ensure two cars are selected
+    if (selectedCars.length === 2) {
+      const [car1, car2] = selectedCars;
+      router.push({
+        pathname: "/compare-cars",
+        query: { car1: car1.id, car2: car2.id },
+      });
+    } else {
+      alert("Please select two cars for comparison.");
+    }
   };
 
   if (!isOpen) return null; // Hide modal if not open
@@ -111,13 +159,29 @@ const CarSelectionModal = ({ isOpen, onClose }) => {
 
                   {/* Show models when the brand is selected */}
                   {selectedBrand === brand.name && (
-                    <ul className="mt-2 bg-gray-50   divide-y divide-gray-200">
+                    <ul className="mt-2 bg-gray-50 divide-y divide-gray-200">
                       {brand.models.map((model, modelIndex) => (
                         <li
                           key={modelIndex}
-                          className="text-gray-700 p-2 px-6 text-left hover:bg-gray-100"
+                          className={`text-gray-700 p-2 px-6 text-left hover:bg-gray-100 cursor-pointer ${
+                            selectedCars.find((car) => car.id === model.id)
+                              ? "bg-blue-100"
+                              : ""
+                          }`}
+                          onClick={() => handleCarSelect(model)}
                         >
-                          {model}
+                          {model.name}
+                          {selectedCars.find((car) => car.id === model.id) && (
+                            <span
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemoveCar(model.id);
+                              }}
+                              className="ml-2 text-red-500 cursor-pointer"
+                            >
+                              ✖️
+                            </span>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -125,6 +189,32 @@ const CarSelectionModal = ({ isOpen, onClose }) => {
                 </li>
               ))}
           </ul>
+        </div>
+
+        {/* Selected Cars and Compare Button */}
+        <div className="p-4">
+          <h3 className="text-lg font-semibold">Selected Cars:</h3>
+          <ul>
+            {selectedCars.map((car) => (
+              <li key={car.id} className="text-gray-700">
+                {car.name}{" "}
+                <span
+                  onClick={() => handleRemoveCar(car.id)}
+                  className="ml-2 text-red-500 cursor-pointer"
+                >
+                  ✖️
+                </span>
+              </li>
+            ))}
+          </ul>
+          {selectedCars.length === 2 && (
+            <button
+              onClick={handleCompare}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+            >
+              Compare Cars
+            </button>
+          )}
         </div>
       </div>
     </div>

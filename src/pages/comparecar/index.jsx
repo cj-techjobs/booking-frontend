@@ -1,20 +1,47 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router"; 
 import Image from "next/image";
 import CarSelectionModal from "../../components/NewCars/CarSelectionModal"; // Import the modal component
 
 const CarComparisonPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
-
+  const router = useRouter();
   const carSlots = [1, 2, 3]; // Three car slots for comparison
+  const carComparisons = [
+    {
+      id: 1,
+      car1: {id: 1, name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
+      car2: { id: 2,name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
+    },
+    {
+      id: 2,
+      car1: { id: 3,name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
+      car2: {id: 4, name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
+    },
+    {
+      id: 3,
+      car1: { id: 5,name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
+      car2: { id: 6,name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
+    },
 
+    // Add more comparisons if needed
+  ];
+
+  const handleCompareClick = (car1Id, car2Id) => {
+    console.log(car1Id)
+    router.push({
+      pathname: "/compare-cars",
+      query: { car1: car1Id, car2: car2Id },
+    });
+  };
   return (
-    <div className="mx-auto mt-10 px-4 text-center">
+    <div className="container mx-auto mt-5 min-h-screen w-full  ">
       {/* Title Section */}
-      <div>
-        <h1 className="text-3xl font-semibold text-black">
+      <div className="text-center">
+        <h1 className="text-3xl italic font-semibold">
           Welcome to <span className="text-red-500">Six Car Comparison</span>
         </h1>
-        <p className="text-lg italic mt-2 text-gray-700">
+        <p className="text-2xl italic mt-2 text-left">
           We'll help you pick your ride finely
         </p>
       </div>
@@ -24,15 +51,14 @@ const CarComparisonPage = () => {
         {carSlots.map((slot, index) => (
           <div key={index} className="flex items-center space-x-4">
             {/* Car Slot */}
-            <div className="relative flex flex-col justify-center items-center w-60 h-60 border border-gray-300 rounded-lg shadow-lg">
+            <div className="relative flex flex-col justify-center items-center w-[300px] h-[200px] border border-gray-500 ">
               <Image src="/images/car-icon.png" alt="Select Car" width={80} height={80} />
-              <a
-                href="#"
-                className="text-blue-500 underline mt-4"
+              <p
+                className="text-blue-500  font-semibold cursor-pointer"
                 onClick={() => setIsModalOpen(true)} // Open modal on click
               >
                 Select car
-              </a>
+              </p>
             </div>
             {/* VS between cards */}
             {index < carSlots.length - 1 && (
@@ -44,11 +70,68 @@ const CarComparisonPage = () => {
 
       {/* Popular Comparisons */}
       <div className="mt-8">
-        <h3 className="text-lg italic text-gray-700">
+        <h3 className="text-2xl italic text-gray-700">
           Popular <span className="text-red-500">comparisons</span>
         </h3>
+        <h3 className="text-xl font-semibold mt-2 text-gray-700   border-l-4 border-red-500 pl-2">
+          Type of Car
+        </h3>
       </div>
+      <div className="flex justify-start mt-6 space-x-4 mb-10">
+        {carComparisons.map((comparison, index) => (
+          <div
+            key={comparison.id}
+            className="border border-gray-300 rounded-lg w-[400px] h-[280px] flex flex-col justify-center relative"
+          >
+            <div className="flex justify-between items-center space-x-4 w-full mb-6">
+              {/* Car 1 */}
+              <div className="w-1/2 flex flex-col items-center justify-center ">
+                <Image
+                  src={comparison.car1.image}
+                  alt={comparison.car1.name}
+                  width={120}
+                  height={80}
+                  className="object-contain"
+                />
+                <p className="text-gray-500 mt-2 ">Brand</p>
+                <p className="font-semibold">{comparison.car1.name}</p>
+                <p className="text-gray-500">{comparison.car1.price} Onwards</p>
+              </div>
 
+              {/* VS Label */}
+              <div className="relative flex flex-col items-center justify-center">
+                <div className="w-[1px] h-24 bg-gray-400"></div>
+                <div className="absolute -top-4 bg-white px-2 py-1 text-xs text-red-500 border border-gray-300 shadow-sm rounded">
+                  VS
+                </div>
+              </div>
+
+              {/* Car 2 */}
+              <div className="w-1/2 flex flex-col items-center justify-center">
+                <Image
+                  src={comparison.car2.image}
+                  alt={comparison.car2.name}
+                  width={120}
+                  height={80}
+                  className="object-contain"
+                />
+                <p className="text-gray-500 mt-2">Brand</p>
+                <p className="font-semibold">{comparison.car2.name}</p>
+                <p className="text-gray-500">{comparison.car2.price} Onwards</p>
+              </div>
+            </div>
+
+            {/* Compare Now Button */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+              <button className="bg-white text-red-500 py-2 px-6 font-semibold rounded-md border  shadow-[0px_10px_15px_3px_rgba(255,0,0,0.3)] transition duration-300 "  onClick={() => handleCompareClick(comparison.car1.id, comparison.car2.id)}>
+                Compare Now
+              </button>
+
+
+            </div>
+          </div>
+        ))}
+      </div>
       {/* Modal for car selection */}
       <CarSelectionModal
         isOpen={isModalOpen}
