@@ -42,9 +42,9 @@ export default function NewCars() {
     }
   ];
   return (
-    <div className="min-h-screen w-full max-w-6xl mx-auto bg-gray-100 flex flex-col items-center p-4">
+    <div className="min-h-screen w-full max-w-6xl mx-auto flex flex-col items-center p-4">
       {/* Title Section */}
-      <div className="text-center mb-6 w-full">
+      <div className="text-center w-full">
         <h1 className="text-xl font-semibold">
           Relax and Let us find{" "}
           <span className="text-yellow-500 font-semibold">perfect</span> pick
