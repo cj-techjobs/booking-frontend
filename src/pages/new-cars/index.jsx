@@ -7,13 +7,13 @@ import testDriveIcon from '/public/images/test-drive-icon.png';
 import qualityIcon from '/public/images/quality-icon.png';
 import paymentIcon from '/public/images/payment-icon.png';
 import escaladeImage from '/public/images/cadillac-escalade.png';
-import { CarBrands } from "../../components/NewCars/carBrands";
 import CarType from "../../components/NewCars/CarType";
 import FeaturedCars from "../../components/NewCars/FeaturedCars";
 import CarComparision from "../../components/NewCars/CarComparision";
 import AddSection from "../../components/NewCars/AddSection";
 import MostlySearchedCars from "../../components/NewCars/MostlySearchedCars";
 import ShopByPrice from "../../components/NewCars/ShopByPrice";
+import { CarBrands } from "../../components/NewCars/CarBrands";
 
 export default function NewCars() {
   const router = useRouter();
@@ -23,32 +23,32 @@ export default function NewCars() {
     {
       icon: bookingIcon,
       title: "Easy online booking",
-      description: "ft789-0efopl kmknzguxy zregsfludvjofipq wKEFJDbvhxqfiuw 5kdxcv'eg"
+      description: "Quick and simple online booking process."
     },
     {
       icon: testDriveIcon,
       title: "Free Test drive",
-      description: "ft789-0efopl kmknzguxy zregsfludvjofipq wKEFJDbvhxqfiuw 5kdxcv'eg"
+      description: "Book a free test drive at your convenience."
     },
     {
       icon: qualityIcon,
       title: "High quality",
-      description: "ft789-0efopl kmknzguxy zregsfludvjofipq wKEFJDbvhxqfiuw 5kdxcv'eg"
+      description: "All our cars meet the highest standards."
     },
     {
       icon: paymentIcon,
       title: "Online Payment",
-      description: "ft789-0efopl kmknzguxy zregsfludvjofipq wKEFJDbvhxqfiuw 5kdxcv'eg"
+      description: "Pay online with secure options."
     }
   ];
+
   return (
-    <div className="min-h-screen w-full max-w-6xl mx-auto flex flex-col items-center p-4">
+    <div className="min-h-screen w-full max-w-8xl mx-auto flex flex-col items-center p-8">
       {/* Title Section */}
-      <div className="text-center w-full">
-        <h1 className="text-xl font-semibold">
+      <div className="text-center w-full mb-6">
+        <h1 className="text-xl md:text-3xl font-semibold">
           Relax and Let us find{" "}
-          <span className="text-yellow-500 font-semibold">perfect</span> pick
-          for you
+          <span className="text-yellow-500">the perfect</span> pick for you
         </h1>
       </div>
 
@@ -61,22 +61,20 @@ export default function NewCars() {
       {/* Select your type */}
       <CarType />
 
-      {/* Featured Cars Section  Start*/}
+      {/* Featured Cars Section */}
       <FeaturedCars />
 
-      {/* Car Comparision Section Starts */}
+      {/* Car Comparison Section */}
       <CarComparision />
 
       {/* Ad Section */}
       <AddSection />
 
-
-      {/* Mostly Searched Cars Start */}
+      {/* Mostly Searched Cars */}
       <MostlySearchedCars />
 
-      {/* Car Show Case Image Starts */}
-      <div className="relative w-full max-w-6xl mx-auto rounded-lg overflow-hidden mb-10">
-        {/* Background Car Image */}
+      {/* Car Showcase Image */}
+      <div className="relative w-full rounded-lg overflow-hidden mb-10">
         <Image
           src={carComparisonImage}
           alt="Car Showcase"
@@ -84,37 +82,29 @@ export default function NewCars() {
           width={1200}
           height={500}
           objectFit="cover"
-          className="w-full h-full"
+          className="w-full h-auto"
         />
-
         {/* Overlay Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h2 className="text-lg md:text-xl font-bold">2023 FORTE</h2>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
+          <h2 className="text-lg md:text-2xl font-bold">2023 FORTE</h2>
           <h1 className="text-4xl md:text-5xl font-bold mt-2">Coming in hot.</h1>
         </div>
-
       </div>
-      {/* Car Show Case Image Ends */}
 
       {/* Shop cars by price */}
       <ShopByPrice />
 
-
-      {/* Why Choose Us Starts */}
-      <div className=" w-full bg-white p-6">
-        {/* Title Section */}
+      {/* Why Choose Us Section */}
+      <div className="w-full bg-white ">
         <div className="mb-6 text-center">
-          <h2 className="text-3xl font-semibold">
-            Why choose us?
-          </h2>
+          <h2 className="text-3xl font-semibold">Why choose us?</h2>
         </div>
 
-        {/* Features Grid Section */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        {/* Features Horizontal Scroll Section */}
+        <section className="flex overflow-x-auto space-x-4 py-4 scrollbar-hide">
           {features.map((feature, index) => (
-            <div key={index} className="p-6 bg-gray-100 rounded-lg shadow-md">
-              {/* Icon */}
-              <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 rounded-lg ">
+            <div key={index} className="p-6 bg-gray-100 rounded-lg shadow-md min-w-[200px] flex-shrink-0 text-center">
+              <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4">
                 <Image
                   src={feature.icon}
                   alt={feature.title}
@@ -122,29 +112,21 @@ export default function NewCars() {
                   height={100}
                 />
               </div>
-              {/* Title */}
               <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-              {/* Description */}
               <p className="text-sm text-gray-700">{feature.description}</p>
             </div>
           ))}
         </section>
       </div>
-      {/* Why Choose Us Ends */}
 
-      {/* Offer of this month start */}
-      <div className="w-full bg-white p-6">
-        {/* Title Section */}
+      {/* Offer of this month */}
+      <div className="w-full bg-white ">
         <div className="mb-4 text-center">
           <h2 className="text-4xl font-semibold">Offer of this month</h2>
         </div>
-
-        {/* Description */}
         <p className="text-center text-gray-600 mb-10">
-          sdfghjkl;lkshgfkscvqbjckxlvbghfjsgrsnfhdikglojdfasxzdgfjhklhljgrsedazsDFHLJHKGHRESDAWqsdaufetylukjfsfdazsctsbghmjklhnfbqdcvdsxzvbmnbvcxz
+          Exciting deals available for a limited time.
         </p>
-
-        {/* Offer Card Section */}
         <div className="w-full max-w-6xl overflow-hidden rounded-lg shadow-lg">
           <Image
             src={escaladeImage}
@@ -153,13 +135,13 @@ export default function NewCars() {
             width={1200}
             height={500}
             objectFit="cover"
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
       </div>
-      {/* Offer of this month ends */}
-      <div className="relative w-full max-w-6xl h-[100px] bg-red-400 rounded-lg overflow-hidden mx-auto mt-10 p-6">
-        {/* Logo/Text */}
+
+      {/* Bottom Section */}
+      <div className="relative w-full bg-red-400 rounded-lg overflow-hidden mx-auto mt-10 p-6 h-[100px]">
         <div className="absolute top-6 left-6">
           <h2 className="text-6xl font-bold text-white">S6K</h2>
         </div>
