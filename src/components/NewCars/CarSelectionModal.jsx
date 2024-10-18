@@ -94,130 +94,131 @@ const CarSelectionModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white w-full max-w-lg max-h-[80vh] mx-auto rounded-lg overflow-hidden shadow-lg relative">
-        {/* Modal Header */}
-        <div className="bg-gray-200 p-4 h-[5rem] relative z-30">
-          <h2 className="text-2xl font-semibold text-left">
-            Select brand and model
-          </h2>
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-          >
-            ✖️
-          </button>
+    <div className="bg-white w-full max-w-lg h-full max-h-[80vh] mx-auto rounded-lg overflow-hidden shadow-lg relative">
+      {/* Modal Header */}
+      <div className="bg-gray-200 p-4 h-[5rem] relative z-30">
+        <h2 className="text-2xl font-semibold text-left">
+          Select brand and model
+        </h2>
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+        >
+          ✖️
+        </button>
+      </div>
+  
+      {/* Conditionally show the search bar and car brands when no brand is selected */}
+      {selectedBrand === null && (
+        <div className="p-4 max-w-md mx-auto relative -mt-10 z-50 ">
+          {/* Search bar */}
+          <input
+            type="text"
+            placeholder="Type to search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full border border-gray-300 px-4 py-2 text-gray-700 shadow-sm focus:outline-none focus:border-blue-500"
+          />
         </div>
-
-        {/* Conditionally show the search bar and car brands when no brand is selected */}
-        {selectedBrand === null && (
-          <div className="p-4 max-w-md mx-auto relative -mt-10 z-50 ">
-            {/* Search bar */}
-            <input
-              type="text"
-              placeholder="Type to search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full border border-gray-300 px-4 py-2 text-gray-700 shadow-sm focus:outline-none focus:border-blue-500"
-            />
-          </div>
-        )}
-
-        {/* Car Brands List */}
-        <div className="p-4 max-w-md mx-auto max-h-[50vh] overflow-y-auto">
-          <ul className="divide-y divide-gray-300 border rounded-lg shadow-sm bg-white">
-            {carBrands
-              .filter((brand) =>
-                brand.name.toLowerCase().includes(searchTerm.toLowerCase())
-              )
-              .map((brand, index) => (
-                <li key={index}>
-                  <div
-                    className="flex justify-between items-center cursor-pointer p-2 hover:bg-gray-100"
-                    onClick={() => handleBrandClick(brand.name)}
-                  >
-                    <div className="flex items-center">
-                      {/* Add brand logo if necessary */}
-                      <div className="mr-3">
-                        <img
-                          src={`/images/tatalogo.png`}
-                          alt={brand.name}
-                          className="w-6 h-6"
-                        />
-                      </div>
-                      <span className="text-gray-800 text-lg ">
-                        {brand.name}
-                      </span>
-                    </div>
-                    <button className="text-gray-500 hover:text-gray-700">
-                      {selectedBrand === brand.name ? (
-                        <IoIosArrowUp />
-                      ) : (
-                        <IoIosArrowDown />
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Show models when the brand is selected */}
-                  {selectedBrand === brand.name && (
-                    <ul className="mt-2 bg-gray-50 divide-y divide-gray-200">
-                      {brand.models.map((model, modelIndex) => (
-                        <li
-                          key={modelIndex}
-                          className={`text-gray-700 p-2 px-6 text-left hover:bg-gray-100 cursor-pointer ${
-                            selectedCars.find((car) => car.id === model.id)
-                              ? "bg-blue-100"
-                              : ""
-                          }`}
-                          onClick={() => handleCarSelect(model)}
-                        >
-                          {model.name}
-                          {selectedCars.find((car) => car.id === model.id) && (
-                            <span
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleRemoveCar(model.id);
-                              }}
-                              className="ml-2 text-red-500 cursor-pointer"
-                            >
-                              ✖️
-                            </span>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-          </ul>
-        </div>
-
-        {/* Selected Cars and Compare Button */}
-        <div className="p-4">
-          <h3 className="text-lg font-semibold">Selected Cars:</h3>
-          <ul>
-            {selectedCars.map((car) => (
-              <li key={car.id} className="text-gray-700">
-                {car.name}{" "}
-                <span
-                  onClick={() => handleRemoveCar(car.id)}
-                  className="ml-2 text-red-500 cursor-pointer"
+      )}
+  
+      {/* Car Brands List */}
+      <div className="p-4 max-w-md mx-auto max-h-[50vh] overflow-y-auto">
+        <ul className="divide-y divide-gray-300 border rounded-lg shadow-sm bg-white">
+          {carBrands
+            .filter((brand) =>
+              brand.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((brand, index) => (
+              <li key={index}>
+                <div
+                  className="flex justify-between items-center cursor-pointer p-2 hover:bg-gray-100"
+                  onClick={() => handleBrandClick(brand.name)}
                 >
-                  ✖️
-                </span>
+                  <div className="flex items-center">
+                    {/* Add brand logo if necessary */}
+                    <div className="mr-3">
+                      <img
+                        src={`/images/tatalogo.png`}
+                        alt={brand.name}
+                        className="w-6 h-6"
+                      />
+                    </div>
+                    <span className="text-gray-800 text-lg ">
+                      {brand.name}
+                    </span>
+                  </div>
+                  <button className="text-gray-500 hover:text-gray-700">
+                    {selectedBrand === brand.name ? (
+                      <IoIosArrowUp />
+                    ) : (
+                      <IoIosArrowDown />
+                    )}
+                  </button>
+                </div>
+  
+                {/* Show models when the brand is selected */}
+                {selectedBrand === brand.name && (
+                  <ul className="mt-2 bg-gray-50 divide-y divide-gray-200">
+                    {brand.models.map((model, modelIndex) => (
+                      <li
+                        key={modelIndex}
+                        className={`text-gray-700 p-2 px-6 text-left hover:bg-gray-100 cursor-pointer ${
+                          selectedCars.find((car) => car.id === model.id)
+                            ? "bg-blue-100"
+                            : ""
+                        }`}
+                        onClick={() => handleCarSelect(model)}
+                      >
+                        {model.name}
+                        {selectedCars.find((car) => car.id === model.id) && (
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveCar(model.id);
+                            }}
+                            className="ml-2 text-red-500 cursor-pointer"
+                          >
+                            ✖️
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
-          </ul>
-          {selectedCars.length === 2 && (
-            <button
-              onClick={handleCompare}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
-            >
-              Compare Cars
-            </button>
-          )}
-        </div>
+        </ul>
+      </div>
+  
+      {/* Selected Cars and Compare Button */}
+      <div className="p-4">
+        <h3 className="text-lg font-semibold">Selected Cars:</h3>
+        <ul>
+          {selectedCars.map((car) => (
+            <li key={car.id} className="text-gray-700">
+              {car.name}{" "}
+              <span
+                onClick={() => handleRemoveCar(car.id)}
+                className="ml-2 text-red-500 cursor-pointer"
+              >
+                ✖️
+              </span>
+            </li>
+          ))}
+        </ul>
+        {selectedCars.length === 2 && (
+          <button
+            onClick={handleCompare}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            Compare Cars
+          </button>
+        )}
       </div>
     </div>
+  </div>
+  
   );
 };
 
