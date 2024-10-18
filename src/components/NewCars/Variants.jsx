@@ -1,43 +1,32 @@
-import { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
+
 const Variants = () => {
     const carVariants = [
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/suv-icon.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/suv-icon.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/suv-icon.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
-        { name: 'Full name of model', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 1', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 2', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/suv-icon.png' },
+        { name: 'Full name of model 3', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 4', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 5', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 1', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 2', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/suv-icon.png' },
+        { name: 'Full name of model 3', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 4', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 5', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 1', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 2', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/suv-icon.png' },
+        { name: 'Full name of model 3', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 4', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
+        { name: 'Full name of model 5', fuel: 'Fuel', transmission: 'Transmission', price: 'Rs. XX', imageSrc: '/images/sample-car1.png' },
     ];
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const containerRef = useRef(null);
-    let startX = 0;
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex >= carVariants.length - 3 ? 0 : prevIndex + 1));
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [carVariants.length]);
     return (
-        <div className="flex flex-col items-start bg-white rounded-lg p-4 mt-10 ">
+        <div className="flex flex-col items-start bg-white rounded-lg p-4 mt-10">
             <p className="font-semibold text-xl mb-4">Other variants available</p>
-            <div
-                className="flex overflow-hidden cursor-pointer select-none"
-                ref={containerRef}
-            // onMouseDown={handleMouseDown}
-            // onMouseUp={handleMouseUp}
-            // onTouchStart={handleTouchStart}
-            // onTouchEnd={handleTouchEnd}
-            >
-                {carVariants.slice(currentIndex, currentIndex + 3).map((variant, index) => (
-                    <div key={index} className="flex flex-col items-start bg-gray-100 p-4 rounded-md m-2 shadow-md w-64">
+            {/* Scrollable Container */}
+            <div className="flex overflow-x-auto space-x-4 scrollbar-hide w-full" style={{ scrollBehavior: 'smooth' }}>
+                {/* Card items */}
+                {carVariants.map((variant, index) => (
+                    <div key={index} className="flex-shrink-0 flex flex-col items-start bg-gray-100 p-4 rounded-md shadow-md w-64">
                         <div className="flex items-center justify-between w-full">
                             <div className="flex flex-col">
                                 <p className="font-semibold text-sm mb-1">{variant.name}</p>
@@ -52,7 +41,7 @@ const Variants = () => {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
-export default Variants
+export default Variants;
