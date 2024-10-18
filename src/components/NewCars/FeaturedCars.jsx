@@ -28,13 +28,13 @@ const FeaturedCars = () => {
   return (
     <div className="w-full mb-10 ">
       <div className="mt-10">
-        <h2 className="text-2xl text-left font-semibold border-l-4 border-red-500 pl-2">
+        <h2 className="text-2xl font-semibold border-l-4 border-red-500 pl-2">
           Featured Cars
         </h2>
       </div>
 
       {/* Tabs Section */}
-      <div className="flex space-x-6 mt-4">
+      <div className="flex space-x-6 mb-8">
         <button className="px-4 py-2 bg-white text-black rounded-full hover:text-gray-500">
           Latest
         </button>
@@ -48,7 +48,7 @@ const FeaturedCars = () => {
 
       {/* Horizontal Scroll Section */}
       <div className="overflow-x-auto w-full scrollbar-hide">
-        <section className="flex gap-10 overflow-x-auto whitespace-nowrap w-[900px] lg:w-[1100px] xl:w-[1200px] mx-auto px-4 scrollbar-hide">
+        <section className="flex space-x-4">
           {featuredCars.map((car, index) => (
             <div
               key={index}
