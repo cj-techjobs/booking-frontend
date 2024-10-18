@@ -34,14 +34,16 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row">
           <div className="lg:w-2/3 relative">
             <div className="relative">
+              {/* Main Image */}
               <Image
                 src={carImage}
                 alt="Maruti Suzuki Baleno"
                 height={400}
                 className="rounded-md w-full h-auto"
               />
-              {/* Thumbnails positioned at the bottom center */}
-              <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-70 p-2 rounded-lg flex space-x-4 shadow-lg mb-2">
+
+              {/* Thumbnails Section */}
+              <div className="hidden sm:absolute sm:bottom-10 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:bg-white sm:bg-opacity-70 sm:p-2 sm:rounded-lg sm:flex sm:space-x-4 sm:shadow-lg sm:mb-2">
                 <Image
                   src={roundView}
                   alt="Thumbnail 1"
@@ -64,10 +66,35 @@ export default function Home() {
                   className="border rounded"
                 />
               </div>
+
+              {/* Thumbnails for Mobile (displayed in a row below the main image) */}
+              <div className="flex justify-evenly mt-4 space-x-2  bg-opacity-70 p-2  sm:hidden">
+                <Image
+                  src={roundView}
+                  alt="Thumbnail 1"
+                  width={100}
+                  height={90}
+                  className="border rounded"
+                />
+                <Image
+                  src={carLoading}
+                  alt="Thumbnail 2"
+                  width={100}
+                  height={90}
+                  className="border rounded"
+                />
+                <Image
+                  src={fullImage}
+                  alt="Thumbnail 3"
+                  width={100}
+                  height={90}
+                  className="border rounded"
+                />
+              </div>
             </div>
 
             {/* Color Options Section */}
-            <div className="flex flex-col items-start bg-white rounded-lg p-4 mt-6 lg:mt-10">
+            <div className="flex flex-col items-start bg-white rounded-lg p-4 mt-5 lg:mt-10">
               <p className="font-semibold text-xl mb-4">Color: Color 1</p>
               <div className="flex space-x-4">
                 <div className="flex flex-col items-center">
@@ -125,16 +152,17 @@ export default function Home() {
 
             {/* Action Buttons */}
             <div className="flex mt-6 items-center justify-between gap-4">
-              <button className="bg-white text-xl hover:bg-gray-300 text-red-600 font-semibold py-3 px-4 rounded shadow">
+              <button className="bg-white text-lg hover:bg-gray-300 text-red-600 font-semibold py-2 px-3 rounded shadow">
                 Book Now
               </button>
               <button
-                className="bg-red-500 text-xl hover:bg-red-600 text-white font-semibold py-3 px-4 rounded shadow"
+                className="bg-red-500 text-lg hover:bg-red-600 text-white font-semibold py-2 px-3 rounded shadow"
                 onClick={handleTestDriveClick}
               >
                 Book Test Drive
               </button>
             </div>
+
 
             {/* Location */}
             <div className="flex justify-between items-center bg-white p-6 rounded-lg shadow-md max-w-lg my-4">
@@ -190,7 +218,12 @@ export default function Home() {
         <Accordian />
 
         {/* Location Popup */}
-        {showLocationPopup && <LocationPopup onClose={handleClosePopup} />}
+        {/* Location Popup */}
+        {showLocationPopup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <LocationPopup onClose={handleClosePopup} />
+          </div>
+        )}
       </div>
     </div>
   );
