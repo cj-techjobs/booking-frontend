@@ -5,10 +5,24 @@ import volksLogo from "/public/images/volks-logo.png";
 import bmwLogo from "/public/images/bmw-logo.png";
 import hyundaiLogo from "/public/images/hyundai-logo.png";
 import hondaLogo from "/public/images/honda-logo.png";
+import { useEffect } from "react";
+import { getAllNewCarData } from "../../pages/api/api";
 
 function CarBrandCard({ imageSrc, brandName }) {
     const router = useRouter();
-
+    useEffect(() => {
+        // Call the API function and log the result
+        const fetchCarData = async () => {
+          try {
+            const data = await getAllNewCarData();
+            console.log("Fetched Car Data:", data?.list); // This will log the car data to the console
+          } catch (error) {
+            console.error("Error fetching car data:", error);
+          }
+        };
+    
+        fetchCarData();
+      }, []);
     const handleClick = () => {
         router.push(`/brand/${brandName.toLowerCase().replaceAll(" ", "-")}`);
     };

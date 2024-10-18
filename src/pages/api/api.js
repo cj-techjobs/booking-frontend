@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import axiosInstance from "/src/pages/api/axiosInstance.js";
+import axiosInstance from "./axiosInstance";
 
 //get user profile
 export const getUserProfile = async () => {
@@ -16,6 +16,92 @@ export const getUserProfile = async () => {
     });
     return response?.data;
   } catch (error) {
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+
+
+//get all the new car
+export const getAllNewCarData = async () => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+    
+    const response = await axiosInstance.get("newcar?skip=0&limit=&page=", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    
+    // Log the response data to the console
+    console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error("Error fetching car data:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+
+
+//get the new car by id
+export const getNewCarById = async (id) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    const response = await axiosInstance.get(`newcar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data to the console
+    console.log(`API Response Data for Car ID ${id}:`, response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error(`Error fetching car data by ID (${id}):`, error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+//get the  car by id
+export const getCarById = async (id) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    const response = await axiosInstance.get(`http://13.234.115.173:8000/api/v1/car/6710d7512e3a7dfe2022026b`, {
+    // const response = await axiosInstance.get(`car/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data to the console
+    console.log(`API Response Data for Car ID ${id}:`, response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error(`Error fetching car data by ID (${id}):`, error);
     throw error?.response
       ? error?.response?.data
       : new Error("An unexpected error occurred");

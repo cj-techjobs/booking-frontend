@@ -7,17 +7,43 @@ import fullImage from "/src/assets/carsSvg/fullImage.png";
 
 import Accordian from "../../components/NewCars/Accordian";
 import Variants from "../../components/NewCars/Variants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LocationPopup from "../../components/NewCars/LocationPopup";
+import { getNewCarById } from "../api/api";
 
 export default function Home() {
   const router = useRouter();
+  const [carData, setCarData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showLocationPopup, setShowLocationPopup] = useState(false);
-
+  const { id } = router.query;
   const handleLocationClick = () => {
     setShowLocationPopup(true);
   };
+  useEffect(() => {
+    if (id) {
+      // Call the getCarById method once the ID is available from the URL
+      const fetchCarData = async () => {
+        try {
+          setLoading(true);
+          const data = await getNewCarById('671105f984e208f187ad2b0c');
+          // const data = await getNewCarById(id);
+          setCarData(data);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching car data:", error);
+          setError(error);
+          setLoading(false);
+        }
+      };
 
+      fetchCarData();
+    }
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   const handleTestDriveClick = () => {
     router.push("/testdrive");
   };
