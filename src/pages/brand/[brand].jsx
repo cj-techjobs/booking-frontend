@@ -23,45 +23,44 @@ const carListings = [
     price: "Rs. xx Lakh - XX Lakh",
   },
 ];
+
 export default function BrandPage() {
   const router = useRouter();
   const { brand } = router.query; // Get brand name from route
-  console.log(router.query);
+
   return (
-    <div className="min-h-screen max-w-6xl mx-auto w-full bg-white p-6">
-      {/* Title Section */}
+    <div className="min-h-screen max-w-6xl mx-auto w-full bg-white p-4 md:p-6">
       <div className="mb-4">
-        <h2 className="text-2xl font-semibold border-l-4 border-red-500 pl-2 uppercase">
+        <h2 className="text-xl md:text-2xl font-semibold border-l-4 border-red-500 pl-2 uppercase">
           {brand} Cars
         </h2>
       </div>
-
-      {/* Car Listings */}
-      <div className="space-y-8">
+      <div className="space-y-6 md:space-y-8">
         {carListings.map((car, index) => (
-          <div key={index} className="flex items-start border-b pb-4 mb-4">
-            {/* Car Image */}
-            <div className="w-1/4">
+          <div key={index} className="flex sm:gap-10 flex-col md:flex-row items-start border-b pb-4 mb-4 border-gray-500">
+            {/* Image Section */}
+            <div className="w-full md:w-1/4">
               <Image
                 src={car.imageSrc}
                 alt={car.name}
-                width={150}
-                height={200}
-                className="object-cover"
+                width={200} // Increased width for small screens
+                height={250} // Increased height for small screens
+                className="object-cover mx-auto sm:w-[300px] md:h-[200px]" // Reverts to smaller size for larger screens
               />
             </div>
 
-            {/* Car Details */}
-            <div className="flex-1 flex justify-between pl-6">
-              <div>
-                <h3 className="text-xl font-semibold">{car.name}</h3>
+            {/* Text Section */}
+            <div className="flex-1 flex flex-col md:flex-row justify-between pl-0 md:pl-6 mt-4 md:mt-0">
+              <div className="flex flex-col sm:gap-6">
+                <h3 className="text-lg md:text-3xl font-semibold">{car.name}</h3>
                 <ul className="list-disc ml-5 text-gray-700 mb-4">
                   {car.features.map((feature, featureIndex) => (
                     <li key={featureIndex}>{feature}</li>
                   ))}
                 </ul>
               </div>
-              <p className="text-xl text-red-500 font-bold self-end">
+              {/* Adjusted price section to align properly */}
+              <p className="mt-auto md:mt-[7rem] text-lg md:text-xl text-red-500 font-bold self-end md:self-start md:text-right">
                 {car.price}
               </p>
             </div>
