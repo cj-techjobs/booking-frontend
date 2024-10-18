@@ -23,6 +23,21 @@ const CarComparisonPage = () => {
       car1: { id: 5,name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
       car2: { id: 6,name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
     },
+    {
+      id: 4,
+      car1: {id: 7, name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
+      car2: { id: 8,name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
+    },
+    {
+      id: 5,
+      car1: { id: 9,name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
+      car2: {id: 10, name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
+    },
+    {
+      id: 6,
+      car1: { id: 11,name: "Car 1", price: "Rs. XX lakh", image: "/images/carImage5.png" },
+      car2: { id: 12,name: "Car 2", price: "Rs. XX lakh", image: "/images/carImage6.png" },
+    },
 
     // Add more comparisons if needed
   ];
@@ -35,7 +50,7 @@ const CarComparisonPage = () => {
     });
   };
   return (
-    <div className="container mx-auto mt-5 min-h-screen w-full  ">
+    <div className=" p-8 mt-5 min-h-screen w-full  ">
       {/* Title Section */}
       <div className="text-center">
         <h1 className="text-3xl italic font-semibold">
@@ -47,7 +62,7 @@ const CarComparisonPage = () => {
       </div>
 
       {/* Comparison Section */}
-      <div className="flex justify-center items-center mt-8 space-x-4">
+      <div className="flex justify-center items-center mt-8 space-x-4 ">
         {carSlots.map((slot, index) => (
           <div key={index} className="flex items-center space-x-4">
             {/* Car Slot */}
@@ -69,69 +84,76 @@ const CarComparisonPage = () => {
       </div>
 
       {/* Popular Comparisons */}
-      <div className="mt-8">
-        <h3 className="text-2xl italic text-gray-700">
-          Popular <span className="text-red-500">comparisons</span>
-        </h3>
-        <h3 className="text-xl font-semibold mt-2 text-gray-700   border-l-4 border-red-500 pl-2">
-          Type of Car
-        </h3>
-      </div>
-      <div className="flex justify-start mt-6 space-x-4 mb-10">
+    {/* Popular Comparisons */}
+<div className="mt-8">
+    <h3 className="text-2xl italic text-gray-700">
+        Popular <span className="text-red-500">comparisons</span>
+    </h3>
+    <h3 className="text-xl font-semibold mt-2 text-gray-700 border-l-4 border-red-500 pl-2">
+        Type of Car
+    </h3>
+</div>
+
+{/* Scrollable container for car comparisons */}
+<div className="mt-6 overflow-x-auto">
+    <div className="flex space-x-4 mb-10">
         {carComparisons.map((comparison, index) => (
-          <div
-            key={comparison.id}
-            className="border border-gray-300 rounded-lg w-[400px] h-[280px] flex flex-col justify-center relative"
-          >
-            <div className="flex justify-between items-center space-x-4 w-full mb-6">
-              {/* Car 1 */}
-              <div className="w-1/2 flex flex-col items-center justify-center ">
-                <Image
-                  src={comparison.car1.image}
-                  alt={comparison.car1.name}
-                  width={120}
-                  height={80}
-                  className="object-contain"
-                />
-                <p className="text-gray-500 mt-2 ">Brand</p>
-                <p className="font-semibold">{comparison.car1.name}</p>
-                <p className="text-gray-500">{comparison.car1.price} Onwards</p>
-              </div>
+            <div
+                key={comparison.id}
+                className="border border-gray-300 rounded-lg w-[400px] h-[280px] flex flex-col justify-center relative shrink-0"
+            >
+                <div className="flex justify-between items-center space-x-4 w-full mb-6">
+                    {/* Car 1 */}
+                    <div className="w-1/2 flex flex-col items-center justify-center ">
+                        <Image
+                            src={comparison.car1.image}
+                            alt={comparison.car1.name}
+                            width={120}
+                            height={80}
+                            className="object-contain"
+                        />
+                        <p className="text-gray-500 mt-2">Brand</p>
+                        <p className="font-semibold">{comparison.car1.name}</p>
+                        <p className="text-gray-500">{comparison.car1.price} Onwards</p>
+                    </div>
 
-              {/* VS Label */}
-              <div className="relative flex flex-col items-center justify-center">
-                <div className="w-[1px] h-24 bg-gray-400"></div>
-                <div className="absolute -top-4 bg-white px-2 py-1 text-xs text-red-500 border border-gray-300 shadow-sm rounded">
-                  VS
+                    {/* VS Label */}
+                    <div className="relative flex flex-col items-center justify-center">
+                        <div className="w-[1px] h-24 bg-gray-400"></div>
+                        <div className="absolute -top-4 bg-white px-2 py-1 text-xs text-red-500 border border-gray-300 shadow-sm rounded">
+                            VS
+                        </div>
+                    </div>
+
+                    {/* Car 2 */}
+                    <div className="w-1/2 flex flex-col items-center justify-center">
+                        <Image
+                            src={comparison.car2.image}
+                            alt={comparison.car2.name}
+                            width={120}
+                            height={80}
+                            className="object-contain"
+                        />
+                        <p className="text-gray-500 mt-2">Brand</p>
+                        <p className="font-semibold">{comparison.car2.name}</p>
+                        <p className="text-gray-500">{comparison.car2.price} Onwards</p>
+                    </div>
                 </div>
-              </div>
 
-              {/* Car 2 */}
-              <div className="w-1/2 flex flex-col items-center justify-center">
-                <Image
-                  src={comparison.car2.image}
-                  alt={comparison.car2.name}
-                  width={120}
-                  height={80}
-                  className="object-contain"
-                />
-                <p className="text-gray-500 mt-2">Brand</p>
-                <p className="font-semibold">{comparison.car2.name}</p>
-                <p className="text-gray-500">{comparison.car2.price} Onwards</p>
-              </div>
+                {/* Compare Now Button */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    <button
+                        className="bg-white text-red-500 py-2 px-6 font-semibold rounded-md border shadow-[0px_10px_15px_3px_rgba(255,0,0,0.3)] transition duration-300"
+                        onClick={() => handleCompareClick(comparison.car1.id, comparison.car2.id)}
+                    >
+                        Compare Now
+                    </button>
+                </div>
             </div>
-
-            {/* Compare Now Button */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-              <button className="bg-white text-red-500 py-2 px-6 font-semibold rounded-md border  shadow-[0px_10px_15px_3px_rgba(255,0,0,0.3)] transition duration-300 "  onClick={() => handleCompareClick(comparison.car1.id, comparison.car2.id)}>
-                Compare Now
-              </button>
-
-
-            </div>
-          </div>
         ))}
-      </div>
+    </div>
+</div>
+
       {/* Modal for car selection */}
       <CarSelectionModal
         isOpen={isModalOpen}
