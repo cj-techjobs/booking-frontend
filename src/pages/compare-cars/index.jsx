@@ -28,7 +28,7 @@ const CompareCarsPage = () => {
     }
 
     return (
-        <div className="container mx-auto mt-5 max-w-8xl">
+        <div className="p-4 mx-auto mt-5 max-w-8xl">
             {/* Title */}
             <div className="text-center">
                 <h1 className="text-3xl italic font-semibold">
@@ -40,33 +40,33 @@ const CompareCarsPage = () => {
             </div>
 
             {/* Cars Comparison Section */}
-            <div className="flex justify-center items-center mt-6 space-x-8">
-                {/* Car 1 */}
-                <div className="w-[400px] h-[250px] border border-gray-500 flex items-center justify-center">
-                    <Image
-                        src={selectedCar1.image}
-                        alt={selectedCar1.name}
-                        width={300}
-                        height={200}
-                    // className="object-contain"
-                    />
-                </div>
+            <div className="mt-6 overflow-x-auto">
+            <div className="flex items-center space-x-8 justify-center">
+                    {/* Car 1 */}
+                    <div className="flex-shrink-0 w-[400px] h-[250px] border border-gray-500 flex items-center justify-center">
+                        <Image
+                            src={selectedCar1.image}
+                            alt={selectedCar1.name}
+                            width={300}
+                            height={200}
+                        />
+                    </div>
 
+                    {/* VS Text */}
+                    <div className="text-2xl font-bold text-red-500">VS</div>
 
-                {/* VS Text */}
-                <div className="text-2xl font-bold text-red-500">VS</div>
-
-                {/* Car 2 */}
-                <div className="w-[400px] h-[250px] border border-gray-500 flex items-center justify-center">
-                    <Image
-                        src={selectedCar2.image}
-                        alt={selectedCar2.name}
-                        width={300}
-                        height={200}
-                    // className="object-contain"
-                    />
+                    {/* Car 2 */}
+                    <div className="flex-shrink-0 w-[400px] h-[250px] border border-gray-500 flex items-center justify-center">
+                        <Image
+                            src={selectedCar2.image}
+                            alt={selectedCar2.name}
+                            width={300}
+                            height={200}
+                        />
+                    </div>
                 </div>
             </div>
+
 
             <div className="container mx-auto mt-10">
                 {/* Car Specifications Table */}
@@ -74,15 +74,9 @@ const CompareCarsPage = () => {
                     <table className="min-w-full table-auto border-collapse border border-gray-300">
                         <thead className="bg-gray-100">
                             <tr>
-                                <th className="px-4 py-2 border border-gray-300 text-left">
-                                    Basic Info
-                                </th>
-                                <th className="px-4 py-2 border border-gray-300 text-left">
-                                    Maruti Suzuki Dzire Zxi Plus AT
-                                </th>
-                                <th className="px-4 py-2 border border-gray-300 text-left">
-                                    Tata Punch Adventure Rhythm CNG
-                                </th>
+                                <th className="px-4 py-2 border border-gray-300 text-left">Basic Info</th>
+                                <th className="px-4 py-2 border border-gray-300 text-left">Maruti Suzuki Dzire Zxi Plus AT</th>
+                                <th className="px-4 py-2 border border-gray-300 text-left">Tata Punch Adventure Rhythm CNG</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,26 +93,16 @@ const CompareCarsPage = () => {
                             </tr>
                             <tr>
                                 <td className="px-4 py-2 border border-gray-300">Brand Name</td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Maruti Suzuki
-                                </td>
+                                <td className="px-4 py-2 border border-gray-300">Maruti Suzuki</td>
                                 <td className="px-4 py-2 border border-gray-300">Tata</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Ex-Showroom Price
-                                </td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Rs. 9.37 Lakh
-                                </td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Rs. 8.29 Lakh
-                                </td>
+                                <td className="px-4 py-2 border border-gray-300">Ex-Showroom Price</td>
+                                <td className="px-4 py-2 border border-gray-300">Rs. 9.37 Lakh</td>
+                                <td className="px-4 py-2 border border-gray-300">Rs. 8.29 Lakh</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Engine Displacement
-                                </td>
+                                <td className="px-4 py-2 border border-gray-300">Engine Displacement</td>
                                 <td className="px-4 py-2 border border-gray-300">1197 cc</td>
                                 <td className="px-4 py-2 border border-gray-300">1198 cc</td>
                             </tr>
@@ -129,17 +113,11 @@ const CompareCarsPage = () => {
                             </tr>
                             <tr>
                                 <td className="px-4 py-2 border border-gray-300">Max Power</td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    88.50bhp@6000rpm
-                                </td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    77bhp@6000rpm
-                                </td>
+                                <td className="px-4 py-2 border border-gray-300">88.50bhp@6000rpm</td>
+                                <td className="px-4 py-2 border border-gray-300">77bhp@6000rpm</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Transmission
-                                </td>
+                                <td className="px-4 py-2 border border-gray-300">Transmission</td>
                                 <td className="px-4 py-2 border border-gray-300">Automatic</td>
                                 <td className="px-4 py-2 border border-gray-300">Manual</td>
                             </tr>
@@ -173,9 +151,7 @@ const CompareCarsPage = () => {
                                 <td className="px-4 py-2 border border-gray-300">CNG</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    Mileage (ARAI)
-                                </td>
+                                <td className="px-4 py-2 border border-gray-300">Mileage (ARAI)</td>
                                 <td className="px-4 py-2 border border-gray-300">22.61 Km/l</td>
                                 <td className="px-4 py-2 border border-gray-300">26.99 Km/l</td>
                             </tr>
@@ -189,6 +165,7 @@ const CompareCarsPage = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 
