@@ -27,9 +27,9 @@ export default function Home() {
       const fetchCarData = async () => {
         try {
           setLoading(true);
-          const data = await getNewCarById('671105f984e208f187ad2b0c');
-          // const data = await getNewCarById(id);
-          setCarData(data);
+          // const data = await getNewCarById('671105f984e208f187ad2b0c');
+          const data = await getNewCarById(id);
+          setCarData(data?.data);
           setLoading(false);
         } catch (error) {
           console.error("Error fetching car data:", error);
@@ -62,9 +62,11 @@ export default function Home() {
             <div className="relative">
               {/* Main Image */}
               <Image
+                // src={carData.categoriesId.image?carData.categoriesId.image:'/images/sample-car.png'}
                 src={carImage}
                 alt="Maruti Suzuki Baleno"
                 height={400}
+                width={400}
                 className="rounded-md w-full h-auto"
               />
 
@@ -163,9 +165,10 @@ export default function Home() {
           {/* Right Section with Details */}
           <div className="lg:w-1/3 lg:ml-8 mt-8 lg:mt-0 bg-white p-4 rounded-lg">
             <h2 className="text-2xl font-bold">
-              2022 Maruti Suzuki Baleno Zeta AMT Petrol
+              {/* 2022 Maruti Suzuki Baleno Zeta AMT Petrol */}
+              {carData.categoriesId.metaTitle}
             </h2>
-            <p className="mt-2">10K km · Petrol · Automatic</p>
+            <p className="mt-2"> {carData.mileage} km · {carData.fuel} · {carData.variant}</p>
 
             {/* Price and EMI Info */}
             <div className="mt-4 flex items-center justify-between gap-4">
@@ -241,7 +244,7 @@ export default function Home() {
         </div>
 
         {/* Accordion Section and key specifications */}
-        <Accordian />
+        <Accordian data={carData} />
 
         {/* Location Popup */}
         {/* Location Popup */}

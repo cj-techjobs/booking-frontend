@@ -15,7 +15,7 @@ function CarBrandCard({ imageSrc, brandName }) {
         const fetchCarData = async () => {
           try {
             const data = await getAllNewCarData();
-            console.log("Fetched Car Data:", data?.list); // This will log the car data to the console
+            // console.log("Fetched Car Data:", data?.list); // This will log the car data to the console
           } catch (error) {
             console.error("Error fetching car data:", error);
           }

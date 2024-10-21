@@ -39,7 +39,34 @@ export const getAllNewCarData = async () => {
     });
     
     // Log the response data to the console
-    console.log("API Response Data:", response?.data);
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error("Error fetching car data:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+//get all the new car type
+export const getAllNewCarType = async () => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+    // http://13.234.115.173:8000/api/v1/cms/vehicle-regularity/vehicle-type
+    const response = await axiosInstance.get("cms/vehicle-regularity/vehicle-type", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    
+    // Log the response data to the console
+    // console.log("API Response Data:", response?.data);
 
     return response?.data; // Return the data after logging
   } catch (error) {
@@ -51,6 +78,36 @@ export const getAllNewCarData = async () => {
   }
 };
 
+//get car for a particular body type
+export const getNewCarsByBodyType = async (bodyType) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    // Construct the API URL dynamically based on the bodyType
+    const response = await axiosInstance.get(`/newcar`, {
+      params: {
+        BodyType: JSON.stringify([bodyType]), // Sending the bodyType as an array in the query string
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data for debugging
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data to be used in the component
+  } catch (error) {
+    console.error("Error fetching cars by body type:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
 
 //get the new car by id
 export const getNewCarById = async (id) => {
@@ -68,7 +125,7 @@ export const getNewCarById = async (id) => {
     });
 
     // Log the response data to the console
-    console.log(`API Response Data for Car ID ${id}:`, response?.data);
+    // console.log(`API Response Data for Car ID ${id}:`, response?.data);
 
     return response?.data; // Return the data after logging
   } catch (error) {
@@ -96,7 +153,7 @@ export const getCarById = async (id) => {
     });
 
     // Log the response data to the console
-    console.log(`API Response Data for Car ID ${id}:`, response?.data);
+    // console.log(`API Response Data for Car ID ${id}:`, response?.data);
 
     return response?.data; // Return the data after logging
   } catch (error) {
@@ -118,7 +175,7 @@ export const signUp = async (mobileNumber, password) => {
     if (response.data.verifyToken) {
       localStorage.setItem("token", response.data.verifyToken);
     }
-    console.log(response?.data, "response");
+    // console.log(response?.data, "response");
     return response.data;
   } catch (error) {
     throw error.response
