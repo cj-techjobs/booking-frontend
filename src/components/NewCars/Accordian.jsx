@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { carSpecification } from "../../utils";
 import Image from "next/image";
 
-const Accordian = () => {
+const Accordian = ({data}) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleAccordion = (index) => {
