@@ -22,7 +22,6 @@ export const getUserProfile = async () => {
   }
 };
 
-
 //get all the new car
 export const getAllNewCarData = async () => {
   try {
@@ -31,13 +30,41 @@ export const getAllNewCarData = async () => {
       console.error("Auth token not found");
       return;
     }
-    
+
     const response = await axiosInstance.get("newcar?skip=0&limit=&page=", {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    
+
+    // Log the response data to the console
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error("Error fetching car data:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+
+//get all used car data
+export const getAllCarData = async () => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    const response = await axiosInstance.get("car?skip=0&limit=&page=", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
     // Log the response data to the console
     // console.log("API Response Data:", response?.data);
 
@@ -59,12 +86,15 @@ export const getAllNewCarType = async () => {
       return;
     }
     // http://13.234.115.173:8000/api/v1/cms/vehicle-regularity/vehicle-type
-    const response = await axiosInstance.get("cms/vehicle-regularity/vehicle-type", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    
+    const response = await axiosInstance.get(
+      "cms/vehicle-regularity/vehicle-type",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
     // Log the response data to the console
     // console.log("API Response Data:", response?.data);
 
@@ -77,6 +107,7 @@ export const getAllNewCarType = async () => {
       : new Error("An unexpected error occurred");
   }
 };
+
 
 //get car for a particular body type
 export const getNewCarsByBodyType = async (bodyType) => {
@@ -145,8 +176,8 @@ export const getCarById = async (id) => {
       return;
     }
 
-    const response = await axiosInstance.get(`http://13.234.115.173:8000/api/v1/car/6710d7512e3a7dfe2022026b`, {
-    // const response = await axiosInstance.get(`car/${id}`, {
+    // const response = await axiosInstance.get(`http://13.234.115.173:8000/api/v1/car/6710d7512e3a7dfe2022026b`, {
+    const response = await axiosInstance.get(`car/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -227,10 +258,13 @@ export const verifyOtp = async ({ mobileNumber, otp, token }) => {
 // Sign in an existing user
 export const signIn = async (mobileNumber, password) => {
   try {
-    const response = await axiosInstance.post("http://sixback.eu-north-1.elasticbeanstalk.com/api/v1/auth/signIn", {
-      mobileNumber,
-      password,
-    });
+    const response = await axiosInstance.post(
+      "http://sixback.eu-north-1.elasticbeanstalk.com/api/v1/auth/signIn",
+      {
+        mobileNumber,
+        password,
+      }
+    );
     if (response.data.authToken) {
       localStorage.setItem("auth_token", response.data.authToken);
     }
@@ -325,5 +359,42 @@ export const updateUserProfile = async (email, fullName, birthDate) => {
     throw error.response
       ? error.response.data
       : new Error("An unexpected error occurred");
+  }
+};
+
+export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmission, selectedBodyTypes) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    let url = `car?`;
+    if (maxPrice) {
+      url += `price=${maxPrice}`;
+    }
+    if (selectedColor) {
+      url += `${maxPrice ? '&' : ''}color=${selectedColor}`;
+    }
+    if (selectedTransmission) {
+      url += `${(maxPrice || selectedColor) ? '&' : ''}Transmission=["${selectedTransmission}"]`;
+    }
+    if (selectedBodyTypes.length > 0) {
+      // Join selected body types as a string to include in the URL
+      url += `${(maxPrice || selectedColor || selectedTransmission) ? '&' : ''}BodyType=["${selectedBodyTypes.join('","')}"]`;
+    }
+
+    const response = await axiosInstance.get(url, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    console.log("API Response Data:", response?.data);
+    return response?.data?.data?.list || []; // Return the list of filtered cars
+  } catch (error) {
+    console.error("Error fetching filtered cars:", error);
+    throw error?.response?.data || "An unexpected error occurred";
   }
 };

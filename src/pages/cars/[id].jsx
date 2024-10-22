@@ -4,12 +4,18 @@ import carImage from "/src/assets/carsSvg/baleno.png";
 import roundView from "/src/assets/carsSvg/360View.png";
 import carLoading from "/src/assets/carsSvg/loadingCar.png";
 import fullImage from "/src/assets/carsSvg/fullImage.png";
-import { carSpecification } from "../../utils";
+// import { carSpecification } from "../../utils";
 import Accordian from "../../components/NewCars/Accordian";
 import Variants from "../../components/NewCars/Variants";
 import { useEffect, useState } from "react";
 import LocationPopup from "../../components/NewCars/LocationPopup";
 import { getCarById, getNewCarById } from "../api/api";
+import milage from '/src/assets/carsSvg/specificationIcon/milage.svg'
+import groundClear from '/src/assets/carsSvg/specificationIcon/groundClear.svg'
+import displacement from '/src/assets/carsSvg/specificationIcon/displacement.svg'
+import bootSpace from '/src/assets/carsSvg/specificationIcon/bootSpace.svg'
+import seating from '/src/assets/carsSvg/specificationIcon/seating.svg'
+import tankCapacity from '/src/assets/carsSvg/specificationIcon/tankCapacity.svg'
 
 export default function Home() {
     const router = useRouter();
@@ -33,8 +39,8 @@ export default function Home() {
             const fetchCarData = async () => {
                 try {
                     setLoading(true);
-                    const data = await getCarById('671105f984e208f187ad2b0c');
-                    // const data = await getNewCarById(id);
+                    // const data = await getCarById('671105f984e208f187ad2b0c');
+                    const data = await getCarById(id);
                     setCarData(data);
                     setLoading(false);
                 } catch (error) {
@@ -47,6 +53,7 @@ export default function Home() {
             fetchCarData();
         }
     }, [id]);
+   
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
@@ -68,9 +75,11 @@ export default function Home() {
                         <div className="relative">
                             {/* Main Image */}
                             <Image
-                                src={carImage}
+                                // src={carImage}
+                                src={carData?.categoriesId?.image ? carData.categoriesId.image : '/images/sample-car.png'}
                                 alt="Maruti Suzuki Baleno"
                                 height={400}
+                                width={400}
                                 className="rounded-md w-full h-auto"
                             />
 
@@ -126,7 +135,7 @@ export default function Home() {
                         </div>
 
                         {/* key specification Section */}
-                        <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
+                        {/* <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
                             <p className="font-semibold text-xl mb-5">Key Specification</p>
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                                 {carSpecification?.map((items) => (
@@ -143,6 +152,90 @@ export default function Home() {
                                     </div>
                                 ))}
                             </div>
+                        </div> */}
+                        <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
+                            <p className="font-semibold text-xl mb-5">Key Specification</p>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+
+                                {/* Mileage */}
+                                <div className="flex items-center space-x-3 p-2">
+                                    <Image
+                                        src={milage}
+                                        alt="Mileage"
+                                        className="w-10 h-10"
+                                    />
+                                    <div className="flex flex-col text-lg">
+                                        <span className="text-gray-400 text-sm">Mileage (ARAI)</span>
+                                        {`${carData?.data?.mileage || "N/A"} kmpl`}
+                                    </div>
+                                </div>
+
+                                {/* Ground Clearance */}
+                                <div className="flex items-center space-x-3 p-2">
+                                    <Image
+                                        src={groundClear}
+                                        alt="Ground clearance"
+                                        className="w-10 h-10"
+                                    />
+                                    <div className="flex flex-col text-lg">
+                                        <span className="text-gray-400 text-sm">Ground clearance</span>
+                                        {`${carData?.data?.groundClearance || "N/A"} mm`}
+                                    </div>
+                                </div>
+
+                                {/* Boot Space */}
+                                <div className="flex items-center space-x-3 p-2">
+                                    <Image
+                                        src={bootSpace}
+                                        alt="Boot space"
+                                        className="w-10 h-10"
+                                    />
+                                    <div className="flex flex-col text-lg">
+                                        <span className="text-gray-400 text-sm">Boot space</span>
+                                        {`${carData?.data?.bootSpace || "N/A"} litres`}
+                                    </div>
+                                </div>
+
+                                {/* Seating Capacity */}
+                                <div className="flex items-center space-x-3 p-2">
+                                    <Image
+                                        src={seating}
+                                        alt="Seating capacity"
+                                        className="w-10 h-10"
+                                    />
+                                    <div className="flex flex-col text-lg">
+                                        <span className="text-gray-400 text-sm">Seating capacity</span>
+                                        {`${carData?.data?.seatingCapacity || "N/A"} units`}
+                                    </div>
+                                </div>
+
+                                {/* Fuel Tank Capacity */}
+                                <div className="flex items-center space-x-3 p-2">
+                                    <Image
+                                        src={tankCapacity}
+                                        alt="Fuel tank capacity"
+                                        className="w-10 h-10"
+                                    />
+                                    <div className="flex flex-col text-lg">
+                                        <span className="text-gray-400 text-sm">Fuel tank capacity</span>
+                                        {`${carData?.data?.fuelTankCapacity || "N/A"} litres`}
+                                    </div>
+                                </div>
+
+                                {/* Displacement */}
+                                <div className="flex items-center space-x-3 p-2">
+                                    <Image
+                                        src={displacement}
+                                        alt="Displacement"
+                                        className="w-10 h-10"
+                                    />
+                                    <div className="flex flex-col text-lg">
+                                        <span className="text-gray-400 text-sm">Displacement</span>
+                                        {`${carData?.data?.displacement || "N/A"} cc`}
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
 
@@ -152,9 +245,10 @@ export default function Home() {
                     {/* Right Section with Details */}
                     <div className="lg:w-1/3 lg:ml-8 mt-8 lg:mt-0 bg-white p-4 rounded-lg">
                         <h2 className="text-2xl font-bold">
-                            2022 Maruti Suzuki Baleno Zeta AMT Petrol
+                            {carData.categoriesId?.metaTitle ? carData.categoriesId?.metaTitle : "2022 Maruti Suzuki Baleno Zeta AMT Petrol "}
                         </h2>
-                        <p className="mt-2">10K km · Petrol · Automatic</p>
+                        {/* <p className="mt-2">10K km · Petrol · Automatic</p>
+                            <p className="mt-2"> {carData.mileage} km · {carData.fuel} · {carData.variant}</p> */}
 
                         {/* Price and EMI Info */}
                         <div className="mt-4 flex items-center justify-between gap-4">
@@ -222,7 +316,7 @@ export default function Home() {
                                     <p className="text-gray-500 text-sm w-1/2">
                                         Includes RC transfer, insurance, fixes, upgrades & more
                                     </p>
-                                    <p className="text-red-500 text-2xl font-bold">₹8,50,000</p>
+                                    <p className="text-red-500 text-2xl font-bold">₹{carData?.data?.price}</p>
                                 </div>
                             </div>
                         </div>

@@ -236,7 +236,7 @@ export default function Home() {
                   <p className="text-gray-500 text-sm w-1/2">
                     Includes RC transfer, insurance, fixes, upgrades & more
                   </p>
-                  <p className="text-red-500 text-2xl font-bold">₹8,50,000</p>
+                  <p className="text-red-500 text-2xl font-bold">₹{carData.price}</p>
                 </div>
               </div>
             </div>
@@ -244,7 +244,7 @@ export default function Home() {
         </div>
 
         {/* Accordion Section and key specifications */}
-        <Accordian data={carData} />
+        <Accordian carData={carData} />
 
         {/* Location Popup */}
         {/* Location Popup */}
