@@ -43,10 +43,15 @@ const marks = [
     },
 ];
 
-const Filter = () => {
+const Filter = ({ onPriceChange, onColorChange, onTransmissionChange,onBodyTypeChange  }) => {
     const [isActive, setIsActive] = useState("Hatchback");
     const [isActiveTab, setIsActiveTab] = useState("Buy");
-
+    const [val, setVal] = React.useState(MIN);
+    const [selectedColors, setSelectedColors] = useState({});
+    const handleChange = (_, newValue) => {
+        setVal(newValue);
+        onPriceChange(newValue); // Call the callback to update the price filter in the parent component
+    };
     const [yearValue, setYearValue] = useState("");
     const [ownerValue, setOwnerValue] = useState("");
 
@@ -59,10 +64,10 @@ const Filter = () => {
     //filter states
     const [activeModal, setActiveModal] = useState(null);
 
-    const [val, setVal] = React.useState(MIN);
-    const handleChange = (_, newValue) => {
-        setVal(newValue);
-    };
+    // const [val, setVal] = React.useState(MIN);
+    // const handleChange = (_, newValue) => {
+    //     setVal(newValue);
+    // };
 
     const handleFilterClick = (title) => {
         if (activeModal === title) {
@@ -71,8 +76,20 @@ const Filter = () => {
             setActiveModal(title);
         }
     };
+    const handleColorChange = (colorId) => {
+        setSelectedColors((prev) => ({
+            ...prev,
+            [colorId]: !prev[colorId], // Toggle selected state
+        }));
+        onColorChange(colorId); // Pass the selected colors to parent
+    };
 
-
+    const handleTransmissionChange = (transmission) => {
+        onTransmissionChange(transmission); // Pass the selected transmission to parent
+      };
+      const handleBodyTypeChange = (bodyType) => {
+        onBodyTypeChange(bodyType); // Pass the selected body type to parent
+      };
 
 
     return (
@@ -87,7 +104,7 @@ const Filter = () => {
                     </div>
 
                     {/* <!-- Mobile Button for Filter Icon with FaFilter --> */}
-                    <button className="block sm:hidden bg-red-500 text-white rounded-full p-2" 
+                    <button className="block sm:hidden bg-red-500 text-white rounded-full p-2"
                     // onClick={toggleModal}
                     >
                         <FaFilter className="w-5 h-5" />
@@ -184,19 +201,38 @@ const Filter = () => {
                         )}
 
                         {activeModal === "Color" && (
+                            // <div className="flex flex-col ms-3">
+                            //     <div className="text-gray-400 mb-4 text-sm">
+                            //         SELECT <span>By</span>
+                            //     </div>
+                            //     {color?.map((item) => (
+                            //         <div key={item?.id} className="flex mb-2 items-center">
+                            //             <div
+                            //                 className="h-6 w-16 rounded-md border"
+                            //                 style={{ backgroundColor: item?.color }}
+                            //             />
+                            //             <span className="ml-2 text-sm">
+                            //                 {item?.name} {"("} {item?.available} {")"}
+                            //             </span>
+                            //         </div>
+                            //     ))}
+                            // </div>
                             <div className="flex flex-col ms-3">
                                 <div className="text-gray-400 mb-4 text-sm">
                                     SELECT <span>By</span>
                                 </div>
                                 {color?.map((item) => (
-                                    <div key={item?.id} className="flex mb-2 items-center">
+                                    <div key={item.id} className="flex mb-2 items-center">
                                         <div
-                                            className="h-6 w-16 rounded-md border"
-                                            style={{ backgroundColor: item?.color }}
+                                            className="h-6 w-16 rounded-md border cursor-pointer"
+                                            style={{ backgroundColor: item.color }}
+                                            // onClick={() => handleColorChange(item.id)} // Handle color selection
+                                            onClick={() => handleColorChange(item.name)}
                                         />
                                         <span className="ml-2 text-sm">
-                                            {item?.name} {"("} {item?.available} {")"}
+                                            {item.name} {"("} {item.available} {")"}
                                         </span>
+                                        {selectedColors[item.id] && <span className="text-green-500 ml-2">Selected</span>}
                                     </div>
                                 ))}
                             </div>
@@ -208,7 +244,7 @@ const Filter = () => {
                                     SELECT <span>By</span>
                                 </div>
                                 <div className="flex mb-4 items-center">
-                                    <input type="checkbox" value={"manual"} className="me-2" />
+                                    <input type="checkbox" value={"manual"} className="me-2" onChange={() => handleTransmissionChange("Manual")} />
                                     <div className="w-full">
                                         <select
                                             name="manual"
@@ -231,6 +267,7 @@ const Filter = () => {
                                         type="checkbox"
                                         value={"automatic"}
                                         className="me-2"
+                                        onChange={() => handleTransmissionChange("Automatic")}
                                     />
                                     <div className="w-full">
                                         <select
@@ -263,6 +300,7 @@ const Filter = () => {
                                             type="checkbox"
                                             value={item?.title}
                                             className="me-2"
+                                            onChange={() => handleBodyTypeChange(item?.title)}
                                         />
                                         <div className="text-sm">{item?.title}</div>
                                     </div>
