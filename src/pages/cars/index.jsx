@@ -14,30 +14,29 @@ const Car = () => {
   const [selectedTransmission, setSelectedTransmission] = useState(""); // Transmission state
   const [selectedBodyTypes, setSelectedBodyTypes] = useState([]); // New state for body types
 
+  // Function to fetch cars
+  const fetchCars = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchFilteredCars(maxPrice, selectedColor, selectedTransmission, selectedBodyTypes); // Include body types in the API call
+      setCars(data);
+      setFilteredCars(data);
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
- // Function to fetch cars
- const fetchCars = async () => {
-  try {
-    setLoading(true);
-    const data = await fetchFilteredCars(maxPrice, selectedColor, selectedTransmission, selectedBodyTypes); // Include body types in the API call
-    setCars(data);
-    setFilteredCars(data);
-  } catch (error) {
-    console.error("Error fetching cars:", error);
-  } finally {
-    setLoading(false);
-  }
-};
-
-useEffect(() => {
-  // Fetch cars whenever filters change
-  fetchCars();
-}, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes]);
+  useEffect(() => {
+    // Fetch cars whenever filters change
+    fetchCars();
+  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes]);
 
   return (
     <div className="flex flex-col md:flex-row">
       {/* Sidebar */}
-      <div className="w-full md:w-1/4">
+      <div className="w-full md:w-1/4 md:pr-6">
         <Filter
           onPriceChange={setMaxPrice}
           onColorChange={setSelectedColor}
@@ -48,7 +47,7 @@ useEffect(() => {
 
       {/* Main content */}
       <div className="pt-6 px-4 w-full md:w-3/4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredCars?.map((car) => (
             <div
               key={car._id}
@@ -62,7 +61,7 @@ useEffect(() => {
                 width={400}
                 height={300}
                 alt={car.title}
-                className="rounded-t-3xl object-cover"
+                className="rounded-t-3xl object-cover w-full h-auto"
               />
               <div className="flex flex-col p-4">
                 <span className="font-semibold text-lg">{car.title}</span>
