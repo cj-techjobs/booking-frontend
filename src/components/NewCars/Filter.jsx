@@ -13,7 +13,7 @@ import {
     manual,
     auto,
     seats,
-    brand,
+    brandsmap,
     kms,
     year,
     owner,
@@ -38,14 +38,24 @@ const marks = [
         label: "",
     },
 ];
-
-const Filter = () => {
+const Filter = ({
+    onPriceChange,
+    onColorChange,
+    onTransmissionChange,
+    onBodyTypeChange,
+    onBrandChange, // Handler from parent
+    onModelChange, // Handler from parent
+    brand ,// Pass brand data from parent if needed
+    onYearChange,
+}) => {
     const [isActive, setIsActive] = useState("Hatchback");
     const [activeModal, setActiveModal] = useState(null);
     const [val, setVal] = useState(MIN);
     const [yearValue, setYearValue] = useState("");
     const [ownerValue, setOwnerValue] = useState("");
-
+    const [selectedColors, setSelectedColors] = useState({});
+    const [selectedBrands, setSelectedBrands] = useState([]);
+    const [selectedModels, setSelectedModels] = useState({});
     const handleYearChange = (event) => {
         setYearValue(event.target.value);
     };
@@ -55,6 +65,7 @@ const Filter = () => {
 
     const handleChange = (_, newValue) => {
         setVal(newValue);
+        onPriceChange(newValue); // Call the callback to update the price filter in the parent component
     };
     const handleOwnerChange = (event) => {
         setOwnerValue(event.target.value);
@@ -62,6 +73,31 @@ const Filter = () => {
     const handleFilterClick = (title) => {
         setActiveModal(title); // Set the active modal when a filter is clicked
         setSelectedFilter(title); // Set the clicked filter category (for mobile modal)
+    };
+    const handleColorChange = (colorId) => {
+        setSelectedColors((prev) => ({
+            ...prev,
+            [colorId]: !prev[colorId], // Toggle selected state
+        }));
+        onColorChange(colorId); // Pass the selected colors to parent
+    };
+
+    const handleTransmissionChange = (transmission) => {
+        onTransmissionChange(transmission); // Pass the selected transmission to parent
+    };
+    const handleBodyTypeChange = (bodyType) => {
+        onBodyTypeChange(bodyType); // Pass the selected body type to parent
+    };
+
+
+    // Handle brand selection
+    const handleBrandChange = (brand) => {
+        onBrandChange(brand); // Call parent function to update brand state
+    };
+
+    // Handle model selection
+    const handleModelChange = (brand, model) => {
+        onModelChange(brand, model); // Call parent function to update model state
     };
 
     return (
@@ -172,6 +208,7 @@ const Filter = () => {
                                                     <div
                                                         className="h-6 w-16 rounded-md border"
                                                         style={{ backgroundColor: item?.color }}
+                                                        onClick={() => handleColorChange(item.name)}
                                                     />
                                                     <span className="ml-2 text-sm">
                                                         {item?.name} {"("} {item?.available} {")"}
@@ -187,7 +224,7 @@ const Filter = () => {
                                                 SELECT <span>By</span>
                                             </div>
                                             <div className="flex mb-4 items-center">
-                                                <input type="checkbox" value={"manual"} className="me-2" />
+                                                <input type="checkbox" value={"manual"} className="me-2" onChange={() => handleTransmissionChange("Manual")} />
                                                 <div className="w-full">
                                                     <select
                                                         name="manual"
@@ -210,6 +247,7 @@ const Filter = () => {
                                                     type="checkbox"
                                                     value={"automatic"}
                                                     className="me-2"
+                                                    onChange={() => handleTransmissionChange("Automatic")}
                                                 />
                                                 <div className="w-full">
                                                     <select
@@ -242,6 +280,7 @@ const Filter = () => {
                                                         type="checkbox"
                                                         value={item?.title}
                                                         className="me-2"
+                                                        onChange={() => handleBodyTypeChange(item?.title)}
                                                     />
                                                     <div className="text-sm">{item?.title}</div>
                                                 </div>
@@ -281,7 +320,7 @@ const Filter = () => {
                                                 <FiSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
                                             </div>
                                             <div className="text-xs text-gray-400 py-2">Top Brands</div>
-                                            {brand?.map((item) => (
+                                            {brandsmap?.map((item) => (
                                                 <div
                                                     key={item?.id}
                                                     className="mt-2 mb-4 flex gap-2 items-center"
@@ -290,9 +329,12 @@ const Filter = () => {
                                                         type="checkbox"
                                                         value={item?.name}
                                                         className="me-2"
+                                                        onChange={() => handleBrandChange(item?.name)} // Call the brand handler
                                                     />
                                                     <div className="w-full">
-                                                        <select name="modals" className="w-full" id="">
+                                                        <select name="modals" className="w-full" id=""
+                                                            onChange={(e) => handleModelChange(e.target.value)} // Call the model handler
+                                                        >
                                                             <option value={item?.name}>
                                                                 {item?.name} {"("} {item?.available} {")"}
                                                             </option>
@@ -339,13 +381,14 @@ const Filter = () => {
                                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                                         name="controlled-radio-buttons-group"
                                                         value={yearValue}
-                                                        onChange={handleYearChange}
+                                                        onChange={onYearChange}
+                                                        // onChange={handleYearChange}
                                                     >
                                                         <div className="flex items-center">
                                                             <FormControlLabel
                                                                 type="radio"
                                                                 control={<Radio />}
-                                                                value={item.value}
+                                                                value={item.year}
                                                             />
                                                             <span className="text-base">
                                                                 {item?.year} & above {"("} {item?.available} {")"}
@@ -436,7 +479,7 @@ const Filter = () => {
                                     SELECT <span>By</span>
                                 </div>
                                 {color?.map((item) => (
-                                    <div key={item?.id} className="flex mb-2 items-center">
+                                    <div key={item?.id} className="flex mb-2 items-center" onClick={() => handleColorChange(item.name)}>
                                         <div
                                             className="h-6 w-16 rounded-md border"
                                             style={{ backgroundColor: item?.color }}
@@ -455,7 +498,7 @@ const Filter = () => {
                                     SELECT <span>By</span>
                                 </div>
                                 <div className="flex mb-4 items-center">
-                                    <input type="checkbox" value={"manual"} className="me-2" />
+                                    <input type="checkbox" value={"manual"} className="me-2" onChange={() => handleTransmissionChange("Manual")} />
                                     <div className="w-full">
                                         <select
                                             name="manual"
@@ -477,7 +520,7 @@ const Filter = () => {
                                     <input
                                         type="checkbox"
                                         value={"automatic"}
-                                        className="me-2"
+                                        className="me-2" onChange={() => handleTransmissionChange("Automatic")}
                                     />
                                     <div className="w-full">
                                         <select
@@ -510,6 +553,7 @@ const Filter = () => {
                                             type="checkbox"
                                             value={item?.title}
                                             className="me-2"
+                                            onChange={() => handleBodyTypeChange(item?.title)}
                                         />
                                         <div className="text-sm">{item?.title}</div>
                                     </div>
@@ -549,7 +593,7 @@ const Filter = () => {
                                     <FiSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
                                 </div>
                                 <div className="text-xs text-gray-400 py-2">Top Brands</div>
-                                {brand?.map((item) => (
+                                {brandsmap?.map((item) => (
                                     <div
                                         key={item?.id}
                                         className="mt-2 mb-4 flex gap-2 items-center"
@@ -558,9 +602,12 @@ const Filter = () => {
                                             type="checkbox"
                                             value={item?.name}
                                             className="me-2"
+                                            onChange={() => handleBrandChange(item?.name)} // Call the brand handler
                                         />
                                         <div className="w-full">
-                                            <select name="modals" className="w-full" id="">
+                                            <select name="modals" className="w-full" id=""
+                                                onChange={(e) => handleModelChange(e.target.value)} // Call the model handler
+                                            >
                                                 <option value={item?.name}>
                                                     {item?.name} {"("} {item?.available} {")"}
                                                 </option>
@@ -607,13 +654,15 @@ const Filter = () => {
                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                             name="controlled-radio-buttons-group"
                                             value={yearValue}
-                                            onChange={handleYearChange}
+                                            onChange={onYearChange}
+                                            // onChange={handleYearChange}
                                         >
                                             <div className="flex items-center">
                                                 <FormControlLabel
                                                     type="radio"
                                                     control={<Radio />}
-                                                    value={item.value}
+                                                    value={item.year}
+                                                    // value={item.value}
                                                 />
                                                 <span className="text-base">
                                                     {item?.year} & above {"("} {item?.available} {")"}

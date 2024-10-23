@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Filter from "../../components/NewCars/Filter";
-import { fetchFilteredCars } from "../api/api"; // Import the fetch function
+import { fetchFilteredCars } from "../api/api"; // Make sure to import the fetchBrands function
 
 const Car = () => {
   const router = useRouter();
@@ -13,12 +13,37 @@ const Car = () => {
   const [selectedColor, setSelectedColor] = useState(""); // Default color filter
   const [selectedTransmission, setSelectedTransmission] = useState(""); // Transmission state
   const [selectedBodyTypes, setSelectedBodyTypes] = useState([]); // New state for body types
+  const [selectedBrands, setSelectedBrands] = useState([]); // State for brands
+  const [selectedModels, setSelectedModels] = useState([]); // State for models
+  const [brands, setBrands] = useState([]); // State for brands
+  const [selectedYear, setSelectedYear] = useState(""); // State for selected year
+  // Fetch brands on component mount
+  // useEffect(() => {
+  //   const fetchAvailableBrands = async () => {
+  //     try {
+  //       const fetchedBrands = await fetchBrands(); // Fetch the brands from API
+  //       setBrands(fetchedBrands); // Set the brands to state
+  //     } catch (error) {
+  //       console.error("Error fetching brands:", error);
+  //     }
+  //   };
 
-  // Function to fetch cars
+  //   fetchAvailableBrands();
+  // }, []);
+
+  // Function to fetch cars based on filters
   const fetchCars = async () => {
     try {
       setLoading(true);
-      const data = await fetchFilteredCars(maxPrice, selectedColor, selectedTransmission, selectedBodyTypes); // Include body types in the API call
+      const data = await fetchFilteredCars(
+        maxPrice,
+        selectedColor,
+        selectedTransmission,
+        selectedBodyTypes,
+        selectedBrands,
+        selectedModels,
+        selectedYear // Pass selected year to API
+      );
       setCars(data);
       setFilteredCars(data);
     } catch (error) {
@@ -31,8 +56,28 @@ const Car = () => {
   useEffect(() => {
     // Fetch cars whenever filters change
     fetchCars();
-  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes]);
+  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels,selectedYear]);
 
+  // Handler for brands
+  const handleBrandChange = (brand) => {
+    setSelectedBrands((prevBrands) =>
+      prevBrands.includes(brand)
+        ? prevBrands.filter((b) => b !== brand) // Deselect brand
+        : [...prevBrands, brand] // Select brand
+    );
+  };
+
+  // Handler for models
+  const handleModelChange = (brand, model) => {
+    setSelectedModels((prevModels) => ({
+      ...prevModels,
+      [brand]: model, // Store selected model for each brand
+    }));
+  };
+  // Handler for year
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value); // Update selected year
+  };
   return (
     <div className="flex flex-col md:flex-row">
       {/* Sidebar */}
@@ -42,34 +87,46 @@ const Car = () => {
           onColorChange={setSelectedColor}
           onTransmissionChange={setSelectedTransmission}
           onBodyTypeChange={setSelectedBodyTypes}
+          onBrandChange={handleBrandChange} // Pass brand handler
+          onModelChange={handleModelChange} // Pass model handler
+          brand={brands} // Pass the brands state to the Filter component
+          onYearChange={handleYearChange}
         />
       </div>
 
       {/* Main content */}
       <div className="pt-6 px-4 w-full md:w-3/4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredCars?.map((car) => (
-            <div
-              key={car._id}
-              className="rounded-3xl pb-4 shadow-md cursor-pointer"
-              onClick={() => {
-                router.push(`/cars/${car._id}`);
-              }}
-            >
-              <Image
-                src={car.images && car.images[0] ? car.images[0] : "/images/sample-car1.png"}
-                width={400}
-                height={300}
-                alt={car.title}
-                className="rounded-t-3xl object-cover w-full h-auto"
-              />
-              <div className="flex flex-col p-4">
-                <span className="font-semibold text-lg">{car.title}</span>
-                <span className="mt-2 text-red-500 font-semibold">₹ {car.price}</span>
-              </div>
+        {
+          filteredCars.length === 0 && !loading ? (
+            <div className="text-center text-red-500 font-semibold">
+              No cars exist for the applied filter
             </div>
-          ))}
-        </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filteredCars?.map((car) => (
+                <div
+                  key={car._id}
+                  className="rounded-3xl pb-4 shadow-md cursor-pointer"
+                  onClick={() => {
+                    router.push(`/cars/${car._id}`);
+                  }}
+                >
+                  <Image
+                    src={car.images && car.images[0] ? car.images[0] : "/images/sample-car1.png"}
+                    width={400}
+                    height={300}
+                    alt={car.title}
+                    className="rounded-t-3xl object-cover w-full h-auto"
+                  />
+                  <div className="flex flex-col p-4">
+                    <span className="font-semibold text-lg">{car.title}</span>
+                    <span className="mt-2 text-red-500 font-semibold">₹ {car.price}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
   );

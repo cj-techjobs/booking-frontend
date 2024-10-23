@@ -362,7 +362,7 @@ export const updateUserProfile = async (email, fullName, birthDate) => {
   }
 };
 
-export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmission, selectedBodyTypes) => {
+export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels,selectedYear ) => {
   try {
     const authToken = localStorage.getItem("auth_token");
     if (!authToken) {
@@ -372,7 +372,7 @@ export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmi
 
     let url = `car?`;
     if (maxPrice) {
-      url += `price=${maxPrice}`;
+      url += `MaxPrice=${maxPrice}`;
     }
     if (selectedColor) {
       url += `${maxPrice ? '&' : ''}color=${selectedColor}`;
@@ -381,10 +381,17 @@ export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmi
       url += `${(maxPrice || selectedColor) ? '&' : ''}Transmission=["${selectedTransmission}"]`;
     }
     if (selectedBodyTypes.length > 0) {
-      // Join selected body types as a string to include in the URL
       url += `${(maxPrice || selectedColor || selectedTransmission) ? '&' : ''}BodyType=["${selectedBodyTypes.join('","')}"]`;
     }
-
+    if (selectedBrands.length > 0) {
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length) ? '&' : ''}Brand=["${selectedBrands.join('","')}"]`;
+    }
+    if (selectedModels.length > 0) {
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length) ? '&' : ''}Models=["${selectedModels.join('","')}"]`;
+    }
+    if (selectedYear) { // Check if a year is selected
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length || selectedModels.length) ? '&' : ''}Year=${selectedYear}`; // Add the year to the URL
+    }
     const response = await axiosInstance.get(url, {
       headers: {
         Authorization: `Bearer ${authToken}`,

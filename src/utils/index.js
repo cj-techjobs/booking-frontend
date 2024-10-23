@@ -306,7 +306,7 @@ export const seats = [
 ];
 
 //brand + modal
-export const brand = [
+export const brandsmap = [
   {
     id: "1",
     name: "Tata",
