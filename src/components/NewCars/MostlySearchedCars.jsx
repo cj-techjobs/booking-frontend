@@ -81,7 +81,7 @@ const MostlySearchedCars = () => {
                                 <p className="text-sm text-gray-700 mb-4">
                                     {car.metaDescription.length > 50 ? car.metaDescription.substring(0, 50) + '...' : car.metaDescription}
                                 </p>
-                                <p className="text-lg text-red-500 font-bold">{car.price}</p>
+                                <p className="text-lg text-red-500 font-bold">Rs. {car.price}</p>
                             </div>
                         </div>
                     ))}

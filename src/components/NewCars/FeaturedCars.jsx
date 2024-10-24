@@ -3,44 +3,30 @@ import carImage from "/public/images/sample-car.png";
 import carImage1 from "/public/images/sample-car1.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getAllNewCarData } from "../../pages/api/api";
+import { getCarsByFeatureOptions } from "../../pages/api/api";
 
 const FeaturedCars = () => {
   const router = useRouter();
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    // Call the API function and log the result
-    const fetchCarData = async () => {
-      try {
-        setLoading(true);
-        const data = await getAllNewCarData();
-        console.log("charu Fetched Car Data:", data?.data.list); // This will log the car data to the console
-        setCars(data?.data.list || []);
-      } catch (error) {
-        console.error("Error fetching cars:", error);
-      } finally {
-        setLoading(false); // Turn off loading state
-      }
-    };
 
-    fetchCarData();
+  useEffect(() => {
+    // Initially fetch featured cars
+    fetchCarData(true, false, false);
   }, []);
 
-  const featuredCars = [
-    { id: 1, imageSrc: carImage, name: "Mahindra Thar", price: "Rs. 15.5 lakh" },
-    { id: 2, imageSrc: carImage1, name: "Tata Nexon", price: "Rs. 12.7 lakh" },
-    { id: 3, imageSrc: carImage, name: "Hyundai Verna", price: "Rs. 13.4 lakh" },
-    { id: 4, imageSrc: carImage1, name: "Maruti Suzuki Brezza", price: "Rs. 10.5 lakh" },
-    { id: 5, imageSrc: carImage, name: "Mahindra Thar", price: "Rs. 15.5 lakh" },
-    { id: 6, imageSrc: carImage1, name: "Tata Nexon", price: "Rs. 12.7 lakh" },
-    { id: 7, imageSrc: carImage, name: "Hyundai Verna", price: "Rs. 13.4 lakh" },
-    { id: 8, imageSrc: carImage1, name: "Maruti Suzuki Brezza", price: "Rs. 10.5 lakh" },
-    { id: 9, imageSrc: carImage, name: "Mahindra Thar", price: "Rs. 15.5 lakh" },
-    { id: 10, imageSrc: carImage1, name: "Tata Nexon", price: "Rs. 12.7 lakh" },
-    { id: 11, imageSrc: carImage, name: "Hyundai Verna", price: "Rs. 13.4 lakh" },
-    { id: 12, imageSrc: carImage1, name: "Maruti Suzuki Brezza", price: "Rs. 10.5 lakh" },
-  ];
+  // Function to fetch cars based on feature options
+  const fetchCarData = async (isFeatured, isComingSoon, isBestSeller) => {
+    try {
+      setLoading(true);
+      const response = await getCarsByFeatureOptions(isFeatured, isBestSeller, isComingSoon);
+      setCars(response?.data?.list || []); // Update cars state with the fetched data
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    } finally {
+      setLoading(false); // Turn off loading state
+    }
+  };
 
   const handleClick = (car) => {
     router.push(`/new-cars/${car._id}`);
@@ -56,13 +42,22 @@ const FeaturedCars = () => {
 
       {/* Tabs Section */}
       <div className="flex space-x-6 mb-8">
-        <button className="px-4 py-2 bg-white text-black rounded-full hover:text-gray-500">
+        <button
+          className="px-4 py-2 bg-white text-black rounded-full hover:text-gray-500"
+          onClick={() => fetchCarData(true, false, false)} // Mark isFeatured=true
+        >
           Latest
         </button>
-        <button className="px-4 py-2 text-gray-400 rounded-full hover:text-gray-500">
+        <button
+          className="px-4 py-2 text-gray-400 rounded-full hover:text-gray-500"
+          onClick={() => fetchCarData(false, true, false)} // Mark isComingSoon=true
+        >
           Upcoming
         </button>
-        <button className="px-4 py-2 text-gray-400 rounded-full hover:text-gray-500">
+        <button
+          className="px-4 py-2 text-gray-400 rounded-full hover:text-gray-500"
+          onClick={() => fetchCarData(false, false, true)} // Mark isBestSeller=true
+        >
           Bestseller
         </button>
       </div>
@@ -70,47 +65,64 @@ const FeaturedCars = () => {
       {/* Horizontal Scroll Section */}
       <div className="overflow-x-auto w-full scrollbar-hide">
         <section className="flex space-x-4">
-          {cars.map((car, index) => (
-            // {featuredCars.map((car, index) => (
-            // <div
-            //   key={index}
-            //   className="transition-transform transform hover:scale-105 bg-white text-black shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] cursor-pointer min-w-[250px] max-w-[300px] mx-2 mb-5"
-            //   onClick={() => handleClick(car)}
-            // >
-            //   <Image
-            //     src={car.images && car.images[0] ? car.images[0] : '/images/sample-car1.png'}
-            //     alt={car.title}
-            //     // alt={car.name}
-            //     width={400}
-            //     height={200}
-            //     className="w-full object-cover"
-            //   />
-            //   <div className="p-4">
-            //     <h3 className="text-lg font-semibold">{car.title}</h3>
-            //     <p className="text-md text-gray-700">Rs. {car.price}</p>
-            //   </div>
-            // </div>
-            <div
-              key={index}
-              className="transition-transform transform hover:scale-105 bg-white text-black shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] cursor-pointer min-w-[250px] max-w-[300px] mx-2 mb-5"
-              onClick={() => handleClick(car)}
-            >
-              <div className="w-[300px] h-[200px] overflow-hidden flex justify-center items-center bg-gray-100"> {/* Consistent container */}
+          {loading ? (
+            // Shimmer effect for loading state
+            [...Array(5)].map((_, index) => (
+              <div
+                key={index}
+                className="transition-transform transform hover:scale-105 bg-gray-200 animate-pulse cursor-pointer min-w-[250px] max-w-[300px] mx-2 mb-5"
+              >
+                <div className="w-[300px] h-[200px] bg-gray-200 rounded-t-md"></div>
+                <div className="p-4 space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              </div>
+            ))
+          ) : (
+            cars.map((car, index) => (
+              // <div
+              //   key={index}
+              //   className="transition-transform transform hover:scale-105 bg-white text-black shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] cursor-pointer min-w-[250px] max-w-[300px] mx-2 mb-5"
+              //   onClick={() => handleClick(car)}
+              // >
+              //   <div className="w-[300px] h-[200px] overflow-hidden flex justify-center items-center bg-gray-100 rounded-t-md">
+              //     <Image
+              //       src={car.images && car.images[0] ? car.images[0] : "/images/sample-car1.png"}
+              //       alt={car.title}
+              //       width={100}
+              //       height={200}
+              //       className="object-cover w-full h-full"
+              //     />
+              //   </div>
+              //   <div className="p-4">
+              //     <h3 className="text-lg font-semibold">{car.title}</h3>
+              //     <p className="text-md text-gray-700">Rs. {car.price}</p>
+              //   </div>
+              // </div>
+              <div
+                key={index}
+                className="min-w-[250px] bg-white text-black rounded-lg shadow-md overflow-hidden cursor-pointer "
+              >
+                {/* Car Image */}
                 <Image
                   src={car.images && car.images[0] ? car.images[0] : '/images/sample-car1.png'}
                   alt={car.title}
-                  width={300}  
-                  height={200}  
-                  className="object-cover w-full h-full"  
+                  width={400}
+                  height={200}
+                  className="w-full object-cover"
                 />
+                {/* Car Details */}
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold">{car.title}</h3>
+                  {/* <p className="text-sm text-gray-700 mb-4">
+                      {car.metaDescription.length > 50 ? car.metaDescription.substring(0, 50) + '...' : car.metaDescription}
+                  </p> */}
+                  <p className="text-lg text-red-500 font-bold">Rs. {car.price}</p>
+                </div>
               </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{car.title}</h3>
-                <p className="text-md text-gray-700">Rs. {car.price}</p>
-              </div>
-            </div>
-
-          ))}
+            ))
+          )}
         </section>
       </div>
     </div>

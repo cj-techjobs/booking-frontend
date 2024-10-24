@@ -5,8 +5,8 @@ import volksLogo from "/public/images/volks-logo.png";
 import bmwLogo from "/public/images/bmw-logo.png";
 import hyundaiLogo from "/public/images/hyundai-logo.png";
 import hondaLogo from "/public/images/honda-logo.png";
-import { useEffect } from "react";
-import { getAllNewCarData } from "../../pages/api/api";
+import React, { useEffect, useState } from 'react';
+import { getAllNewCarData, getNewCarBrands } from "../../pages/api/api";
 
 function CarBrandCard({ imageSrc, brandName }) {
     const router = useRouter();
@@ -34,6 +34,7 @@ function CarBrandCard({ imageSrc, brandName }) {
         >
             <Image
                 loading="lazy"
+                width={100} height={100}
                 src={imageSrc}
                 alt={`${brandName} logo`}
                 className="object-contain self-center w-full h-auto max-w-[120px] mb-2"
@@ -56,9 +57,24 @@ export const CarBrands = () => {
         { imageSrc: hyundaiLogo, brandName: "HYUNDAI" },
         { imageSrc: hondaLogo, brandName: "HONDA" },
     ];
+    const [carTypes, setCarTypes] = useState([]);
 
+    useEffect(() => {
+        // Fetch the car types when the component mounts
+        const fetchCarTypes = async () => {
+            try {
+                const data = await getNewCarBrands();
+                setCarTypes(data?.data || []); // Assuming the response has a 'car_types' array
+                // console.log(data.data)
+            } catch (error) {
+                console.error("Error fetching car types:", error);
+            }
+        };
+
+        fetchCarTypes();
+    }, []);
     return (
-        <div className="w-full mb-10 ">
+        <div className="w-full ">
             <div className="text-center mb-6 w-full">
                 <h2 className="text-2xl font-semibold">
                     Shop by <span className="text-red-500">Brands</span>
@@ -67,11 +83,11 @@ export const CarBrands = () => {
             {/* Horizontal Scroll Section */}
             <div className="overflow-x-auto w-full scrollbar-hide">
                 <section className="flex gap-10 overflow-x-auto whitespace-nowrap w-[900px] lg:w-[1100px] xl:w-[1200px] mx-auto px-4 scrollbar-hide">
-                    {carBrands.map((brand, index) => (
+                    {carTypes.map((brand, index) => (
                         <CarBrandCard
                             key={index}
-                            imageSrc={brand.imageSrc}
-                            brandName={brand.brandName}
+                            imageSrc={brand.image}
+                            brandName={brand.name}
                         />
                     ))}
                 </section>

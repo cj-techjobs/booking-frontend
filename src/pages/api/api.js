@@ -87,7 +87,7 @@ export const getAllNewCarType = async () => {
     }
     // http://13.234.115.173:8000/api/v1/cms/vehicle-regularity/vehicle-type
     const response = await axiosInstance.get(
-      "cms/vehicle-regularity/vehicle-type",
+      "cms/vehicle-regularity/vehicle-type?type=CAR",
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -107,7 +107,66 @@ export const getAllNewCarType = async () => {
       : new Error("An unexpected error occurred");
   }
 };
+//get all the new car BRANDS
+export const getNewCarBrands = async () => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+    // http://13.234.115.173:8000/api/v1/cms/vehicle-regularity/vehicle-type
+    const response = await axiosInstance.get(
+      "cms/vehicle-regularity/make?skip=0&limit=10&type=CAR",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
 
+    // Log the response data to the console
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error("Error fetching car data:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+// Get cars based on minimum price
+export const getCarsByMinPrice = async (minPrice) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    // Construct the API URL dynamically based on the minimum price
+    const response = await axiosInstance.get(`/newcar`, {
+      params: {
+        MinPrice: minPrice,
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data for debugging
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data to be used in the component
+  } catch (error) {
+    console.error("Error fetching cars by minimum price:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
 
 //get car for a particular body type
 export const getNewCarsByBodyType = async (bodyType) => {
@@ -134,6 +193,72 @@ export const getNewCarsByBodyType = async (bodyType) => {
     return response?.data; // Return the data to be used in the component
   } catch (error) {
     console.error("Error fetching cars by body type:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+//get car for a particular brand
+export const getNewCarsByBrandType = async (bodyType) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    // Construct the API URL dynamically based on the bodyType
+    const response = await axiosInstance.get(`/newcar`, {
+      params: {
+        Brand: JSON.stringify([bodyType]), // Sending the bodyType as an array in the query string
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data for debugging
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data to be used in the component
+  } catch (error) {
+    console.error("Error fetching cars by body type:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+// Get cars based on feature options (IsFeatured, isBestSeller, isComingSoon)
+export const getCarsByFeatureOptions = async (
+  isFeatured,
+  isBestSeller,
+  isComingSoon
+) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    // Construct the API URL dynamically based on the feature options
+    const response = await axiosInstance.get(`/newcar`, {
+      params: {
+        IsFeatured: isFeatured,
+        isBestSeller: isBestSeller,
+        isComingSoon: isComingSoon,
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data for debugging
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data to be used in the component
+  } catch (error) {
+    console.error("Error fetching cars by feature options:", error);
     throw error?.response
       ? error?.response?.data
       : new Error("An unexpected error occurred");
@@ -362,8 +487,19 @@ export const updateUserProfile = async (email, fullName, birthDate) => {
   }
 };
 
-export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels,selectedYear ,selectedSeat,selectedKmsDriven,selectedOwner) => {
-  console.log("inside api",selectedOwner)
+export const fetchFilteredCars = async (
+  maxPrice,
+  selectedColor,
+  selectedTransmission,
+  selectedBodyTypes,
+  selectedBrands,
+  selectedModels,
+  selectedYear,
+  selectedSeat,
+  selectedKmsDriven,
+  selectedOwner
+) => {
+  console.log("inside api", selectedOwner);
   try {
     const authToken = localStorage.getItem("auth_token");
     if (!authToken) {
@@ -376,39 +512,79 @@ export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmi
       url += `MaxPrice=${maxPrice}`;
     }
     if (selectedColor) {
-      url += `${maxPrice ? '&' : ''}color=${selectedColor}`;
+      url += `${maxPrice ? "&" : ""}color=${selectedColor}`;
     }
     if (selectedTransmission) {
-      url += `${(maxPrice || selectedColor) ? '&' : ''}Transmission=["${selectedTransmission}"]`;
+      url += `${
+        maxPrice || selectedColor ? "&" : ""
+      }Transmission=["${selectedTransmission}"]`;
     }
     if (selectedBodyTypes.length > 0) {
-      url += `${(maxPrice || selectedColor || selectedTransmission) ? '&' : ''}BodyType=["${selectedBodyTypes}"]`;
+      url += `${
+        maxPrice || selectedColor || selectedTransmission ? "&" : ""
+      }BodyType=["${selectedBodyTypes}"]`;
     }
     if (selectedBrands.length > 0) {
-      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length) ? '&' : ''}Brand=["${selectedBrands.join('","')}"]`;
+      url += `${
+        maxPrice ||
+        selectedColor ||
+        selectedTransmission ||
+        selectedBodyTypes.length
+          ? "&"
+          : ""
+      }Brand=["${selectedBrands.join('","')}"]`;
     }
     if (selectedModels.length > 0) {
-      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length) ? '&' : ''}Models=["${selectedModels.join('","')}"]`;
+      url += `${
+        maxPrice ||
+        selectedColor ||
+        selectedTransmission ||
+        selectedBodyTypes.length ||
+        selectedBrands.length
+          ? "&"
+          : ""
+      }Models=["${selectedModels.join('","')}"]`;
     }
-    if (selectedYear) { // Check if a year is selected
-      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length || selectedModels.length) ? '&' : ''}Year=${selectedYear}`; // Add the year to the URL
+    if (selectedYear) {
+      // Check if a year is selected
+      url += `${
+        maxPrice ||
+        selectedColor ||
+        selectedTransmission ||
+        selectedBodyTypes.length ||
+        selectedBrands.length ||
+        selectedModels.length
+          ? "&"
+          : ""
+      }Year=${selectedYear}`; // Add the year to the URL
     }
-   
+
     // Handle seat selection (format as array)
     if (selectedSeat && selectedSeat.length > 0) {
-      url += `&Seats=[${selectedSeat.join(',')}]`;
+      url += `&Seats=[${selectedSeat.join(",")}]`;
     }
 
     // Adding km driven to the URL
     if (selectedKmsDriven && selectedKmsDriven.length > 0) {
-      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length || selectedModels.length || selectedYear || selectedSeat.length) ? '&' : ''}KmsDriven=${selectedKmsDriven}`;
+      url += `${
+        maxPrice ||
+        selectedColor ||
+        selectedTransmission ||
+        selectedBodyTypes.length ||
+        selectedBrands.length ||
+        selectedModels.length ||
+        selectedYear ||
+        selectedSeat.length
+          ? "&"
+          : ""
+      }KmsDriven=${selectedKmsDriven}`;
     }
 
-   // Adding owner to the URL (only one value)
-if (selectedOwner) {
-  url += url.endsWith('?') ? '' : '&';
-  url += `Owner=${selectedOwner}`;
-}
+    // Adding owner to the URL (only one value)
+    if (selectedOwner) {
+      url += url.endsWith("?") ? "" : "&";
+      url += `Owner=${selectedOwner}`;
+    }
 
     const response = await axiosInstance.get(url, {
       headers: {

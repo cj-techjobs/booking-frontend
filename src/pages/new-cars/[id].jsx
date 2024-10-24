@@ -62,8 +62,8 @@ export default function Home() {
             <div className="relative">
               {/* Main Image */}
               <Image
-                // src={carData.categoriesId.image?carData.categoriesId.image:'/images/sample-car.png'}
-                src={carImage}
+                src={carData.categoriesId.image?carData.categoriesId.image:'/images/sample-car.png'}
+                // src={carImage}
                 alt="Maruti Suzuki Baleno"
                 height={400}
                 width={400}
