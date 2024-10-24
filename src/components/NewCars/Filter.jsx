@@ -45,8 +45,11 @@ const Filter = ({
     onBodyTypeChange,
     onBrandChange, // Handler from parent
     onModelChange, // Handler from parent
-    brand ,// Pass brand data from parent if needed
+    brand,// Pass brand data from parent if needed
     onYearChange,
+    onSeatsChange, // Receive seats handler from parent,
+    onKmsDrivenChange,
+    onOwnerChange, // Add owner change handler
 }) => {
     const [isActive, setIsActive] = useState("Hatchback");
     const [activeModal, setActiveModal] = useState(null);
@@ -67,9 +70,7 @@ const Filter = ({
         setVal(newValue);
         onPriceChange(newValue); // Call the callback to update the price filter in the parent component
     };
-    const handleOwnerChange = (event) => {
-        setOwnerValue(event.target.value);
-    };
+
     const handleFilterClick = (title) => {
         setActiveModal(title); // Set the active modal when a filter is clicked
         setSelectedFilter(title); // Set the clicked filter category (for mobile modal)
@@ -88,8 +89,9 @@ const Filter = ({
     const handleBodyTypeChange = (bodyType) => {
         onBodyTypeChange(bodyType); // Pass the selected body type to parent
     };
-
-
+    const handleSeatsChange = (event) => {
+        onSeatsChange(event); // Pass the entire event object to the parent handler
+    };
     // Handle brand selection
     const handleBrandChange = (brand) => {
         onBrandChange(brand); // Call parent function to update brand state
@@ -99,7 +101,13 @@ const Filter = ({
     const handleModelChange = (brand, model) => {
         onModelChange(brand, model); // Call parent function to update model state
     };
-
+    const handleKmsChange = (event) => {
+        console.log(event.target.value)
+        onKmsDrivenChange(event.target.value); // Pass selected kilometers to parent handler
+    };
+    const handleOwnerChange = (event) => {
+        onOwnerChange(event); // Call parent's owner change handler
+    }
     return (
         <div>
             <div className="p-3">
@@ -123,7 +131,7 @@ const Filter = ({
                 <div className="mt-3 rounded-xl px-1 flex flex-row flex-wrap justify-center shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-gray-200 sm:bg-white">
                     {carCategory?.map((item) => (
                         <div
-                            className={`py-1 px-1 rounded-xl cursor-pointer ${isActive === item?.title
+                            className={`rounded-xl cursor-pointer ${isActive === item?.title
                                 ? "bg-[#181616] flex justify-center w-[50px] text-white"
                                 : ""}`}
                             onClick={() => setIsActive(item?.title)}
@@ -277,7 +285,8 @@ const Filter = ({
                                             {carCategory?.map((item) => (
                                                 <div key={item?.id} className="flex mb-2 items-center">
                                                     <input
-                                                        type="checkbox"
+                                                        type="radio"
+                                                        name="bodytype"
                                                         value={item?.title}
                                                         className="me-2"
                                                         onChange={() => handleBodyTypeChange(item?.title)}
@@ -297,8 +306,10 @@ const Filter = ({
                                                 <div key={item?.id} className="flex mb-2 items-center">
                                                     <input
                                                         type="checkbox"
-                                                        value={item?.type}
+                                                        // value={item?.type}
+                                                        value={item?.type.split(" ")[0]}
                                                         className="me-2"
+                                                        onChange={handleSeatsChange}
                                                     />
                                                     <div className="text-sm">
                                                         {item?.type} {"("} {item?.available} {")"}
@@ -358,9 +369,12 @@ const Filter = ({
                                             {kms?.map((item) => (
                                                 <div key={item?.id} className="flex mb-4 items-center">
                                                     <input
-                                                        type="checkbox"
+                                                        // type="checkbox"
                                                         value={item?.kms}
+                                                        type="radio" // Use radio input for single selection
+                                                        name="kmsDriven" // Use the same name to allow only one selection
                                                         className="me-2"
+                                                        onChange={handleKmsChange}
                                                     />
                                                     <div className="text-sm">
                                                         {item?.kms} kms or less {"("} {item?.available} {")"}
@@ -382,7 +396,7 @@ const Filter = ({
                                                         name="controlled-radio-buttons-group"
                                                         value={yearValue}
                                                         onChange={onYearChange}
-                                                        // onChange={handleYearChange}
+                                                    // onChange={handleYearChange}
                                                     >
                                                         <div className="flex items-center">
                                                             <FormControlLabel
@@ -405,12 +419,28 @@ const Filter = ({
                                             <div className="text-gray-400 mb-4 text-sm">
                                                 SELECT <span>By</span>
                                             </div>
-                                            {owner?.map((item) => (
+                                            <RadioGroup
+                                                aria-labelledby="owner-selection-group"
+                                                name="owner-selection-group"
+                                                value={ownerValue} // Tie to the selectedOwner state
+                                                onChange={handleOwnerChange} // Update when a selection changes
+                                            >
+                                                {owner?.map((item) => (
+                                                    <div key={item?.id} className="flex mb-2 items-center">
+                                                        <FormControlLabel
+                                                            control={<Radio />}
+                                                            value={item.owner}
+                                                            label={`${item.owner} & above (${item.available})`}
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </RadioGroup>
+                                            {/* {owner?.map((item) => (
                                                 <div key={item?.id} className="flex mb-2 items-center">
                                                     <RadioGroup
                                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                                         name="controlled-radio-buttons-group"
-                                                        value={ownerValue}
+                                                        value={item.value}
                                                         onChange={handleOwnerChange}
                                                     >
                                                         <div className="flex items-center">
@@ -418,6 +448,7 @@ const Filter = ({
                                                                 type="radio"
                                                                 control={<Radio />}
                                                                 value={item.value}
+                                                                label={`${item.owner} & above (${item.available})`}
                                                             />
                                                             <span className="text-base">
                                                                 {item?.owner} & above {"("} {item?.available} {")"}
@@ -425,7 +456,7 @@ const Filter = ({
                                                         </div>
                                                     </RadioGroup>
                                                 </div>
-                                            ))}
+                                            ))} */}
                                         </div>
                                     )}
                                 </div>
@@ -550,7 +581,8 @@ const Filter = ({
                                 {carCategory?.map((item) => (
                                     <div key={item?.id} className="flex mb-2 items-center">
                                         <input
-                                            type="checkbox"
+                                            type="radio"
+                                            name="bodytype"
                                             value={item?.title}
                                             className="me-2"
                                             onChange={() => handleBodyTypeChange(item?.title)}
@@ -570,8 +602,10 @@ const Filter = ({
                                     <div key={item?.id} className="flex mb-2 items-center">
                                         <input
                                             type="checkbox"
-                                            value={item?.type}
+                                            // value={item?.type}
+                                            value={item?.type.split(" ")[0]} // Pass only the seat number
                                             className="me-2"
+                                            onChange={handleSeatsChange}
                                         />
                                         <div className="text-sm">
                                             {item?.type} {"("} {item?.available} {")"}
@@ -631,9 +665,12 @@ const Filter = ({
                                 {kms?.map((item) => (
                                     <div key={item?.id} className="flex mb-4 items-center">
                                         <input
-                                            type="checkbox"
                                             value={item?.kms}
+                                            type="radio" // Use radio input for single selection
+                                            name="kmsDriven" // Use the same name to allow only one selection
                                             className="me-2"
+                                            onChange={handleKmsChange}
+
                                         />
                                         <div className="text-sm">
                                             {item?.kms} kms or less {"("} {item?.available} {")"}
@@ -655,14 +692,14 @@ const Filter = ({
                                             name="controlled-radio-buttons-group"
                                             value={yearValue}
                                             onChange={onYearChange}
-                                            // onChange={handleYearChange}
+                                        // onChange={handleYearChange}
                                         >
                                             <div className="flex items-center">
                                                 <FormControlLabel
                                                     type="radio"
                                                     control={<Radio />}
                                                     value={item.year}
-                                                    // value={item.value}
+                                                // value={item.value}
                                                 />
                                                 <span className="text-base">
                                                     {item?.year} & above {"("} {item?.available} {")"}
@@ -679,12 +716,12 @@ const Filter = ({
                                 <div className="text-gray-400 mb-4 text-sm">
                                     SELECT <span>By</span>
                                 </div>
-                                {owner?.map((item) => (
+                                {/* {owner?.map((item) => (
                                     <div key={item?.id} className="flex mb-2 items-center">
                                         <RadioGroup
                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                             name="controlled-radio-buttons-group"
-                                            value={ownerValue}
+                                            value={item.value}
                                             onChange={handleOwnerChange}
                                         >
                                             <div className="flex items-center">
@@ -692,6 +729,7 @@ const Filter = ({
                                                     type="radio"
                                                     control={<Radio />}
                                                     value={item.value}
+                                                    label={`${item.owner} & above (${item.available})`}
                                                 />
                                                 <span className="text-base">
                                                     {item?.owner} & above {"("} {item?.available} {")"}
@@ -699,7 +737,23 @@ const Filter = ({
                                             </div>
                                         </RadioGroup>
                                     </div>
-                                ))}
+                                ))} */}
+                                <RadioGroup
+                                    aria-labelledby="owner-selection-group"
+                                    name="owner-selection-group"
+                                    value={ownerValue} // Tie to the selectedOwner state
+                                    onChange={handleOwnerChange} // Update when a selection changes
+                                >
+                                    {owner?.map((item) => (
+                                        <div key={item?.id} className="flex mb-2 items-center">
+                                            <FormControlLabel
+                                                control={<Radio />}
+                                                value={item.owner}
+                                                label={`${item.owner} & above (${item.available})`}
+                                            />
+                                        </div>
+                                    ))}
+                                </RadioGroup>
                             </div>
                         )}
                     </div>

@@ -76,7 +76,7 @@ export default function Home() {
                             {/* Main Image */}
                             <Image
                                 // src={carImage}
-                                src={carData?.categoriesId?.image ? carData.categoriesId.image : '/images/sample-car.png'}
+                                src={carData?.data?.categoriesId?.image ? carData?.data?.categoriesId?.image : '/images/sample-car.png'}
                                 alt="Maruti Suzuki Baleno"
                                 height={400}
                                 width={400}
@@ -134,25 +134,7 @@ export default function Home() {
                             </div>
                         </div>
 
-                        {/* key specification Section */}
-                        {/* <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
-                            <p className="font-semibold text-xl mb-5">Key Specification</p>
-                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                                {carSpecification?.map((items) => (
-                                    <div key={items?.id} className="flex items-center space-x-3 p-2">
-                                        <Image
-                                            src={items?.icon}
-                                            alt={items?.title}
-                                            className="w-10 h-10"
-                                        />
-                                        <div className="flex flex-col text-lg">
-                                            <span className="text-gray-400 text-sm">{items?.title}</span>
-                                            {items?.data}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div> */}
+                    
                         <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
                             <p className="font-semibold text-xl mb-5">Key Specification</p>
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -238,14 +220,12 @@ export default function Home() {
                             </div>
                         </div>
 
-
-
                     </div>
 
                     {/* Right Section with Details */}
                     <div className="lg:w-1/3 lg:ml-8 mt-8 lg:mt-0 bg-white p-4 rounded-lg">
                         <h2 className="text-2xl font-bold">
-                            {carData.categoriesId?.metaTitle ? carData.categoriesId?.metaTitle : "2022 Maruti Suzuki Baleno Zeta AMT Petrol "}
+                            {carData?.data?.categoriesId?.metaTitle ?carData?.data?.categoriesId?.metaTitle : "2022 Maruti Suzuki Baleno Zeta AMT Petrol "}
                         </h2>
                         {/* <p className="mt-2">10K km · Petrol · Automatic</p>
                             <p className="mt-2"> {carData.mileage} km · {carData.fuel} · {carData.variant}</p> */}

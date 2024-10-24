@@ -9,27 +9,19 @@ const Car = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filteredCars, setFilteredCars] = useState([]);
-  const [maxPrice, setMaxPrice] = useState(1000000); // Default max price
+  const [maxPrice, setMaxPrice] = useState(); // Default max price
   const [selectedColor, setSelectedColor] = useState(""); // Default color filter
   const [selectedTransmission, setSelectedTransmission] = useState(""); // Transmission state
-  const [selectedBodyTypes, setSelectedBodyTypes] = useState([]); // New state for body types
+  const [selectedBodyTypes, setSelectedBodyTypes] = useState(""); // New state for body types
   const [selectedBrands, setSelectedBrands] = useState([]); // State for brands
   const [selectedModels, setSelectedModels] = useState([]); // State for models
   const [brands, setBrands] = useState([]); // State for brands
   const [selectedYear, setSelectedYear] = useState(""); // State for selected year
-  // Fetch brands on component mount
-  // useEffect(() => {
-  //   const fetchAvailableBrands = async () => {
-  //     try {
-  //       const fetchedBrands = await fetchBrands(); // Fetch the brands from API
-  //       setBrands(fetchedBrands); // Set the brands to state
-  //     } catch (error) {
-  //       console.error("Error fetching brands:", error);
-  //     }
-  //   };
+  const [selectedSeat, setSelectedSeat] = useState([]);// Single value for selected seat
+  const [selectedKmsDriven, setSelectedKmsDriven] = useState(""); // State for single km driven value
+// State for owner selection (single value)
+const [selectedOwner, setSelectedOwner] = useState(""); 
 
-  //   fetchAvailableBrands();
-  // }, []);
 
   // Function to fetch cars based on filters
   const fetchCars = async () => {
@@ -42,7 +34,11 @@ const Car = () => {
         selectedBodyTypes,
         selectedBrands,
         selectedModels,
-        selectedYear // Pass selected year to API
+        selectedYear,
+        selectedSeat,
+        selectedKmsDriven,
+        selectedOwner
+
       );
       setCars(data);
       setFilteredCars(data);
@@ -56,7 +52,7 @@ const Car = () => {
   useEffect(() => {
     // Fetch cars whenever filters change
     fetchCars();
-  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels,selectedYear]);
+  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels, selectedYear, selectedSeat,selectedKmsDriven,selectedOwner]);
 
   // Handler for brands
   const handleBrandChange = (brand) => {
@@ -78,6 +74,31 @@ const Car = () => {
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value); // Update selected year
   };
+  const handleSeatsChange = (e) => {
+    if (e && e.target) {
+      const value = parseInt(e.target.value, 10); // Extract the seat number
+      setSelectedSeat((prevSeats) => {
+        if (prevSeats.includes(value)) {
+          return prevSeats.filter((seat) => seat !== value);
+        } else {
+          return [...prevSeats, value];
+        }
+      });
+    } else {
+      console.warn("Event or value is undefined");
+    }
+  };
+
+  const handleKmsDrivenChange = (kms) => {
+    setSelectedKmsDriven(kms);
+  };
+  const handleBodyType = (val) => {
+    setSelectedBodyTypes(val);
+  };
+  // Handler for owner change
+const handleOwnerChange = (event) => {
+  setSelectedOwner(event.target.value);
+};
   return (
     <div className="flex flex-col md:flex-row">
       {/* Sidebar */}
@@ -86,11 +107,14 @@ const Car = () => {
           onPriceChange={setMaxPrice}
           onColorChange={setSelectedColor}
           onTransmissionChange={setSelectedTransmission}
-          onBodyTypeChange={setSelectedBodyTypes}
-          onBrandChange={handleBrandChange} // Pass brand handler
-          onModelChange={handleModelChange} // Pass model handler
-          brand={brands} // Pass the brands state to the Filter component
+          onBodyTypeChange={handleBodyType}
+          onBrandChange={handleBrandChange} 
+          onModelChange={handleModelChange} 
+          brand={brands} 
           onYearChange={handleYearChange}
+          onSeatsChange={handleSeatsChange} 
+          onKmsDrivenChange={handleKmsDrivenChange} 
+          onOwnerChange={handleOwnerChange} 
         />
       </div>
 
