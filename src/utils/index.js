@@ -193,11 +193,11 @@ export const FilterList = [
     title: "Kms Driven",
     visible: "false",
   },
-  {
-    id: "5",
-    title: "Fuel Type",
-    visible: "false",
-  },
+  // {
+  //   id: "5",
+  //   title: "Fuel Type",
+  //   visible: "false",
+  // },
   {
     id: "6",
     title: "Body Type",
@@ -212,11 +212,11 @@ export const FilterList = [
     id: "8",
     title: "Color",
   },
-  {
-    id: "9",
-    title: "Features",
-    visible: "false",
-  },
+  // {
+  //   id: "9",
+  //   title: "Features",
+  //   visible: "false",
+  // },
   {
     id: "10",
     title: "Seats",
@@ -306,7 +306,7 @@ export const seats = [
 ];
 
 //brand + modal
-export const brand = [
+export const brandsmap = [
   {
     id: "1",
     name: "Tata",
@@ -366,7 +366,7 @@ export const brand = [
     ],
   },
   {
-    id: "2",
+    id: "4",
     name: "Hyundai",
     available: "1",
     modals: [
@@ -385,7 +385,7 @@ export const brand = [
     ],
   },
   {
-    id: "2",
+    id: "5",
     name: "Renault",
     available: "11",
     modals: [
@@ -404,7 +404,7 @@ export const brand = [
     ],
   },
   {
-    id: "2",
+    id: "6",
     name: "Volkswagen",
     modals: [
       {
@@ -466,7 +466,7 @@ export const year = [
     available: "899",
   },
   {
-    id: "1",
+    id: "2",
     value: "option2",
     year: "2012",
     available: "510",
@@ -506,7 +506,7 @@ export const owner = [
     available: "899",
   },
   {
-    id: "1",
+    id: "2",
     value: "option2",
     owner: "2nd",
     available: "510",

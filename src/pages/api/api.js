@@ -362,7 +362,8 @@ export const updateUserProfile = async (email, fullName, birthDate) => {
   }
 };
 
-export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmission, selectedBodyTypes) => {
+export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels,selectedYear ,selectedSeat,selectedKmsDriven,selectedOwner) => {
+  console.log("inside api",selectedOwner)
   try {
     const authToken = localStorage.getItem("auth_token");
     if (!authToken) {
@@ -372,7 +373,7 @@ export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmi
 
     let url = `car?`;
     if (maxPrice) {
-      url += `price=${maxPrice}`;
+      url += `MaxPrice=${maxPrice}`;
     }
     if (selectedColor) {
       url += `${maxPrice ? '&' : ''}color=${selectedColor}`;
@@ -381,9 +382,33 @@ export const fetchFilteredCars = async (maxPrice, selectedColor, selectedTransmi
       url += `${(maxPrice || selectedColor) ? '&' : ''}Transmission=["${selectedTransmission}"]`;
     }
     if (selectedBodyTypes.length > 0) {
-      // Join selected body types as a string to include in the URL
-      url += `${(maxPrice || selectedColor || selectedTransmission) ? '&' : ''}BodyType=["${selectedBodyTypes.join('","')}"]`;
+      url += `${(maxPrice || selectedColor || selectedTransmission) ? '&' : ''}BodyType=["${selectedBodyTypes}"]`;
     }
+    if (selectedBrands.length > 0) {
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length) ? '&' : ''}Brand=["${selectedBrands.join('","')}"]`;
+    }
+    if (selectedModels.length > 0) {
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length) ? '&' : ''}Models=["${selectedModels.join('","')}"]`;
+    }
+    if (selectedYear) { // Check if a year is selected
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length || selectedModels.length) ? '&' : ''}Year=${selectedYear}`; // Add the year to the URL
+    }
+   
+    // Handle seat selection (format as array)
+    if (selectedSeat && selectedSeat.length > 0) {
+      url += `&Seats=[${selectedSeat.join(',')}]`;
+    }
+
+    // Adding km driven to the URL
+    if (selectedKmsDriven && selectedKmsDriven.length > 0) {
+      url += `${(maxPrice || selectedColor || selectedTransmission || selectedBodyTypes.length || selectedBrands.length || selectedModels.length || selectedYear || selectedSeat.length) ? '&' : ''}KmsDriven=${selectedKmsDriven}`;
+    }
+
+   // Adding owner to the URL (only one value)
+if (selectedOwner) {
+  url += url.endsWith('?') ? '' : '&';
+  url += `Owner=${selectedOwner}`;
+}
 
     const response = await axiosInstance.get(url, {
       headers: {
