@@ -65,7 +65,11 @@ export default function BodyTypePage() {
         <>
           {/* No Cars Found */}
           {cars.length === 0 ? (
-            <p className="text-center text-red-500">No cars found for {bodyType}.</p>
+            <div className="flex items-center justify-center ">
+              <p className="text-center text-red-500 text-2xl font-bold">
+                No cars found for {bodyType}.
+              </p>
+            </div>
           ) : (
             <div className="space-y-6 md:space-y-8">
               {cars.map((car, index) => (

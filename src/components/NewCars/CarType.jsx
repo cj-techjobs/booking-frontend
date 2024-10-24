@@ -47,7 +47,7 @@ const CarType = () => {
     // ];
 
     return (
-        <div className="w-full mb-10 ">
+        <div className="w-full ">
             <div className="text-center mb-4 w-full mt-10">
                 <h2 className="text-2xl font-semibold">
                     Select your <span className="text-red-500">type</span>
@@ -64,7 +64,9 @@ const CarType = () => {
                             onClick={() => handleCarType(car.name)}
                         >
                             <Image src={car.image} alt={car.name} width={94} height={94} />
-                            <p className="text-md font-semibold text-black mt-2">{car.name}</p>
+                            <p className="text-md font-semibold text-black mt-2">
+                                {car.name.slice(0, 5)}..
+                            </p>
                         </div>
                     ))}
                 </div>
