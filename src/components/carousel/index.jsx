@@ -39,6 +39,7 @@ import { GrFormPrevious } from "react-icons/gr";
 import Slider from "react-slick";
 import Category from "../Choose-Category/Category";
 import MapRoutes from "./mapRoutes";
+import Homepage from "../bikeComponents/Home/Homepage";
 
 const settings = {
   dots: true,
@@ -244,8 +245,8 @@ const CarouselComponent = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="mb-8">
+    <div className="container  mx-4">
+      {/* <div className="mb-8">
         <h2 className="text-[#000852] mt-4 text-center font-bold text-2xl mb-6">
           SHOP WHAT YOU LIKE USING
           <span className="text-red-500"> CATAGORIES</span>
@@ -321,9 +322,11 @@ const CarouselComponent = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="mb-8">
+      <Homepage/>
+
+      <div className="mb-8 mt-5 mx-6">
         <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 max-sm:grid-cols-2">
           {products.map((m, i) => (
             <div

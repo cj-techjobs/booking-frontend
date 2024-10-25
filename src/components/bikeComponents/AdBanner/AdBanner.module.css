@@ -1,0 +1,16 @@
+.adBanner .banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 387px;
+  background-color: #8dab82;
+  border-radius: 32px;
+  margin-top: 12px;
+}
+
+.bannerText p {
+  color: #000000;
+  font-size: 128px;
+  font-weight: 700;
+  line-height: 22px;
+}

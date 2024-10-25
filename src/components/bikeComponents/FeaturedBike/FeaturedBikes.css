@@ -1,0 +1,64 @@
+.featured-bikes {
+  text-align: left;
+  margin-top: 67px;
+}
+
+.featured-bikes h2 {
+  color: #0c0c0c;
+  font-size: 36px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.tabs button {
+  padding: 10px 37px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.tabs .active {
+  border-radius: 32px;
+  border: 1px solid #000000;
+  font-weight: 600;
+}
+
+.bike-card {
+  min-width: 427px;
+  padding: 20px;
+}
+
+.bike-card img {
+  width: 353px;
+  height: 225px;
+  object-fit: contain;
+  margin-bottom: 24px;
+}
+
+.bike-card h3, .bike-card p{
+    font-size: 20px;
+    font-weight: 500;
+    color: #000000;
+    margin-left: 24px;
+}
+
+@media (max-width: 768px){
+  .tabs {
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .tabs button {
+    padding: 5px 16px;
+  }
+  .bike-card{
+    min-width: 285px;
+  }
+}

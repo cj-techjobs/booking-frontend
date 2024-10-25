@@ -1,0 +1,349 @@
+.SpecificationContent{
+  background-color: #F1F2F3;
+  padding-top: 24px;
+  display: flex;
+  gap: 40px;
+}
+
+.leftContent{
+  width: 75%;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 513px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  box-shadow: #000000 0px 10px 20px, #ffffff 0px 6px 6px;
+}
+
+.imageWrapper img {
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .imageWrapper {
+    height: 250px;
+  }
+}
+
+/* specification Section */
+.specsWrapper {
+  background-color: #ffffff;
+  padding: 20px 40px 40px 40px;
+  border-radius: 18px;
+  margin-top: 50px;
+}
+
+.keySpecs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 10px;
+  row-gap: 24px;
+}
+
+.keyTitle {
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.spec {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  column-gap: 20px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
+  height: 60px;
+  width: 60px;
+}
+
+.spec h3 {
+  font-size: 20px;
+  color: #4e0a75;
+  margin: 0;
+}
+
+.spec p {
+  font-size: 12px;
+  color: black;
+  margin: 0;
+}
+
+/* Bike Info Section  */
+.bikeInfo {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-weight: 400;
+  font-size: 36px;
+  color: #29084B;
+  margin-bottom: 20px;
+}
+
+.details {
+  font-size: 16px;
+  font-weight: 600;
+  color: #29084B;
+  margin-bottom: 20px;
+}
+
+.emiWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.emi {
+  color: black;
+  font-weight: bold;
+}
+
+.emiButton {
+  padding: 10px 20px;
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 180px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.bookNow,
+.testDrive {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 180px;
+  transition: #FF0000 0.3s ease;
+}
+
+.bookNow {
+  background-color: #fff;
+  color: #FF3030;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bookNow:hover {
+  background-color: #e64a19;
+  color: #fff;
+}
+
+.testDrive {
+  background-color: #ff5722;
+  color: white;
+}
+
+.testDrive:hover {
+  background-color: #fff;
+  color: #ff5722;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dateWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  justify-content: space-between;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  padding: 30px 16px;
+  margin: 30px 0;
+}
+
+.date {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000;
+}
+.testDriveText{
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.location {
+  color: black;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.mapIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  cursor: pointer;
+}
+.priceBreakup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.priceBreakup h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.totalPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+/* Cities Overlay  */
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.locationButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.cityGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cityItem {
+  text-align: center;
+}
+
+.cityImage {
+  border-radius: 50%;
+}
+
+.cityName {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.closeButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.priceWrapper{
+  padding: 16px;
+}
+
+.priceDetailWrapper{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.priceTitle{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.priceDetail {
+  font-weight: 600;
+  font-size: 16px;
+  color: #9095A1;
+}
+
+@media(max-width: 1280px){
+  .SpecificationContent{
+    flex-direction: column;
+  }
+  .leftContent{
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .keySpecs {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on screens smaller than 1200px */
+  }
+}
+
+@media (max-width: 900px) {
+  .keySpecs {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on screens smaller than 900px */
+  }
+}
+
+@media (max-width: 600px) {
+  .keySpecs {
+    grid-template-columns: 1fr; /* 1 column on screens smaller than 600px */
+  }
+  .spec{
+    justify-content: space-between;
+  }
+  .actions{
+    flex-direction: column;
+  }
+}

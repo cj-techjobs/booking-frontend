@@ -1,0 +1,22 @@
+.image-banner {
+  height: 500px;
+  position: relative;
+}
+
+.main-title{
+  color: #ffffff;
+  font-size: 64px;
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 47px;
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: 0.4;
+  z-index: 1;
+}

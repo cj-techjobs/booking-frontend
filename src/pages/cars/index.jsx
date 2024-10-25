@@ -121,7 +121,7 @@ const handleOwnerChange = (event) => {
       {/* Main content */}
       <div className="pt-6 px-4 w-full md:w-3/4">
         {
-          filteredCars.length === 0 && !loading ? (
+          filteredCars?.length === 0 && !loading ? (
             <div className="text-center text-red-500 font-semibold">
               No cars exist for the applied filter
             </div>

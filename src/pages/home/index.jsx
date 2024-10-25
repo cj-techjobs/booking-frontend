@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import CarouselComponent from "../../components/carousel";
 import { getUserProfile } from "../api/api";
 import { GlobalContext } from "../api/context/context";
+import Header from "../../components/bikeComponents/Header/Header";
+import Homepage from "../../components/bikeComponents/Home/Homepage";
 
 function Home() {
   const context = useContext(GlobalContext);
@@ -19,6 +21,12 @@ function Home() {
 
     fetchUserProfile();
   }, [context, context?.isUpdateUser]);
-  return <CarouselComponent />;
+  return (
+    <>
+   <CarouselComponent/>
+    </>
+  )
 }
 export default Home;
+
+

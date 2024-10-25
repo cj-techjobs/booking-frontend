@@ -1,0 +1,83 @@
+.adBanner_title {
+  text-align: center;
+  font-size: 32px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #000000;
+  padding: 16px;
+}
+
+.adBanner_title span {
+  text-align: center;
+  font-size: 32px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #eb9c0a;
+}
+
+.featured-bikes{
+  margin-top: 67px;
+}
+
+.brandWrapper {
+  margin-top: 16px;
+}
+
+.brandTitle {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 22px;
+  padding: 20px;
+}
+
+.brandTitle span {
+  color: #ff0000;
+}
+
+.section_4 {
+  margin-top: 67px;
+}
+
+.mostSearched_bikes{
+  margin-top: 67px;
+}
+
+.mostSearched_bikes h2{
+  text-align: center;
+  font-weight: 400;
+  font-size: 40px;
+  color: #0C0C0C;
+}
+
+.mostSearched_bikes h2 span{
+  color: #FF0909;
+}
+
+.offerWrapper{
+  text-align: center;
+  max-width: 1160px;
+  margin: auto;
+}
+
+.offerWrapper h1{
+  color: #000000;
+  font-size: 80px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.offerWrapper p{
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+@media (max-width: 768px){
+  .adBanner_title {
+    line-height: 32px;
+  }
+  .offerWrapper h1{
+    font-size: 36px;
+  }
+}

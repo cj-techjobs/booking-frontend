@@ -1,0 +1,36 @@
+.why-choose-us h2 {
+  font-size: 50px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 40px;
+}
+
+.why-choose-us .content .image{
+    width: 200px;
+    height: 185px;
+    border-radius: 24px;
+    background-color: #8DAB82;
+}
+
+
+.why-choose-us .content h3{
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+@media(max-width: 768px){
+  .content{
+    width: 100% !important;
+  }
+
+  .content .image{
+    width: 100% !important;
+  }
+
+  .listWrapper{
+    gap: 20px;
+  }
+}

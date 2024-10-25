@@ -1,0 +1,62 @@
+.location-selector {
+  width: 70%;
+}
+
+.location-selector .header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.location-selector .header .border{
+    width: 4px;
+    height: 32px;
+    background-color: #FF0000;
+}
+
+.location-selector .header h3{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+/* Buttons  */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 24px;
+  background-color: transparent;
+  border: 2px solid #000000;
+  color: #000000;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+button.active {
+  padding: 10px 24px;
+  background-color: #F8CDCD;
+  border: 2px solid #FF0000;
+  color: #FF0000;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.location-selector .map{
+  margin-top: 24px;
+}
+
+@media (max-width: 991.98px){
+  .buttons{
+    overflow: scroll;
+  }
+  .buttons::-webkit-scrollbar{
+    display: none;
+  }
+  button {
+    min-width: 200px;
+  }
+}

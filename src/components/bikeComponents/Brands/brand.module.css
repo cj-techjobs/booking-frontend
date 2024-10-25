@@ -1,0 +1,35 @@
+.brandCard {
+  width: 276px; 
+  flex: 0 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  transition: box-shadow 0.2s;
+  box-shadow: #B7DFE361 0px 10px 20px, #B7DFE361 0px 6px 6px;
+}
+
+.imageWrapper{
+  height: 216px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageWrapper img{
+  padding: 50px 44px;
+}
+
+.brandContent{
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  margin-bottom: 16px;
+}
+
+.brandContent h3{
+  font-size: 32px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #000000;
+}
