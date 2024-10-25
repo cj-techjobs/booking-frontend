@@ -1,6 +1,6 @@
 import Layout from "../layouts";
 import "../styles/globals.css";
-import Header from "../components/Header";
+import Header from "../components/bikeComponents/Header/Header";
 import { DataProvider } from "./api/context/context";
 
 const App = ({ Component, pageProps }) => {

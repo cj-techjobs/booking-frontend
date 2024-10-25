@@ -1,0 +1,22 @@
+.footer {
+  margin-top: 80px;
+  padding: 24px 44px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  background-color: #ef6b6b;
+}
+
+.footer img {
+  width: 245px;
+  height: 168px;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 16px 17px;
+  }
+  .footer img {
+    width: 160px;
+    height: 109px;
+  }
+}
