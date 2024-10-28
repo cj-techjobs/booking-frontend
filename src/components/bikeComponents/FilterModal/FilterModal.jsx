@@ -62,6 +62,36 @@ export default function Home() {
                   >
                     Fuel Type
                   </p>
+                  <p
+                    className={activeCategory === 'Fuel Type' ? styles.activeCategory : ''}
+                    onClick={() => handleCategoryClick('Fuel Type')}
+                  >
+                    Body Type
+                  </p>
+                  <p
+                    className={activeCategory === 'Fuel Type' ? styles.activeCategory : ''}
+                    onClick={() => handleCategoryClick('Fuel Type')}
+                  >
+                    Transmission
+                  </p>
+                  <p
+                    className={activeCategory === 'Fuel Type' ? styles.activeCategory : ''}
+                    onClick={() => handleCategoryClick('Fuel Type')}
+                  >
+                   Color
+                  </p>
+                  <p
+                    className={activeCategory === 'Fuel Type' ? styles.activeCategory : ''}
+                    onClick={() => handleCategoryClick('Fuel Type')}
+                  >
+                    Features
+                  </p>
+                  <p
+                    className={activeCategory === 'Fuel Type' ? styles.activeCategory : ''}
+                    onClick={() => handleCategoryClick('Fuel Type')}
+                  >
+                   Seats
+                  </p>
                   {/* Add other categories as needed */}
                 </div>
 

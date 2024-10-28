@@ -4,22 +4,22 @@ import "./WhyChooseUs.css";
 const WhyChooseUs = () => {
   const reasons = [
     {
-      icon: "/icon1.png", // Replace with the actual icon paths
+      icon: "/bikeImages/icon1.png", // Replace with the actual icon paths
       title: "Easy online booking",
       description: "Choose bikes and make easy online bookings.",
     },
     {
-      icon: "/icon2.png",
+      icon: "/bikeImages/icon2.png",
       title: "Free Test drive",
       description: "Get a free test drive at selected locations.",
     },
     {
-      icon: "/icon3.png",
+      icon: "/bikeImages/icon3.png",
       title: "High quality",
       description: "Choose from our range of high-quality bikes.",
     },
     {
-      icon: "/icon4.png",
+      icon: "/bikeImages/icon4.png",
       title: "Online Payment",
       description: "Make secure online payments for your bikes.",
     },

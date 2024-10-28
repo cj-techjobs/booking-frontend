@@ -5,14 +5,14 @@ import { useState } from "react";
 
 // List of cities with image and name (you can replace with real data)
 const cities = [
-  { name: "Mumbai", image: "/cities/mumbai.png" },
-  { name: "Delhi", image: "/cities/delhi.png" },
-  { name: "Bangalore", image: "/cities/bangalore.png" },
-  { name: "Chennai", image: "/cities/chennai.png" },
-  { name: "Kolkata", image: "/cities/kolkata.png" },
-  { name: "Pune", image: "/cities/pune.png" },
-  { name: "Hyderabad", image: "/cities/hyderabad.png" },
-  { name: "Ahmedabad", image: "/cities/ahmedabad.png" },
+  { name: "Mumbai", image: "/bikeImages/cities/mumbai.png" },
+  { name: "Delhi", image: "/bikeImages/cities/delhi.png" },
+  { name: "Bangalore", image: "/bikeImages/cities/bangalore.png" },
+  { name: "Chennai", image: "/bikeImages/cities/chennai.png" },
+  { name: "Kolkata", image: "/bikeImages/cities/kolkata.png" },
+  { name: "Pune", image: "/bikeImages/cities/pune.png" },
+  { name: "Hyderabad", image: "/bikeImages/cities/hyderabad.png" },
+  { name: "Ahmedabad", image: "/bikeImages/cities/ahmedabad.png" },
 ];
 
 const Specification = () => {
@@ -64,7 +64,7 @@ const Specification = () => {
           {/* Logo */}
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              src="/Sitelogo.png"
+              src="/bikeImages/Sitelogo.png"
               alt="Six Logo"
               style={{ height: "60px", width: "95px" }}
             />
@@ -80,7 +80,7 @@ const Specification = () => {
         <div className={styles.leftContent}>
           <div className={styles.imageWrapper}>
             <Image
-              src="/Bike1.jpg"
+              src="/bikeImages/Bike1.jpg"
               alt="Description of image"
               layout="fill"
               objectFit="cover"
@@ -93,7 +93,7 @@ const Specification = () => {
               <div className={styles.spec}>
                 <div className={styles.icon}>
                   <Image
-                    src="/spec1.png"
+                    src="/bikeImages/spec1.png"
                     alt="Mileage"
                     width={48}
                     height={48}
@@ -108,7 +108,7 @@ const Specification = () => {
               <div className={styles.spec}>
                 <div className={styles.icon}>
                   <Image
-                    src="/spec2.png"
+                    src="/bikeImages/spec2.png"
                     alt="Ground clearance"
                     width={48}
                     height={48}
@@ -123,7 +123,7 @@ const Specification = () => {
               <div className={styles.spec}>
                 <div className={styles.icon}>
                   <Image
-                    src="/spec3.png"
+                    src="/bikeImages/spec3.png"
                     alt="Fuel capacity"
                     width={48}
                     height={48}
@@ -138,7 +138,7 @@ const Specification = () => {
               <div className={styles.spec}>
                 <div className={styles.icon}>
                   <Image
-                    src="/spec4.png"
+                    src="/bikeImages/spec4.png"
                     alt="CC"
                     width={48}
                     height={48}
@@ -153,7 +153,7 @@ const Specification = () => {
               <div className={styles.spec}>
                 <div className={styles.icon}>
                   <Image
-                    src="/spec5.png"
+                    src="/bikeImages/spec5.png"
                     alt="Seating capacity"
                     width={48}
                     height={48}
@@ -168,7 +168,7 @@ const Specification = () => {
               <div className={styles.spec}>
                 <div className={styles.icon}>
                   <Image
-                    src="/spec5.png"
+                    src="/bikeImages/spec5.png"
                     alt="Seating capacity"
                     width={48}
                     height={48}
@@ -196,8 +196,8 @@ const Specification = () => {
               </button>
             </div>
             <div className={styles.actions}>
-              <button className={styles.bookNow}>Book Now</button>
-              <button className={styles.testDrive}>Book Test Drive</button>
+              <button onClick={()=>window.location.pathname='/schedule'} className={styles.bookNow}>Book Now</button>
+              <button onClick={()=>window.location.pathname='/schedule'} className={styles.testDrive}>Book Test Drive</button>
             </div>
             <div className={styles.dateWrapper}>
               <div>
@@ -209,7 +209,7 @@ const Specification = () => {
                 {/* Display selected city */}
               </div>
               <Image
-                src="/Location.png"
+                src="/bikeImages/Location.png"
                 alt="Mileage"
                 width={48}
                 height={48}
