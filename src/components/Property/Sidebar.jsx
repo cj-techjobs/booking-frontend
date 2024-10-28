@@ -247,9 +247,9 @@ const Sidebar = () => {
                 {/* Header */}
                 <div className="flex justify-between items-center bg-white text-black h-[60px] sm:h-[100px] md:h-[114px] rounded-b-2xl px-4 shadow-lg sm:bg-red-500 sm:text-white">
                     {/* Title */}
-                    <div className="text-lg sm:text-3xl md:text-4xl font-semibold">
+                    {/* <div className="text-lg sm:text-3xl md:text-4xl font-semibold">
                         Properties
-                    </div>
+                    </div> */}
 
                     {/* Filter button (visible on mobile) */}
                     <button
