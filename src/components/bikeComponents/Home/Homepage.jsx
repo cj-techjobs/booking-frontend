@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./home.module.css";
+
 const Homepage = () => {
   const categories = [
     { id: 1, label: "Cars", image: "/bikeImages/car.png", link: "/cars" },

@@ -38,7 +38,7 @@ export default function SideBar() {
           <li>
             <div className={styles.icon}>
               <Image
-                src="/Harley.png"
+                src="/bikeImages/Harley.png"
                 alt="Harley Davidson"
                 width={36}
                 height={36}
@@ -51,7 +51,7 @@ export default function SideBar() {
           <li>
             <div className={styles.icon}>
               <Image
-                src="/Hero.png"
+                src="/bikeImages/Hero.png"
                 alt="Royal Enfield"
                 width={36}
                 height={36}
@@ -72,7 +72,7 @@ export default function SideBar() {
           <li>
             <div className={styles.icon}>
               <Image
-                src="/Honda.png"
+                src="/bikeImages/Honda.png"
                 alt="Honda"
                 width={36}
                 height={36}
@@ -84,7 +84,7 @@ export default function SideBar() {
           </li>
           <li>
             <div className={styles.icon}>
-              <Image src="/Royal.png" alt="Hero" width={36} height={36} />
+              <Image src="/bikeImages/Royal.png" alt="Hero" width={36} height={36} />
             </div>
             <Link href="#" className="text-blue-500">
               Hero
@@ -93,7 +93,7 @@ export default function SideBar() {
           <li>
             <div className={styles.icon}>
               <Image
-                src="/Ola.png"
+                src="/bikeImages/Ola.png"
                 alt="Suzuki"
                 width={36}
                 height={36}

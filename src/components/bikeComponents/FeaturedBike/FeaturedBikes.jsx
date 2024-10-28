@@ -57,7 +57,7 @@ const FeaturedBikes = ({ tabsData = {}, onBikeClick }) => {
         {sanitizedTabs[activeTab].length > 0 ? (
           sanitizedTabs[activeTab].map((bike, index) => (
             <div className="bike-card" key={index} >
-              <img src={bike.image} alt={bike.name} />
+              <img onClick={()=>window.location.pathname='/specifications'}  src={bike.image} alt={bike.name} />
               <h3>
                 {bike.name} with {bike.model}
               </h3>

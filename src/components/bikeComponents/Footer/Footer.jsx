@@ -4,7 +4,7 @@ import "./Footer.css"
 const Footer = () => {
   return (
     <div className='footer'>
-      <img src="/footerLogo.png" alt="logo" />
+      <img src="/bikeImages/footerLogo.png" alt="logo" />
     </div>
   )
 }
