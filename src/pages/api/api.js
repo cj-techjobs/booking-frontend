@@ -50,6 +50,33 @@ export const getAllNewCarData = async () => {
   }
 };
 
+//get all property  data
+export const getAllPropertyData = async () => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    const response = await axiosInstance.get("properties", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data to the console
+    // console.log("API Response Data:", response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error("Error fetching car data:", error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
 //get all used car data
 export const getAllCarData = async () => {
   try {
@@ -275,6 +302,34 @@ export const getNewCarById = async (id) => {
     }
 
     const response = await axiosInstance.get(`newcar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    // Log the response data to the console
+    // console.log(`API Response Data for Car ID ${id}:`, response?.data);
+
+    return response?.data; // Return the data after logging
+  } catch (error) {
+    // Log the error to the console for better debugging
+    console.error(`Error fetching car data by ID (${id}):`, error);
+    throw error?.response
+      ? error?.response?.data
+      : new Error("An unexpected error occurred");
+  }
+};
+//get the  propertry by id
+export const getPropertyById = async (id) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    // const response = await axiosInstance.get(`http://13.234.115.173:8000/api/v1/car/6710d7512e3a7dfe2022026b`, {
+    const response = await axiosInstance.get(`properties/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
