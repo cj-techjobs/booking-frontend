@@ -245,31 +245,19 @@ const Sidebar = () => {
         <div>
             <div className="p-3">
                 {/* Header */}
-                <div className="flex justify-between items-center bg-white text-black h-[60px] sm:h-[100px] md:h-[114px] rounded-b-2xl px-4 shadow-lg sm:bg-red-500 sm:text-white">
-                    {/* Title */}
-                    {/* <div className="text-lg sm:text-3xl md:text-4xl font-semibold">
-                        Properties
-                    </div> */}
-
-                    {/* Filter button (visible on mobile) */}
-                    <button
-                        className="block sm:hidden bg-red-500 text-white rounded-full p-2"
-                        onClick={() => setIsFilterModalOpen(true)} // Open the modal on click
-                    >
-                        <FaFilter className="w-5 h-5" />
-                    </button>
-                </div>
+                <button
+                    className="block sm:hidden bg-green-500 text-white rounded-full p-2"
+                    onClick={() => setIsFilterModalOpen(true)} // Open the modal on click
+                >
+                    <FaFilter className="w-5 h-5" />
+                </button>
 
 
-                {/* Buy/Rent Button */}
-                <div className="flex justify-center sm:justify-start mt-4">
-                    <BuyRentButton />
-                </div>
 
                 {/* Filter options modal for mobile */}
                 {isFilterModalOpen && (
                     // <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end sm:hidden">
-                        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end md:hidden">
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end md:hidden">
 
                         <div className="bg-white w-full p-4 rounded-t-2xl">
                             <div className="flex justify-between items-center">
@@ -607,325 +595,331 @@ const Sidebar = () => {
                 )}
 
                 {/* Filters for desktop */}
-                <div className="hidden sm:flex mt-4">
-                    {/* Left Column: Filter List (Desktop) */}
-                    <div className="w-full md:w-1/3 mb-4 md:mb-0">
-                        {propertyFilterItem?.map((items) => (
-                            <div
-                                key={items.id}
-                                className={`py-3.5 px-1 cursor-pointer ${activeModal === items?.title
-                                    ? "bg-[#F6F2F9] text-purple-600"
-                                    : ""}`}
-                                onClick={() => handleFilterClick(items?.title)} // Set the active modal when a filter is clicked
-                            >
-                                {items.title}
+                {/* <div className="hidden sm:flex mt-4"> */}
+                {/* Left Column: Filter List (Desktop) */}
+                <div className="hidden md:block w-full mb-4 md:mb-0 bg-[#F6FBF7] rounded-lg shadow-md">
+                    {/* Budget Section */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg rounded-t-lg">
+                        Budget
+                    </div>
+                    <div className="p-4 bg-white ">
+                        <div className="text-gray-700 text-md mb-2">Budget Range</div>
+                        <div className="flex flex-col md:flex-row items-center gap-2">
+                            <div className="flex-1">
+                                <select
+                                    name="from"
+                                    id="from"
+                                    value={priceFrom}
+                                    onChange={handleFromChange}
+                                    className="py-2 outline-none border border-gray-300 rounded-md w-full text-gray-700"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="100000">1 Lakh</option>
+                                    <option value="200000">2 Lakh</option>
+                                    <option value="1200000">12 Lakh</option>
+                                    <option value="25000000">2.5 Cr</option>
+                                </select>
                             </div>
-                        ))}
+                            <span className="md:mx-2">to</span>
+                            <div className="flex-1">
+                                <select
+                                    name="to"
+                                    id="to"
+                                    value={priceTo}
+                                    onChange={handleToChange}
+                                    className="py-2 outline-none border border-gray-300 rounded-md w-full text-gray-700"
+                                >
+                                    <option value="100000">1 Lakh</option>
+                                    <option value="200000">2 Lakh</option>
+                                    <option value="1200000">12 Lakh</option>
+                                    <option value="25000000">100 Cr+</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Right Column: Filter Options (Desktop) */}
-                    <div className="w-full md:w-2/3">
-                        {activeModal === "Budget" && (
-                            <div className="p-3 ">
-                                <div className="mb-4 text-lg">Budget Range</div>
-                                <div className="flex flex-col md:flex-row items-center gap-4">
-                                    <div className="flex-1">
-                                        <select
-                                            name="from"
-                                            id="from"
-                                            value={priceFrom}
-                                            onChange={handleFromChange}
-                                            className="py-2 outline-none border rounded-md w-full"
-                                        >
-                                            <option value="0">0</option>
-                                            <option value="100000">100000</option>
-                                            <option value="200000">200000</option>
-                                            <option value="1200000">1200000</option>
-                                            <option value="25000000">25000000</option>
-                                        </select>
-                                    </div>
-                                    <span className="md:mx-2">to</span>
-                                    <div className="flex-1">
-                                        <select
-                                            name="to"
-                                            id="to"
-                                            value={priceTo}
-                                            onChange={handleToChange}
-                                            className="py-2 outline-none border px-1 rounded-full w-full"
-                                        >
-                                            <option value="100000">100000</option>
-                                            <option value="200000">200000</option>
-                                            <option value="1200000">1200000</option>
-                                            <option value="25000000">100 Cr+</option>
-                                        </select>
-                                    </div>
-                                </div>
+                    {/* Property Type Section */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Property Type
+                    </div>
+                    <div className="p-4 bg-white flex flex-col gap-4 rounded-b-lg">
+                        {Object.keys(checkboxes.property).map((key) => (
+                            <div key={key} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id={`property.${key}`}
+                                    name={`property.${key}`}
+                                    checked={checkboxes.property[key]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                                />
+                                <label htmlFor={`property.${key}`} className="text-gray-700">
+                                    {fullNames.property[key]}
+                                </label>
                             </div>
-                        )}
-                        {activeModal === "Property Type" && (
-                            <div className="p-3 flex flex-col gap-6">
-                                {Object.keys(checkboxes.property).map((key) => (
-                                    <div key={key} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            id={`property.${key}`}
-                                            name={`property.${key}`}
-                                            checked={checkboxes.property[key]}
-                                            onChange={handleCheckboxChange}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`property.${key}`}>
-                                            {fullNames.property[key]}
-                                        </label>
-                                    </div>
-                                ))}
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="selectAll"
-                                        name="selectAll"
-                                        checked={selectAll}
-                                        onChange={(event) =>
-                                            handleSelectAllChange(event, "property")
-                                        }
-                                        className="mr-2"
-                                    />
-                                    <label
-                                        htmlFor="selectAll"
-                                        className="text-blue-600 cursor-pointer"
-                                    >
-                                        Select All
-                                    </label>
-                                </div>
+                        ))}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                name="selectAll"
+                                checked={selectAll}
+                                onChange={(event) => handleSelectAllChange(event, "property")}
+                                className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                            />
+                            <label
+                                htmlFor="selectAll"
+                                className="text-blue-600 cursor-pointer"
+                            >
+                                Select All
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* BHK */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Bhk
+                    </div>
+                    <div className="bg-white p-3 flex flex-col gap-6">
+                        {Object.keys(checkboxes.bhk).map((key) => (
+                            <div key={key} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    name={`bhk.${key}`}
+                                    id={`bhk.${key}`}
+                                    checked={checkboxes.bhk[key]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={`bhk.${key}`}>{fullNames.bhk[key]}</label>
                             </div>
-                        )}
-                        {activeModal === "Bhk" && (
-                            <div className="p-3 flex flex-col gap-6">
-                                {Object.keys(checkboxes.bhk).map((key) => (
-                                    <div key={key} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            name={`bhk.${key}`}
-                                            id={`bhk.${key}`}
-                                            checked={checkboxes.bhk[key]}
-                                            onChange={handleCheckboxChange}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`bhk.${key}`}>{fullNames.bhk[key]}</label>
-                                    </div>
-                                ))}
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="selectAll"
-                                        name="selectAll"
-                                        checked={selectAll}
-                                        onChange={(event) => handleSelectAllChange(event, "bhk")}
-                                        className="mr-2"
-                                    />
-                                    <label
-                                        htmlFor="selectAll"
-                                        className="text-blue-600 cursor-pointer"
-                                    >
-                                        Select All
-                                    </label>
-                                </div>
+                        ))}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                name="selectAll"
+                                checked={selectAll}
+                                onChange={(event) => handleSelectAllChange(event, "bhk")}
+                                className="mr-2"
+                            />
+                            <label
+                                htmlFor="selectAll"
+                                className="text-blue-600 cursor-pointer"
+                            >
+                                Select All
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Construction Status */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Construction Status
+                    </div>
+                    <div className="bg-white p-3 flex flex-col gap-6">
+                        {Object.keys(checkboxes.construction).map((key) => (
+                            <div key={key} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id={`construction.${key}`}
+                                    name={`construction.${key}`}
+                                    checked={checkboxes.construction[key]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={`construction.${key}`}>
+                                    {fullNames.construction[key]}
+                                </label>
                             </div>
-                        )}
-                        {activeModal === "Construction Status" && (
-                            <div className="p-3 flex flex-col gap-6">
-                                {Object.keys(checkboxes.construction).map((key) => (
-                                    <div key={key} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            id={`construction.${key}`}
-                                            name={`construction.${key}`}
-                                            checked={checkboxes.construction[key]}
-                                            onChange={handleCheckboxChange}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`construction.${key}`}>
-                                            {fullNames.construction[key]}
-                                        </label>
-                                    </div>
-                                ))}
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="selectAll"
-                                        name="selectAll"
-                                        checked={selectAll}
-                                        onChange={(event) =>
-                                            handleSelectAllChange(event, "construction")
-                                        }
-                                        className="mr-2"
-                                    />
-                                    <label
-                                        htmlFor="selectAll"
-                                        className="text-blue-600 cursor-pointer"
-                                    >
-                                        Select All
-                                    </label>
-                                </div>
+                        ))}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                name="selectAll"
+                                checked={selectAll}
+                                onChange={(event) =>
+                                    handleSelectAllChange(event, "construction")
+                                }
+                                className="mr-2"
+                            />
+                            <label
+                                htmlFor="selectAll"
+                                className="text-blue-600 cursor-pointer"
+                            >
+                                Select All
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Area */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Area
+                    </div>
+                    <div className="bg-white p-3">
+                        <div className="flex items-center justify-between mb-4 text-lg">
+                            <div>Area</div>
+                            <div className="text-sm">
+                                <select name="areaType" className="px-1" id="areaType">
+                                    <option value="Sq.ft">Sq.ft</option>
+                                    <option value="Sq.ft">Sq.ft</option>
+                                    <option value="Sq.ft">Sq.ft</option>
+                                </select>
                             </div>
-                        )}
-                        {activeModal === "Area" && (
-                            <div className="p-3">
-                                <div className="flex items-center justify-between mb-4 text-lg">
-                                    <div>Area</div>
-                                    <div className="text-sm">
-                                        <select name="areaType" className="px-1" id="areaType">
-                                            <option value="Sq.ft">Sq.ft</option>
-                                            <option value="Sq.ft">Sq.ft</option>
-                                            <option value="Sq.ft">Sq.ft</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-                                    <div className="flex-1">
-                                        <select
-                                            name="from"
-                                            id="from"
-                                            value={areaFrom}
-                                            onChange={handleFromChange}
-                                            className="py-2 outline-none border rounded-md w-full"
-                                        >
-                                            <option value="0">0 Sq. ft.</option>
-                                            <option value="500">500 Sq.ft.</option>
-                                            <option value="700">700 Sq.ft.</option>
-                                            <option value="900">900 Sq.ft.</option>
-                                            <option value="1000">1000 Sq.ft.</option>
-                                        </select>
-                                    </div>
-                                    <span className="md:mx-2">-</span>
-                                    <div className="flex-1">
-                                        <select
-                                            name="to"
-                                            id="to"
-                                            value={areaTo}
-                                            onChange={handleToChange}
-                                            className="py-2 outline-none border-black border rounded-full w-full"
-                                        >
-                                            <option value="1100">1100 Sq.ft.</option>
-                                            <option value="2000">2000 Sq.ft.</option>
-                                            <option value="3000">3000 Sq.ft.</option>
-                                            <option value="4000">4000+ Sq.ft.</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        </div>
+                        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                            <div className="flex-1">
+                                <select
+                                    name="from"
+                                    id="from"
+                                    value={areaFrom}
+                                    onChange={handleFromChange}
+                                    className="py-2 outline-none border rounded-md w-full"
+                                >
+                                    <option value="0">0 Sq. ft.</option>
+                                    <option value="500">500 Sq.ft.</option>
+                                    <option value="700">700 Sq.ft.</option>
+                                    <option value="900">900 Sq.ft.</option>
+                                    <option value="1000">1000 Sq.ft.</option>
+                                </select>
                             </div>
-                        )}
-                        {activeModal === "Amenities" && (
-                            <div className="p-3flex flex-col gap-6">
-                                {Object.keys(checkboxes.amenities).map((key) => (
-                                    <div key={key} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            name={`amenities.${key}`}
-                                            id={`amenities.${key}`}
-                                            checked={checkboxes.amenities[key]}
-                                            onChange={handleCheckboxChange}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`amenities.${key}`}>
-                                            {fullNames.amenities[key]}
-                                        </label>
-                                    </div>
-                                ))}
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="selectAll"
-                                        name="selectAll"
-                                        checked={selectAll}
-                                        onChange={(event) =>
-                                            handleSelectAllChange(event, "amenities")
-                                        }
-                                        className="mr-2"
-                                    />
-                                    <label
-                                        htmlFor="selectAll"
-                                        className="text-blue-600 cursor-pointer"
-                                    >
-                                        Select All
-                                    </label>
-                                </div>
+                            <span className="md:mx-2">-</span>
+                            <div className="flex-1">
+                                <select
+                                    name="to"
+                                    id="to"
+                                    value={areaTo}
+                                    onChange={handleToChange}
+                                    className="py-2 outline-none border-black border rounded-full w-full"
+                                >
+                                    <option value="1100">1100 Sq.ft.</option>
+                                    <option value="2000">2000 Sq.ft.</option>
+                                    <option value="3000">3000 Sq.ft.</option>
+                                    <option value="4000">4000+ Sq.ft.</option>
+                                </select>
                             </div>
-                        )}
-                        {activeModal === "Bathrooms" && (
-                            <div className="p-3  flex flex-col gap-6">
-                                {Object.keys(checkboxes.bathroom).map((key) => (
-                                    <div key={key} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            name={`bathroom.${key}`}
-                                            id={`bathroom.${key}`}
-                                            checked={checkboxes.bathroom[key]}
-                                            onChange={handleCheckboxChange}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`bathroom.${key}`}>
-                                            {fullNames.bathroom[key]}
-                                        </label>
-                                    </div>
-                                ))}
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="selectAll"
-                                        name="selectAll"
-                                        checked={selectAll}
-                                        onChange={(event) =>
-                                            handleSelectAllChange(event, "bathroom")
-                                        }
-                                        className="mr-2"
-                                    />
-                                    <label
-                                        htmlFor="selectAll"
-                                        className="text-blue-600 cursor-pointer"
-                                    >
-                                        Select All
-                                    </label>
-                                </div>
+                        </div>
+                    </div>
+
+
+                    {/* Amenities */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Amenities
+                    </div>
+                    <div className="bg-white p-3flex flex-col gap-6">
+                        {Object.keys(checkboxes.amenities).map((key) => (
+                            <div key={key} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    name={`amenities.${key}`}
+                                    id={`amenities.${key}`}
+                                    checked={checkboxes.amenities[key]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={`amenities.${key}`}>
+                                    {fullNames.amenities[key]}
+                                </label>
                             </div>
-                        )}
-                        {activeModal === "Furnishing status" && (
-                            <div className="p-3 flex flex-col gap-6">
-                                {Object.keys(checkboxes.furniture).map((key) => (
-                                    <div key={key} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            name={`furniture.${key}`}
-                                            id={`furniture.${key}`}
-                                            checked={checkboxes.furniture[key]}
-                                            onChange={handleCheckboxChange}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`furniture.${key}`}>
-                                            {fullNames.furniture[key]}
-                                        </label>
-                                    </div>
-                                ))}
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="selectAll"
-                                        name="selectAll"
-                                        checked={selectAll}
-                                        onChange={(event) =>
-                                            handleSelectAllChange(event, "furniture")
-                                        }
-                                        className="mr-2"
-                                    />
-                                    <label
-                                        htmlFor="selectAll"
-                                        className="text-blue-600 cursor-pointer"
-                                    >
-                                        Select All
-                                    </label>
-                                </div>
+                        ))}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                name="selectAll"
+                                checked={selectAll}
+                                onChange={(event) =>
+                                    handleSelectAllChange(event, "amenities")
+                                }
+                                className="mr-2"
+                            />
+                            <label
+                                htmlFor="selectAll"
+                                className="text-blue-600 cursor-pointer"
+                            >
+                                Select All
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Bathrooms */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Bathrooms
+                    </div>
+                    <div className="p-3  bg-white flex flex-col gap-6">
+                        {Object.keys(checkboxes.bathroom).map((key) => (
+                            <div key={key} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    name={`bathroom.${key}`}
+                                    id={`bathroom.${key}`}
+                                    checked={checkboxes.bathroom[key]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={`bathroom.${key}`}>
+                                    {fullNames.bathroom[key]}
+                                </label>
                             </div>
-                        )}
+                        ))}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                name="selectAll"
+                                checked={selectAll}
+                                onChange={(event) =>
+                                    handleSelectAllChange(event, "bathroom")
+                                }
+                                className="mr-2"
+                            />
+                            <label
+                                htmlFor="selectAll"
+                                className="text-blue-600 cursor-pointer"
+                            >
+                                Select All
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Furnishing status */}
+                    <div className="py-4 px-4 bg-white text-gray-800 font-semibold text-lg ">
+                        Furnishing status
+                    </div>
+                    <div className="p-3 bg-white flex flex-col gap-6">
+                        {Object.keys(checkboxes.furniture).map((key) => (
+                            <div key={key} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    name={`furniture.${key}`}
+                                    id={`furniture.${key}`}
+                                    checked={checkboxes.furniture[key]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={`furniture.${key}`}>
+                                    {fullNames.furniture[key]}
+                                </label>
+                            </div>
+                        ))}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                name="selectAll"
+                                checked={selectAll}
+                                onChange={(event) =>
+                                    handleSelectAllChange(event, "furniture")
+                                }
+                                className="mr-2"
+                            />
+                            <label
+                                htmlFor="selectAll"
+                                className="text-blue-600 cursor-pointer"
+                            >
+                                Select All
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
