@@ -654,3 +654,55 @@ export const fetchFilteredCars = async (
     throw error?.response?.data || "An unexpected error occurred";
   }
 };
+
+// /src/api/api.js
+
+// export const fetchFilteredProperties = async (minPrice, maxPrice) => {
+//   try {
+//     const response = await fetch(
+//       `http://13.234.115.173:8000/api/v1/properties?MinPrice=${minPrice}&MaxPrice=${maxPrice}`
+//     );
+//     const data = await response.json();
+//     return data; // Return the fetched data
+//   } catch (error) {
+//     console.error("Error fetching properties:", error);
+//     throw error;
+//   }
+// };
+
+export const fetchFilteredProperties = async ({
+  minPrice,
+  maxPrice,
+  
+}) => {
+  try {
+    const authToken = localStorage.getItem("auth_token");
+    if (!authToken) {
+      console.error("Auth token not found");
+      return;
+    }
+
+    // Start building the URL dynamically
+    let url = `properties?`;
+
+    if (minPrice) {
+      url += `MinPrice=${minPrice}`;
+    }
+    if (maxPrice) {
+      url += `${url.endsWith('?') ? '' : '&'}MaxPrice=${maxPrice}`;
+    }
+
+    // Make the API call with the built URL
+    const response = await axiosInstance.get(url, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    console.log("API Response Data:", response?.data);
+    return response?.data?.data?.list || []; // Return the list of filtered properties
+  } catch (error) {
+    console.error("Error fetching filtered properties:", error);
+    throw error?.response?.data || "An unexpected error occurred";
+  }
+};
