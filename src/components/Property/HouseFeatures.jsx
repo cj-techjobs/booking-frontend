@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function HouseFeatures() {
+    const router = useRouter();
     const features = [
         {
             imageSrc: '/images/feature1.png',
@@ -31,7 +33,10 @@ export default function HouseFeatures() {
         <div className=" ">
             <div className="max-w-6xl mx-auto px-4 flex items-center justify-between mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-green-700">Fitur Rumah</h2>
-                <button className="bg-green-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-green-600 flex items-center space-x-2">
+                <button
+                    className="bg-green-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-green-600 flex items-center space-x-2"
+                    onClick={() => router.push('/properties')}
+                >
                     <span>See all</span>
                     <span>&#8250;</span>
                 </button>
