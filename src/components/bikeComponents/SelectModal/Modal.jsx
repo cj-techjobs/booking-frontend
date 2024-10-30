@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "./Modal.css"; // Import the CSS file
 import FilterModal from "../FilterModal/FilterModal";
+import Image from "next/image";
 
 const Modal = ({ showModal, onClose }) => {
+  // if (!showModal) return null;
+  // const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false); // Move useState here
+
   if (!showModal) return null;
-  const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
@@ -16,10 +20,12 @@ const Modal = ({ showModal, onClose }) => {
           <div>
             {/* Logo */}
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src="/bikeImages/Sitelogo.png"
+
+              <Image
+                src="/Sitelogo.png"
                 alt="Six Logo"
-                style={{ height: "49px", width: "71px" }}
+                width={71}
+                height={49}
               />
               <p style={{ fontSize: "24px", fontWeight: "400" }}>Bikes</p>
             </div>

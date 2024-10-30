@@ -35,7 +35,7 @@ const CompareCarsPage = () => {
                     Welcome to <span className="text-red-500">Six Car Comparison</span>
                 </h1>
                 <p className="text-2xl italic mt-2 text-left">
-                    We'll help you pick your ride finely
+                    We&apos;ll help you pick your ride finely
                 </p>
             </div>
 

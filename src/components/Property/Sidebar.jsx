@@ -44,7 +44,7 @@ const marks = [
     },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ minPrice, maxPrice, setMinPrice, setMaxPrice }) => {
     const [isActive, setIsActive] = useState("Hatchback");
     const [isActiveTab, setIsActiveTab] = useState("Buy");
     // State to control the visibility of the filter modal on mobile
