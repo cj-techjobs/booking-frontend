@@ -245,7 +245,7 @@ const CarouselComponent = () => {
   };
 
   return (
-    <div className="container  mx-4">
+    <div>
       {/* <div className="mb-8">
         <h2 className="text-[#000852] mt-4 text-center font-bold text-2xl mb-6">
           SHOP WHAT YOU LIKE USING

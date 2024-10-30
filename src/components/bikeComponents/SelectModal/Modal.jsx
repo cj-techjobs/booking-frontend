@@ -20,11 +20,7 @@ const Modal = ({ showModal, onClose }) => {
           <div>
             {/* Logo */}
             <div style={{ display: "flex", alignItems: "center" }}>
-              {/* <img
-                src="/Sitelogo.png"
-                alt="Six Logo"
-                style={{ height: "49px", width: "71px" }}
-              /> */}
+
               <Image
                 src="/Sitelogo.png"
                 alt="Six Logo"
@@ -49,7 +45,7 @@ const Modal = ({ showModal, onClose }) => {
             <div className="modal-image-wrapper">
               <img
                 className="modal-image"
-                src="/Bike.jpg"
+                src="/bikeImages/Bike.jpg"
                 alt="Bike 1 model 1"
               />
             </div>
@@ -68,7 +64,7 @@ const Modal = ({ showModal, onClose }) => {
             <div className="modal-image-wrapper">
               <img
                 className="modal-image"
-                src="/Bike.jpg"
+                src="/bikeImages/Bike.jpg"
                 alt="Bike 1 model 1"
               />
             </div>
@@ -87,7 +83,7 @@ const Modal = ({ showModal, onClose }) => {
             <div className="modal-image-wrapper">
               <img
                 className="modal-image"
-                src="/Bike.jpg"
+                src="/bikeImages/Bike.jpg"
                 alt="Bike 1 model 1"
               />
             </div>
@@ -106,7 +102,7 @@ const Modal = ({ showModal, onClose }) => {
             <div className="modal-image-wrapper">
               <img
                 className="modal-image"
-                src="/Bike.jpg"
+                src="/bikeImages/Bike.jpg"
                 alt="Bike 1 model 1"
               />
             </div>

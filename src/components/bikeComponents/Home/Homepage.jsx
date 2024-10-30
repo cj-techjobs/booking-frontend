@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./home.module.css";
 import { RiArrowRightSLine } from "react-icons/ri";
-const Homepage = () => {
+
+  const Homepage = () => {
   const router = useRouter();
   const categories = [
     { id: 1, label: "Cars", image: "/bikeImages/car.png", link: "/cars" },

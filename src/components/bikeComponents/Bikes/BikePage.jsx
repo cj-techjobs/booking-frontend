@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import AdBanner from "../AdBanner/AdBanner";
 import Brands from "../Brands/Brands";
 import styles from "./Bikes.module.css";
@@ -13,225 +14,6 @@ import ComparisonModal from "../ComparisonModal/ComparisonModal";
 import SelectBikeModal from "../SelectBikeModal/SelectBikeModal";
 import ComparisonListing from "../ComparisonListing/ComparisonListing";
 
-const brands = [
-  {
-    id: 1,
-    title: "Harley Davidson",
-    image: "/bikeImages/Harley.png", // You can replace with the correct path
-  },
-  {
-    id: 2,
-    title: "Hero",
-    image: "/bikeImages/Hero.png",
-  },
-  {
-    id: 3,
-    title: "Honda",
-    image: "/bikeImages/Honda.png",
-  },
-  {
-    id: 4,
-    title: "Ola",
-    image: "/bikeImages/Ola.png",
-  },
-  {
-    id: 5,
-    title: "Royal Enfield",
-    image: "/bikeImages/Royal.png",
-  },
-  {
-    id: 6,
-    title: "Royal Enfield",
-    image: "/bikeImages/Royal.png",
-  },
-  {
-    id: 7,
-    title: "Ola",
-    image: "/bikeImages/Ola.png",
-  },
-  {
-    id: 8,
-    title: "Honda",
-    image: "/bikeImages/Honda.png",
-  },
-  {
-    id: 9,
-    title: "Hero",
-    image: "/bikeImages/Hero.png",
-  },
-  {
-    id: 10,
-    title: "Harley",
-    image: "/bikeImages/Harley.png",
-  },
-  // Add more product objects here
-];
-
-// Mock data for each category
-const bikeTabsData = {
-  latest: [
-    {
-      name: "Bike 1",
-      model: "Model 2024",
-      price: "Rs. 1,00,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 2",
-      model: "Model 2024",
-      price: "Rs. 1,20,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bike 3",
-      model: "Model 2024",
-      price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-  ],
-  upcoming: [
-    {
-      name: "Upcoming Bike 1",
-      model: "Model 2025",
-      price: "Rs. 1,50,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 2",
-      model: "Model 2025",
-      price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Upcoming Bike 3",
-      model: "Model 2025",
-      price: "Rs. 1,80,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-  ],
-  bestseller: [
-    {
-      name: "Bestseller Bike 1",
-      model: "Model 2023",
-      price: "Rs. 90,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bestseller Bike 2",
-      model: "Model 2023",
-      price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bestseller Bike 2",
-      model: "Model 2023",
-      price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bestseller Bike 2",
-      model: "Model 2023",
-      price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bestseller Bike 2",
-      model: "Model 2023",
-      price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bestseller Bike 2",
-      model: "Model 2023",
-      price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-    {
-      name: "Bestseller Bike 3",
-      model: "Model 2023",
-      price: "Rs. 95,000",
-      image: "/bikeImages/Bike.jpg",
-    },
-  ],
-};
 
 const mostSearched = {
   Sports: [
@@ -245,55 +27,55 @@ const mostSearched = {
       name: "Bike 2",
       model: "Model 2024",
       price: "Rs. 1,20,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
   Scooter: [
@@ -301,49 +83,49 @@ const mostSearched = {
       name: "Upcoming Bike 1",
       model: "Model 2025",
       price: "Rs. 1,50,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 3",
@@ -363,37 +145,37 @@ const mostSearched = {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 3",
       model: "Model 2023",
       price: "Rs. 95,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
   "Cafe rider": [
@@ -401,43 +183,43 @@ const mostSearched = {
       name: "Bestseller Bike 1",
       model: "Model 2023",
       price: "Rs. 90,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 3",
       model: "Model 2023",
       price: "Rs. 95,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
 };
@@ -448,61 +230,61 @@ const byPrice = {
       name: "Bike 1",
       model: "Model 2024",
       price: "Rs. 1,00,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 2",
       model: "Model 2024",
       price: "Rs. 1,20,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bike 3",
       model: "Model 2024",
       price: "Rs. 1,40,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
   "50k - 70k": [
@@ -510,55 +292,55 @@ const byPrice = {
       name: "Upcoming Bike 1",
       model: "Model 2025",
       price: "Rs. 1,50,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 2",
       model: "Model 2025",
       price: "Rs. 1,70,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Upcoming Bike 3",
       model: "Model 2025",
       price: "Rs. 1,80,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
   "70k - 90k": [
@@ -566,43 +348,43 @@ const byPrice = {
       name: "Bestseller Bike 1",
       model: "Model 2023",
       price: "Rs. 90,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 3",
       model: "Model 2023",
       price: "Rs. 95,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
   "1L - 1.5L": [
@@ -610,49 +392,54 @@ const byPrice = {
       name: "Bestseller Bike 1",
       model: "Model 2023",
       price: "Rs. 90,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 2",
       model: "Model 2023",
       price: "Rs. 85,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
     {
       name: "Bestseller Bike 3",
       model: "Model 2023",
       price: "Rs. 95,000",
-      image: "/bikeImages/Bike.jpg",
+       image: "/bikeImages/Bike.jpg",
     },
   ],
 };
 
 const BikePage = () => {
+  const router = useRouter(); // Initialize the router
+  const [isModalOpen, setModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [tabsData, setTabsData] = useState({});
+  const [brands, setBrands] = useState([]);
+  // const tabs = ["Latest", "Upcoming", "Bestseller"]; // Define tab names
 
   const handleModalOpen = () => {
     setShowModal(true);
@@ -666,7 +453,75 @@ const BikePage = () => {
     setModalOpen(true);
   };
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  // Featured bike section api Call
+  useEffect(() => {
+    const apiUrl = "http://13.234.115.173:8000/api/v1/bike/";
+    const bearerToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzA0YjBiOWRjYzE4YjY2M2U4MDBmYzIiLCJpYXQiOjE3Mjk5MzQ5MjMsImV4cCI6MTczMDAyMTMyM30.TJj2nmJxNJzihpprjABWAwyPWDbvxXMPjZMpXoLPz9s";
+
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("API Response Data:", data); // Log the entire data structure
+
+        // Access the list of bikes from the API response
+        const bikeData = data.data.list; // Adjusted to access the correct path
+
+        // Categorize data for each tab
+        const categorizedData = {
+          Latest: bikeData.filter((bike) => bike.isFeatured),
+          Upcoming: bikeData.filter((bike) => bike.isComingSoon),
+          BestSeller: bikeData.filter((bike) => bike.isBestSeller),
+        };
+
+        setTabsData(categorizedData);
+      })
+      .catch((error) => console.error("Error fetching bikes:", error));
+  }, []);
+
+  // Modal Section Api call
+  useEffect(() => {
+    const apiUrl =
+      "http://13.234.115.173:8000/api/v1/cms/vehicle-regularity/model/?skip=0&limit=10";
+    const bearerToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzA0YjBiOWRjYzE4YjY2M2U4MDBmYzIiLCJpYXQiOjE3Mjk5MzQ5MjMsImV4cCI6MTczMDAyMTMyM30.TJj2nmJxNJzihpprjABWAwyPWDbvxXMPjZMpXoLPz9s";
+
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Brand API Response Data:", data); // Check the API response structure
+        setBrands(data.data); // Set the brand data directly from the response
+      })
+      .catch((error) => console.error("Error fetching brands:", error));
+  }, []);
+
+  // const handleBikeClick = (bike) => {
+  //   console.log("Bike clicked:", bike);
+  //   router.push(`/Specifications/${bike._id}`);
+  // };
+
   return (
     <>
       <header
@@ -682,21 +537,19 @@ const BikePage = () => {
       >
         <div>
           {/* Logo */}
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div onClick={()=>window.location.pathname='/categories'} style={{ display: "flex", alignItems: "center" }}>
             <img
               src="/bikeImages/Sitelogo.png"
               alt="Six Logo"
               style={{ height: "60px", width: "95px" }}
             />
             <p style={{ fontSize: "34px", fontWeight: "400" }}>Bikes</p>
-            <button onClick={() => setModalOpen(true)} className="">
-              Open Modal
-            </button>
+            
           </div>
         </div>
       </header>
- 
-      <div className="container">
+
+      <div className="custom-container ">
         <div className="Bike--page">
           {/* Section 1 */}
           <h3 className={styles.adBanner_title}>
@@ -712,7 +565,7 @@ const BikePage = () => {
             <div className="scrollable-container">
               {brands.map((brand) => (
                 <Brands
-                  key={brand.id}
+                  key={brand._id} // Use the `_id` from the brand object as the key
                   brand={brand}
                   onBrandClick={handleModalOpen}
                 />
@@ -723,7 +576,13 @@ const BikePage = () => {
           {/* Section 3  */}
           <div className="featured-bikes">
             <h2>Featured bikes</h2>
-            <FeaturedBikes tabsData={bikeTabsData} />
+            <FeaturedBikes
+              tabsData={tabsData}
+              onBikeClick={(bike) => {
+                console.log("Bike clicked:", bike);
+                router.push(`/Specifications/${bike._id}`); // Redirect to the specific page
+              }}
+            />
           </div>
 
           {/* Section 4  */}
@@ -740,11 +599,11 @@ const BikePage = () => {
           </div>
 
           {/* section 6 */}
-          <ImageBanner />
+          <ImageBanner setModalOpen={setModalOpen} />
 
           {/* section 7 */}
           <div className="featured-bikes">
-            <h2>Shop cars by price</h2>
+            <h2>Shop bikes by price</h2>
             <FeaturedBikes tabsData={byPrice} onBikeClick={handleBikeClick} />
           </div>
 
@@ -753,12 +612,17 @@ const BikePage = () => {
 
           {/* Section 8  */}
           <div className={styles.offerWrapper}>
-            <h1>Offer of this month</h1>
+            <h2 className=" font-semibold text-5xl my-5 mt-10">Offer of this month</h2>
             <p>
               Lorem ipsum dolor sit amet consectetur adipiscing, elit donec mi
               aliquam montes, sodales a id nibh sollicitudin. Nisi sapien
               phasellus erat turpis semper proin ad quam, dui at tristique
             </p>
+            <img
+              src="/bikeImages/offer.png"
+              alt="Six Logo"
+              style={{ height: "100%", width: "100%",marginTop:20 }}
+            />
           </div>
 
           {/* Section 9 */}

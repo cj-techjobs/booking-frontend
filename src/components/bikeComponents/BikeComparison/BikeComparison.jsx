@@ -9,11 +9,11 @@ const BikeComparison = () => {
 
       <div className="bike-images">
         <div className="bike-column">
-          <img src="/Bike1.jpg" alt="Bike 1" />
+          <img src="bikeImages//Bike1.jpg" alt="Bike 1" />
         </div>
         <div className="vs">VS</div>
         <div className="bike-column">
-          <img src="/Bike1.jpg" alt="Bike 2" />
+          <img src="/bikeImages/Bike1.jpg" alt="Bike 2" />
         </div>
       </div>
 
