@@ -39,7 +39,7 @@ const ScheduledPage = () => {
           {/* Logo */}
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              src="/Sitelogo.png"
+              src="/bikeImages/Sitelogo.png"
               alt="Six Logo"
               style={{ height: "60px", width: "95px" }}
             />
@@ -51,7 +51,7 @@ const ScheduledPage = () => {
       <div className="container">
         <div className="upperSection">
           <div className="imageWrapper">
-            <img src="/Bike1.jpg" alt="bikeImage" />
+            <img src="/bikeImages/Bike1.jpg" alt="bikeImage" />
           </div>
           <div className="contentWrapper">
             <h1>2022 Maruti Suzuki Baleno Zeta AMT Petrol</h1>

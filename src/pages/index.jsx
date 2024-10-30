@@ -6,6 +6,7 @@ import Homepage from "../components/bikeComponents/Home/Homepage";
 function Page() {
   return (
     <div>
+      <Header/>
       <CarouselComponent />
     </div>
   );
