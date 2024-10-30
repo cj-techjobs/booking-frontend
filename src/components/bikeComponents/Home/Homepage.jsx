@@ -7,7 +7,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 const Homepage = () => {
   const router = useRouter();
   const categories = [
-    { id: 1, label: "Cars", image: "/bikeImages/car.png", link: "/cars" },
+    // { id: 1, label: "Cars", image: "/bikeImages/car.png", link: "/cars" },
     { id: 2, label: "Bikes", image: "/bikeImages/bike.png", link: "/bikes" },
     { id: 3, label: "Property", image: "/bikeImages/prop.png", link: "/property" },
     { id: 4, label: "Appliances", image: "/bikeImages/Appliance.png", link: "/appliances" },
@@ -26,12 +26,10 @@ const Homepage = () => {
   const handleNavigation = (path) => {
     router.push(path); // Navigate to the specified path
   };
-  const openModal = (category, event) => {
-    event.preventDefault(); // Prevent default navigation
-    if (category === "Cars") {
-      setSelectedCategory(category);
-      setIsModalOpen(true);
-    }
+  
+  const openModal = () => {
+    // event.preventDefault();
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -46,8 +44,15 @@ const Homepage = () => {
           <span className={styles.categoryText}>CATEGORIES</span>
         </h2>
         <div className={styles.categories}>
+          {/* Separate div for "Cars" category */}
+          <div className={styles.category} onClick={openModal}>
+            <img src="/bikeImages/car.png" alt="Cars" className={styles.image} />
+            <p className={styles.categoryLabel}>Cars</p>
+          </div>
           {categories.map((category) => (
-            <div key={category.id} className={styles.category}  onClick={(event) => openModal(category.label, event)}>
+            // <div key={category.id} className={styles.category}  onClick={(event) => openModal(category.label, event)}>
+            <div key={category.id} className={styles.category}>
+
               <Link href={category.link}>
                 <img
                   src={category.image}
@@ -58,7 +63,7 @@ const Homepage = () => {
             </div>
           ))}
         </div>
-  
+
         {/* Section 3 */}
         <div className={styles.section_3}>
           <div className={styles.product_banner}>
@@ -66,7 +71,7 @@ const Homepage = () => {
             <div className={styles.overlay}></div>
             <p className={styles.overlayText}>Best Product At Lowest Price</p>
           </div>
-  
+
           <div className={styles.quick_accessWrapper}>
             <p className={styles.quick_accessText}>Quick Access</p>
             <div className={styles.quick_access}>
@@ -182,7 +187,7 @@ const Homepage = () => {
       )}
     </>
   );
-  
+
 };
 
 export default Homepage;
