@@ -4,7 +4,8 @@ const BikeComparison = () => {
   return (
     <div className="bike-comparison">
       <h2 className="modalHeader">Welcome to Six Bike <span>Comparison</span></h2>
-      <p>We'll help you pick your ride finely</p>
+      <p>We&apos;ll help you pick your ride finely</p>
+
 
       <div className="bike-images">
         <div className="bike-column">

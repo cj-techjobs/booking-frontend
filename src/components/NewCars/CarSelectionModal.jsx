@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router"; // For navigation
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import Image from "next/image";
 
 const CarSelectionModal = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -138,10 +139,12 @@ const CarSelectionModal = ({ isOpen, onClose }) => {
                   <div className="flex items-center">
                     {/* Add brand logo if necessary */}
                     <div className="mr-3">
-                      <img
+                      <Image
                         src={`/images/tatalogo.png`}
                         alt={brand.name}
                         className="w-6 h-6"
+                        width={24} // 1.5rem equivalent in pixels
+                        height={24} // 1.5rem equivalent in pixels
                       />
                     </div>
                     <span className="text-gray-800 text-lg ">

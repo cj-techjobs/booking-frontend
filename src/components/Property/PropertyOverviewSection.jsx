@@ -71,8 +71,9 @@ export default function PropertyOverviewSection() {
                     <div className="mt-6 md:mt-8">
                         <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3 md:mb-4">Description</h3>
                         <p className="text-gray-600 mb-4 text-sm md:text-base">
-                            Discover the perfect 2BHK flat with our easy-to-use online marketplace. Whether you're looking to buy or rent, our platform offers a wide selection of 2BHK flats to suit every need and budget. With detailed listings, high-quality photos, and virtual tours, finding your ideal home has never been easier.
+                            Discover the perfect 2BHK flat with our easy-to-use online marketplace. Whether you&apos;re looking to buy or rent, our platform offers a wide selection of 2BHK flats to suit every need and budget. With detailed listings, high-quality photos, and virtual tours, finding your ideal home has never been easier.
                         </p>
+
                         <div className="flex flex-wrap gap-2">
                             {['Bedroom', 'Bathroom', 'Floor Plan', 'Dining Room', 'Parking', 'Balcony', 'Kitchen'].map((item, index) => (
                                 <span key={index} className="bg-gray-200 text-gray-800 px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm hover:bg-gray-600 hover:text-white cursor-pointer">
