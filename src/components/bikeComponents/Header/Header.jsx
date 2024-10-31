@@ -481,147 +481,168 @@ import LoginModal from "../../signIn-signUp-password/LoginModal";
 import { useGlobalContext } from "../../../pages/api/context/context";
 
 const Header = () => {
-  const { isLoggedin, user, modalOpen, setModalOpen, handleLogout } = useGlobalContext();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+    const { isLoggedin, user, modalOpen, setModalOpen, handleLogout } = useGlobalContext();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [logoutMenuAnchorEl, setLogoutMenuAnchorEl] = useState(null); // New state for logout menu
+    const open = Boolean(anchorEl);
+    const openLogoutMenu = Boolean(logoutMenuAnchorEl); // Check if logout menu is open
 
-  const handleLocationClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleLocationClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleLocationClose = () => {
-    setAnchorEl(null);
-  };
+    const handleLocationClose = () => {
+        setAnchorEl(null);
+    };
 
-  const toggleAuthModal = () => {
-    setModalOpen(true); // Show the modal by setting modalOpen to true
-  };
+    const toggleAuthModal = () => {
+        setModalOpen(true); // Show the modal by setting modalOpen to true
+    };
 
-  return (
-    <>
-      <header className="w-full bg-white shadow-md fixed top-0 z-50 ">
-        {/* Desktop Header */}
-        <div className="hidden md:flex items-center justify-between max-w-7xl mx-auto px-6 py-3">
-          {/* Left Section */}
-          <div className="flex items-center space-x-4">
-            {/* Logo */}
-            <Link href="/">
-              <img src="/bikeImages/Sitelogo.png" alt="Six Logo" className="h-12 cursor-pointer" />
-            </Link>
-  
-            {/* Location Dropdown */}
-            <div
-              className="flex items-center cursor-pointer px-2 py-1 bg-white rounded-full shadow-sm hover:shadow-md"
-              onClick={handleLocationClick}
-            >
-              <LocationOnIcon className="text-red-500 h-5 w-5 mr-1" />
-              <span className="text-sm font-medium text-gray-700">Deoghar</span>
-            </div>
-  
-            {/* Location Menu */}
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleLocationClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            >
-              <MenuItem onClick={handleLocationClose}>Deoghar</MenuItem>
-              <MenuItem onClick={handleLocationClose}>Mumbai</MenuItem>
-              <MenuItem onClick={handleLocationClose}>Delhi</MenuItem>
-            </Menu>
-          </div>
-  
-          {/* Search Bar */}
-          <div className="flex items-center w-full max-w-lg bg-white rounded-md shadow-lg px-4 py-2">
-            <SearchIcon className="text-gray-500 mr-2" />
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-transparent outline-none flex-grow text-gray-700 placeholder-gray-400"
-            />
-          </div>
-  
-          {/* Right Section - User Profile or Login */}
-          <div className="flex items-center space-x-4">
-            {isLoggedin ? (
-              // Show user details if logged in
-              <>
-                <span className="text-sm font-medium text-gray-700">
-                  Welcome, <span className="font-bold">{user?.name}</span>
-                </span>
-                <Avatar
-                  src={user?.avatar || "/bikeImages/default-avatar.png"} // Fallback to default avatar if no avatar
-                  alt={user?.name}
-                  className="cursor-pointer"
-                  // onClick={handleLogout} // Click to log out
-                />
-              </>
-            ) : (
-              // Show login button if not logged in
-              <div className="flex items-center space-x-1 cursor-pointer" onClick={toggleAuthModal}>
-                <span className="text-sm font-medium text-gray-700">New user?</span>
-                <span className="text-lg font-bold text-black">Login</span>
-              </div>
-            )}
-          </div>
-        </div>
-  
-        {/* Mobile Header */}
-        <div className="flex md:hidden items-center justify-between px-4 py-3 bg-white shadow-md">
-          {/* Left Section */}
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={handleLocationClick}>
-            <LocationOnIcon className="text-red-500 h-5 w-5" />
-            <span className="text-sm font-medium text-gray-700">Deoghar</span>
-          </div>
-  
-          {/* Logo */}
-          <Link href="/">
-            <img src="/bikeImages/Sitelogo.png" alt="Six Logo" className="h-10 cursor-pointer" />
-          </Link>
-  
-          {/* Right Section - Login or User Avatar */}
-          <div onClick={!isLoggedin ? toggleAuthModal : undefined} className="text-red-500 cursor-pointer">
-            {isLoggedin ? (
-              <Avatar
-                src={user?.avatar || "/bikeImages/default-avatar.png"}
-                alt={user?.name}
-                className="cursor-pointer"
-                // onClick={handleLogout} // Log out on click
-              />
-            ) : (
-              <AppsIcon className="h-6 w-6" /> // Show login icon if not logged in
-            )}
-          </div>
-        </div>
-  
-        {/* Mobile Search Bar */}
-        <div className="md:hidden flex items-center w-full max-w-lg bg-white rounded-md shadow-lg px-4 py-2 mx-4 mt-2">
-          <SearchIcon className="text-gray-500 mr-2" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="bg-transparent outline-none flex-grow text-gray-700 placeholder-gray-400"
-          />
-          <MicIcon className="text-gray-500 ml-2" />
-        </div>
-  
-        {/* Location Menu for Mobile */}
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleLocationClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        >
-          <MenuItem onClick={handleLocationClose}>Deoghar</MenuItem>
-          <MenuItem onClick={handleLocationClose}>Mumbai</MenuItem>
-          <MenuItem onClick={handleLocationClose}>Delhi</MenuItem>
-        </Menu>
-      </header>
-    
-      {/* Login Modal */}
-      <LoginModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-    </>
-  );
+    const handleAvatarClick = (event) => {
+        setLogoutMenuAnchorEl(event.currentTarget); // Open logout menu
+    };
+
+    const handleLogoutMenuClose = () => {
+        setLogoutMenuAnchorEl(null); // Close logout menu
+    };
+
+    return (
+        <>
+            <header className="w-full bg-white shadow-md fixed top-0 z-50 ">
+                {/* Desktop Header */}
+                <div className="hidden md:flex items-center justify-between max-w-7xl mx-auto px-6 py-3">
+                    {/* Left Section */}
+                    <div className="flex items-center space-x-4">
+                        {/* Logo */}
+                        <Link href="/">
+                            <img src="/bikeImages/Sitelogo.png" alt="Six Logo" className="h-12 cursor-pointer" />
+                        </Link>
+
+                        {/* Location Dropdown */}
+                        <div
+                            className="flex items-center cursor-pointer px-2 py-1 bg-white rounded-full shadow-sm hover:shadow-md"
+                            onClick={handleLocationClick}
+                        >
+                            <LocationOnIcon className="text-red-500 h-5 w-5 mr-1" />
+                            <span className="text-sm font-medium text-gray-700">Deoghar</span>
+                        </div>
+
+                        {/* Location Menu */}
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleLocationClose}
+                            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                        >
+                            <MenuItem onClick={handleLocationClose}>Deoghar</MenuItem>
+                            <MenuItem onClick={handleLocationClose}>Mumbai</MenuItem>
+                            <MenuItem onClick={handleLocationClose}>Delhi</MenuItem>
+                        </Menu>
+                    </div>
+
+                    {/* Search Bar */}
+                    <div className="flex items-center w-full max-w-lg bg-white rounded-md shadow-lg px-4 py-2">
+                        <SearchIcon className="text-gray-500 mr-2" />
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className="bg-transparent outline-none flex-grow text-gray-700 placeholder-gray-400"
+                        />
+                    </div>
+
+                    {/* Right Section - User Profile or Login */}
+                    <div className="flex items-center space-x-4">
+                        {isLoggedin ? (
+                            // Show user details if logged in
+                            <>
+                                <span className="text-sm font-medium text-gray-700">
+                                    Welcome, <span className="font-bold">{user?.name}</span>
+                                </span>
+                                <Avatar
+                                    src={user?.avatar || "/bikeImages/default-avatar.png"} // Fallback to default avatar if no avatar
+                                    alt={user?.name}
+                                    className="cursor-pointer"
+                                    onClick={handleAvatarClick} // Open logout menu on click
+                                />
+                                {/* Logout Menu */}
+                                <Menu
+                                    anchorEl={logoutMenuAnchorEl}
+                                    open={openLogoutMenu}
+                                    onClose={handleLogoutMenuClose}
+                                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                                >
+                                    <MenuItem onClick={handleLogout}>
+                                        Logout
+                                    </MenuItem>
+                                </Menu>
+                            </>
+                        ) : (
+                            // Show login button if not logged in
+                            <div className="flex items-center space-x-1 cursor-pointer" onClick={toggleAuthModal}>
+                                <span className="text-sm font-medium text-gray-700">New user?</span>
+                                <span className="text-lg font-bold text-black">Login</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Mobile Header */}
+                <div className="flex md:hidden items-center justify-between px-4 py-3 bg-white shadow-md">
+                    {/* Left Section */}
+                    <div className="flex items-center space-x-2 cursor-pointer" onClick={handleLocationClick}>
+                        <LocationOnIcon className="text-red-500 h-5 w-5" />
+                        <span className="text-sm font-medium text-gray-700">Deoghar</span>
+                    </div>
+
+                    {/* Logo */}
+                    <Link href="/">
+                        <img src="/bikeImages/Sitelogo.png" alt="Six Logo" className="h-10 cursor-pointer" />
+                    </Link>
+
+                    {/* Right Section - Login or User Avatar */}
+                    <div onClick={!isLoggedin ? toggleAuthModal : handleAvatarClick} className="text-red-500 cursor-pointer">
+                        {isLoggedin ? (
+                            <Avatar
+                                src={user?.avatar || "/bikeImages/default-avatar.png"}
+                                alt={user?.name}
+                                className="cursor-pointer"
+                            />
+                        ) : (
+                            <AppsIcon className="h-6 w-6" /> // Show login icon if not logged in
+                        )}
+                    </div>
+                </div>
+
+                {/* Mobile Search Bar */}
+                <div className="md:hidden flex items-center w-full max-w-lg bg-white rounded-md shadow-lg px-4 py-2 mx-4 mt-2">
+                    <SearchIcon className="text-gray-500 mr-2" />
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        className="bg-transparent outline-none flex-grow text-gray-700 placeholder-gray-400"
+                    />
+                    <MicIcon className="text-gray-500 ml-2" />
+                </div>
+
+                {/* Location Menu for Mobile */}
+                <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleLocationClose}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                >
+                    <MenuItem onClick={handleLocationClose}>Deoghar</MenuItem>
+                    <MenuItem onClick={handleLocationClose}>Mumbai</MenuItem>
+                    <MenuItem onClick={handleLocationClose}>Delhi</MenuItem>
+                </Menu>
+            </header>
+
+            {/* Login Modal */}
+            <LoginModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+        </>
+    );
 };
 
 export default Header;
+

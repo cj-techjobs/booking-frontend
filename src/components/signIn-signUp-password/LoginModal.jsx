@@ -3,18 +3,20 @@ import { FaGoogle, FaFacebook, FaApple, FaEye, FaEyeSlash } from "react-icons/fa
 import { Genos } from 'next/font/google';
 import { Inria_Serif } from 'next/font/google';
 import { useGlobalContext } from "../../pages/api/context/context";
+import { toast } from "react-toastify"; // Import toast
 
 const inriaSerif = Inria_Serif({ subsets: ['latin'], weight: '400' });
 const genos = Genos({ subsets: ['latin'], weight: '400' });
 
 const LoginModal = ({ isOpen, onClose }) => {
-    const { isLogin, setIsLogin, handleSignIn, handleSignUp } = useGlobalContext();
+    const { isLogin, setIsLogin, handleSignIn, handleSignUp, handleLogout } = useGlobalContext();
     const [mobileNumber, setMobileNumber] = useState("");
     const [password, setPassword] = useState("");
     const [deviceType, setDeviceType] = useState("");
     const [appVersion, setAppVersion] = useState("");
     const [error, setError] = useState(null);
     const [showPassword, setShowPassword] = useState(false); // State for password visibility
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false); // New state to manage button disabled state
 
     if (!isOpen) return null;
 
@@ -22,21 +24,28 @@ const LoginModal = ({ isOpen, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null); // Reset error before submission
+        setIsButtonDisabled(true); // Disable the button when submitting
         try {
             if (isLogin) {
                 await handleSignIn(mobileNumber, password, deviceType, appVersion);
+                toast.success("Login successful!");
             } else {
                 await handleSignUp(mobileNumber, password, deviceType, appVersion);
+                toast.success("Sign-up successful!");
             }
-            
+
+            // Reset fields after successful action
             setMobileNumber("");
             setPassword("");
             setDeviceType("");
             setAppVersion("");
             onClose(); // Close the modal on successful action
         } catch (err) {
-            console.log({err})
-            // setError(err.message); // Display error if sign-in/sign-up fails
+            console.log({ err });
+            toast.error("Error: " + err.message);
+            setError(err.message); // Set error message for display
+        } finally {
+            setIsButtonDisabled(false); // Re-enable the button after completion
         }
     };
 
@@ -57,68 +66,84 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </p>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                    <div>
-                        <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>Mobile Number</label>
-                        <input
-                            type="text"
-                            placeholder="9876543210"
-                            value={mobileNumber}
-                            onChange={(e) => setMobileNumber(e.target.value)}
-                            className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:border-red-500"
-                        />
-                    </div>
-
-                    <div>
-                        <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>Password</label>
-                        <div className="relative">
+                {isLogin ? (
+                    <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                        <div>
+                            <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>Mobile Number</label>
                             <input
-                                type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
-                                placeholder="********"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="w-full border border-gray-300 rounded-md p-2 mt-1 outline-none pr-10" // Add padding for icon
+                                type="text"
+                                placeholder="9876543210"
+                                value={mobileNumber}
+                                onChange={(e) => setMobileNumber(e.target.value)}
+                                className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:border-red-500"
                             />
-                            <span 
-                                onClick={togglePasswordVisibility} 
-                                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                            >
-                                {showPassword ? <FaEyeSlash className="text-gray-600" /> : <FaEye className="text-gray-600" />}
-                            </span>
                         </div>
-                    </div>
 
-                    {/* Device Type Input */}
-                    <div>
-                        <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>Device Type</label>
-                        <input
-                            type="text"
-                            placeholder="e.g., Android or iOS"
-                            value={deviceType}
-                            onChange={(e) => setDeviceType(e.target.value)}
-                            className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:border-red-500"
-                        />
-                    </div>
+                        <div>
+                            <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>Password</label>
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                                    placeholder="********"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full border border-gray-300 rounded-md p-2 mt-1 outline-none pr-10" // Add padding for icon
+                                />
+                                <span 
+                                    onClick={togglePasswordVisibility} 
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                >
+                                    {showPassword ? <FaEyeSlash className="text-gray-600" /> : <FaEye className="text-gray-600" />}
+                                </span>
+                            </div>
+                        </div>
 
-                    {/* App Version Input */}
-                    <div>
-                        <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>App Version</label>
-                        <input
-                            type="text"
-                            placeholder="e.g., 1.0.0"
-                            value={appVersion}
-                            onChange={(e) => setAppVersion(e.target.value)}
-                            className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:border-red-500"
-                        />
-                    </div>
+                        {/* Device Type Input */}
+                        <div>
+                            <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>Device Type</label>
+                            <input
+                                type="text"
+                                placeholder="e.g., Android or iOS"
+                                value={deviceType}
+                                onChange={(e) => setDeviceType(e.target.value)}
+                                className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:border-red-500"
+                            />
+                        </div>
 
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
-                    <div className="flex justify-center mt-6">
-                        <button type="submit" className="w-3/4 h-12 bg-black text-white rounded-md font-semibold flex items-center justify-center">
-                            {isLogin ? "Next" : "Sign Up"}
+                        {/* App Version Input */}
+                        <div>
+                            <label className={`block text-md font-semibold text-gray-700 ${genos.className}`}>App Version</label>
+                            <input
+                                type="text"
+                                placeholder="e.g., 1.0.0"
+                                value={appVersion}
+                                onChange={(e) => setAppVersion(e.target.value)}
+                                className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:border-red-500"
+                            />
+                        </div>
+
+                        {error && <p className="text-red-500 text-sm">{error}</p>}
+                        <div className="flex justify-center mt-6">
+                            <button
+                                type="submit"
+                                disabled={isButtonDisabled} // Disable the button based on state
+                                className={`w-3/4 h-12 ${isButtonDisabled ? "bg-gray-400" : "bg-black"} text-white rounded-md font-semibold flex items-center justify-center`}
+                            >
+                                {isLogin ? "Next" : "Sign Up"}
+                            </button>
+                        </div>
+                    </form>
+                ) : (
+                    <div className="mt-6 flex flex-col items-center">
+                        <p className="text-lg font-semibold">You are logged in.</p>
+                        <button
+                            onClick={handleLogout} // Logout button
+                            className="mt-4 w-3/4 h-12 bg-red-500 text-white rounded-md font-semibold flex items-center justify-center"
+                        >
+                            Logout
                         </button>
                     </div>
-                </form>
+                )}
 
                 {/* Footer Links */}
                 <p className="text-sm text-center mt-6">

@@ -268,6 +268,7 @@ export const DataProvider = ({ children }) => {
     localStorage.removeItem("auth_token"); // Clear token from local storage
     setIsLoggedin(false);
     setUser(null); // Clear user data
+    toast.success("Logout successful!");
   };
 
   const value = {
