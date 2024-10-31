@@ -14,7 +14,7 @@ import {
   manual,
   auto,
   seats,
-  brand,
+  brandsmap,
   kms,
   year,
   owner,
@@ -455,7 +455,7 @@ const Sidebar = () => {
                     <FiSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
                   </div>
                   <div className="text-xs text-gray-400 py-2">Top Brands</div>
-                  {brand?.map((item) => (
+                  {brandsmap?.map((item) => (
                     <div
                       key={item?.id}
                       className="mt-2 mb-4 flex gap-2 items-center"
