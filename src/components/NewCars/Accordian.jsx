@@ -7,6 +7,23 @@ import displacement from '/src/assets/carsSvg/specificationIcon/displacement.svg
 import bootSpace from '/src/assets/carsSvg/specificationIcon/bootSpace.svg'
 import seating from '/src/assets/carsSvg/specificationIcon/seating.svg'
 import tankCapacity from '/src/assets/carsSvg/specificationIcon/tankCapacity.svg'
+import { Genos} from 'next/font/google';
+// import { inriaSerif} from 'next/font/google';
+import { Inria_Serif} from 'next/font/google';
+
+
+const inriaSerif = Inria_Serif({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
+const inriaSerifLight = Inria_Serif({
+    subsets: ['latin'],
+    weight: '300', // Light weight
+});
+const genos = Genos({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
 const Accordian = ({ carData }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -37,7 +54,9 @@ const Accordian = ({ carData }) => {
           </div>
         </div> */}
         <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
-          <p className="font-semibold text-xl mb-5">Key Specification</p>
+          <p className={`${inriaSerif.className} mb-5`}
+                                style={{ fontSize: '24px', lineHeight: '13.9px' }}>Key Specification</p>
+          
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
 
             {/* Mileage */}

@@ -5,12 +5,22 @@ import roundView from "/src/assets/carsSvg/360View.png";
 import carLoading from "/src/assets/carsSvg/loadingCar.png";
 import fullImage from "/src/assets/carsSvg/fullImage.png";
 import { Genos } from 'next/font/google';
+// import { inriaSerif} from 'next/font/google';
+import { Inria_Serif } from 'next/font/google';
 
+
+const inriaSerif = Inria_Serif({
+  subsets: ['latin'],
+  weight: '400', // Regular weight
+});
+const inriaSerifLight = Inria_Serif({
+  subsets: ['latin'],
+  weight: '300', // Light weight
+});
 const genos = Genos({
   subsets: ['latin'],
   weight: '400', // Regular weight
 });
-
 import Accordian from "../../components/NewCars/Accordian";
 import Variants from "../../components/NewCars/Variants";
 import { useEffect, useState } from "react";
@@ -60,7 +70,7 @@ export default function Home() {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4 sm:p-6 lg:p-8 flex justify-center">
-      <div className="w-full rounded-lg p-4 sm:p-6 lg:p-8 ">
+      <div className="w-full rounded-lg p-4 sm:p-6 lg:p-8 mt-5">
 
         {/* Car Image Section */}
         <div className="flex flex-col lg:flex-row">
@@ -129,7 +139,9 @@ export default function Home() {
 
             {/* Color Options Section */}
             <div className="flex flex-col items-start bg-white rounded-lg p-4 mt-5 lg:mt-10">
-              <p className="font-semibold text-xl mb-4">Color: Color 1</p>
+              <p className={`${inriaSerif.className} text-[20px] font-normal leading-[13.9px] mb-4`}>
+                Color: Color 1
+              </p>
               <div className="flex space-x-4">
                 <div className="flex flex-col items-center">
                   <Image
