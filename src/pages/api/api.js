@@ -377,11 +377,18 @@ export const getCarById = async (id) => {
 };
 
 // Sign up a new user
-export const signUp = async (mobileNumber, password) => {
+export const signUp = async (
+  mobileNumber,
+  password,
+  deviceType,
+  appVersion
+) => {
   try {
     const response = await axiosInstance.post("/auth/signUp", {
       mobileNumber,
       password,
+      deviceType,
+      appVersion,
     });
     if (response.data.verifyToken) {
       localStorage.setItem("token", response.data.verifyToken);
@@ -436,15 +443,19 @@ export const verifyOtp = async ({ mobileNumber, otp, token }) => {
 };
 
 // Sign in an existing user
-export const signIn = async (mobileNumber, password) => {
+export const signIn = async (
+  mobileNumber,
+  password,
+  deviceType,
+  appVersion
+) => {
   try {
-    const response = await axiosInstance.post(
-      "/auth/signIn",
-      {
-        mobileNumber,
-        password,
-      }
-    );
+    const response = await axiosInstance.post("/auth/signIn", {
+      mobileNumber,
+      password,
+      deviceType,
+      appVersion,
+    });
     if (response.data.authToken) {
       localStorage.setItem("auth_token", response.data.authToken);
     }
@@ -670,11 +681,7 @@ export const fetchFilteredCars = async (
 //   }
 // };
 
-export const fetchFilteredProperties = async ({
-  minPrice,
-  maxPrice,
-  
-}) => {
+export const fetchFilteredProperties = async ({ minPrice, maxPrice }) => {
   try {
     const authToken = localStorage.getItem("auth_token");
     if (!authToken) {
@@ -689,7 +696,7 @@ export const fetchFilteredProperties = async ({
       url += `MinPrice=${minPrice}`;
     }
     if (maxPrice) {
-      url += `${url.endsWith('?') ? '' : '&'}MaxPrice=${maxPrice}`;
+      url += `${url.endsWith("?") ? "" : "&"}MaxPrice=${maxPrice}`;
     }
 
     // Make the API call with the built URL

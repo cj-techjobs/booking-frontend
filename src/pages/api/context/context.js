@@ -189,6 +189,7 @@
 // export const useGlobalContext = () => useContext(GlobalContext);
 import { createContext, useState, useContext, useEffect } from "react";
 import { signIn, signUp } from "../api";
+import { toast } from "react-toastify";
 
 export const GlobalContext = createContext();
 
@@ -222,10 +223,11 @@ export const DataProvider = ({ children }) => {
     }
   }, []);
 
-  const handleSignIn = async (mobileNumber, password) => {
+  const handleSignIn = async (mobileNumber, password,deviceType, appVersion) => {
     try {
-      const data = await signIn(mobileNumber, password);
+      const data = await signIn(mobileNumber, password, deviceType, appVersion);
       console.log("API Response:", data); // Log the API response for debugging
+
   
       // Adjust the following line based on where authToken is located in your response
       const authToken = data.data.authToken; // Update the path if authToken is nested
@@ -235,20 +237,22 @@ export const DataProvider = ({ children }) => {
         localStorage.setItem("auth_token", authToken); // Save token in local storage
         setUser({ name: "Arya Utkarsh", avatar: "/path/to/avatar.jpg" }); // Replace with actual data from API
         setModalOpen(false); // Close modal on successful login
+        toast.success("Login successful!");
         return data;
       } else {
         throw new Error("Authentication token not found in response");
       }
     } catch (error) {
       console.error("Error during sign-in:", error.message);
+      toast.error("Error during sign-in: " + error.message);  
       throw error;
     }
   };
   
 
-  const handleSignUp = async (mobileNumber, password) => {
+  const handleSignUp = async (mobileNumber, password,deviceType, appVersion) => {
     try {
-      const data = await signUp(mobileNumber, password);
+      const data = await signUp(mobileNumber, password, deviceType, appVersion);
       localStorage.setItem("auth_token", data.data.verifyToken); // Save token in local storage
       setIsLoggedin(true);
       setUser({ name: "Arya Utkarsh", avatar: "/path/to/avatar.jpg" }); // Replace with actual data from API

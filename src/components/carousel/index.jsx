@@ -212,7 +212,7 @@ const CarouselComponent = () => {
   useEffect(() => {
     axiosInstance
       .get(
-        `http://sixback.eu-north-1.elasticbeanstalk.com/api/v1/cms/category?skip=${skip}&limit=${limit}`
+        `http://13.234.115.173:8000/api-docs/#/Categories/get_api_v1_cms_category_?skip=${skip}&limit=${limit}`
       )
       .then((res) => {
         setTotal(Math.ceil(res?.data?.data?.total / 10));

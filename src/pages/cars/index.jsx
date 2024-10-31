@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Filter from "../../components/NewCars/Filter";
@@ -26,7 +26,7 @@ const Car = () => {
 
 
   // Function to fetch cars based on filters
-  const fetchCars = async () => {
+  const fetchCars = useCallback(async () => {
     try {
       setLoading(true);
       const data = await fetchFilteredCars(
@@ -40,7 +40,6 @@ const Car = () => {
         selectedSeat,
         selectedKmsDriven,
         selectedOwner
-
       );
       setCars(data);
       setFilteredCars(data);
@@ -49,12 +48,12 @@ const Car = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels, selectedYear, selectedSeat, selectedKmsDriven, selectedOwner]);
 
   useEffect(() => {
-    // Fetch cars whenever filters change
     fetchCars();
-  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels, selectedYear, selectedSeat, selectedKmsDriven, selectedOwner]);
+  }, [fetchCars]);
+
 
   // Handler for brands
   const handleBrandChange = (brand) => {
@@ -76,20 +75,13 @@ const Car = () => {
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value); // Update selected year
   };
+
+
   const handleSeatsChange = (e) => {
-    if (e && e.target) {
-      const value = parseInt(e.target.value, 10); // Extract the seat number
-      setSelectedSeat((prevSeats) => {
-        if (prevSeats.includes(value)) {
-          return prevSeats.filter((seat) => seat !== value);
-        } else {
-          return [...prevSeats, value];
-        }
-      });
-    } else {
-      console.warn("Event or value is undefined");
-    }
+    const value = parseInt(e.target.value, 10);
+    setSelectedSeat(value);
   };
+  
 
   const handleKmsDrivenChange = (kms) => {
     setSelectedKmsDriven(kms);
