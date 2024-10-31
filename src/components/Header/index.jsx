@@ -305,162 +305,161 @@ const Header = () => {
 
     //   <ToastContainer autoClose={2000} transition={Flip} />
     // </header>
-<header className="bg-white sticky top-0 z-20 shadow-md w-full">
-  <div className="mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between w-full">
-    <div className="hidden lg:flex justify-center flex-row items-center gap-8 w-full lg:w-auto mb-4 lg:mb-0">
-      <Link href="/" className="flex-shrink-0">
-        <Image src="/images/logo.svg" alt="logo" width={80} height={10} />
-      </Link>
-      <select
-        name="select"
-        className="font-normal text-sm border border-[#EFEFEF] bg-[#f7f6f6] rounded-2xl px-4 py-2 drop-shadow-md text-[#000000] mt-2 lg:mt-0 lg:w-auto"
-      >
-        <option value="Deoghar">Deoghar</option>
-      </select>
-    </div>
+    <header className="bg-white sticky top-0 z-20 shadow-md w-full">
+      <div className="mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between w-full">
+        <div className="hidden lg:flex justify-center flex-row items-center gap-8 w-full lg:w-auto mb-4 lg:mb-0">
+          <Link href="/" className="flex-shrink-0">
+            <Image src="/images/logo.svg" alt="logo" width={80} height={10} />
+          </Link>
+          <select
+            name="select"
+            className="font-normal text-sm border border-[#EFEFEF] bg-[#f7f6f6] rounded-2xl px-4 py-2 drop-shadow-md text-[#000000] mt-2 lg:mt-0 lg:w-auto"
+          >
+            <option value="Deoghar">Deoghar</option>
+          </select>
+        </div>
 
-    {/* Search bar for larger screens */}
-    <div className="relative hidden lg:flex w-full lg:w-1/2 mb-4 lg:mb-0">
-      <input
-        type="search"
-        className="rounded-lg border bg-white w-full drop-shadow-md py-2 px-10 outline-none"
-        placeholder="Search"
-        value={searchValue}
-        onClick={handleSearchClick}
-        onChange={handleSearchChange}
-      />
-      <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
-      {showSuggestions && filteredSuggestions.length > 0 && (
-        <div
-          ref={suggestionsRef}
-          className="absolute top-full mt-1 w-full bg-white shadow-md rounded-lg z-10"
-        >
-          {filteredSuggestions.map((suggestion, index) => (
+        {/* Search bar for larger screens */}
+        <div className="relative hidden lg:flex w-full lg:w-1/2 mb-4 lg:mb-0">
+          <input
+            type="search"
+            className="rounded-lg border bg-white w-full drop-shadow-md py-2 px-10 outline-none"
+            placeholder="Search"
+            value={searchValue}
+            onClick={handleSearchClick}
+            onChange={handleSearchChange}
+          />
+          <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+          {showSuggestions && filteredSuggestions.length > 0 && (
             <div
-              key={index}
-              className="p-2 cursor-pointer hover:bg-gray-100"
-              onClick={() => handleSuggestionClick(suggestion)}
+              ref={suggestionsRef}
+              className="absolute top-full mt-1 w-full bg-white shadow-md rounded-lg z-10"
             >
-              {suggestion}
+              {filteredSuggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  className="p-2 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      )}
-    </div>
 
-    <div className="hidden lg:flex items-center gap-4">
-      {!context?.isLoggedin ? (
-        <div className="text-center lg:text-left">
-          <div className="text-gray-600 font-bold">New user?</div>
-          <p
-            className="ml-2 text-gray-800 font-bold text-lg cursor-pointer"
-            onClick={() => context?.setModalOpen(true)}
+        <div className="hidden lg:flex items-center gap-4">
+          {!context?.isLoggedin ? (
+            <div className="text-center lg:text-left">
+              <div className="text-gray-600 font-bold">New user?</div>
+              <p
+                className="ml-2 text-gray-800 font-bold text-lg cursor-pointer"
+                onClick={() => context?.setModalOpen(true)}
+              >
+                Login
+              </p>
+            </div>
+          ) : (
+            <div className="text-center lg:text-left">
+              <div className="text-gray-600 text-sm font-bold">Welcome</div>
+              <p className="text-gray-800 font-bold text-xl">{context?.name}</p>
+            </div>
+          )}
+
+          <div
+            className="relative w-fit cursor-pointer"
+            onClick={context?.isLoggedin ? handleClick : undefined}
+            aria-describedby={id}
           >
-            Login
-          </p>
+            {context?.isLoggedin ? (
+              <Image src={profilephoto} width={45} height={40} alt="profile" />
+            ) : (
+              <div className="p-2 border border-black text-2xl rounded-full shadow-sm">
+                <FaUser />
+              </div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div className="text-center lg:text-left">
-          <div className="text-gray-600 text-sm font-bold">Welcome</div>
-          <p className="text-gray-800 font-bold text-xl">{context?.name}</p>
-        </div>
-      )}
 
+        {/* Toggle button for smaller screens */}
+      </div>
+
+      {/* Toggle menu for mobile screens */}
+      <div className="lg:hidden flex justify-end w-full">
+        <button
+          className="lg:hidden text-gray-500 p-4"
+          onClick={() => setHeaderOpen(!headerOpen)}
+        >
+          {headerOpen ? (
+            <span className="text-2xl">&times;</span>
+          ) : (
+            <span className="text-2xl">&#9776;</span>
+          )}
+        </button>
+      </div>
+
+      {/* Hidden menu for smaller screens */}
       <div
-        className="relative w-fit cursor-pointer"
-        onClick={context?.isLoggedin ? handleClick : undefined}
-        aria-describedby={id}
+        className={`lg:hidden fixed top-0 right-0 w-1/2 h-screen bg-white shadow-md z-30 transition-transform duration-300 ${headerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
-        {context?.isLoggedin ? (
-          <Image src={profilephoto} width={45} height={40} alt="profile" />
-        ) : (
-          <div className="p-2 border border-black text-2xl rounded-full shadow-sm">
-            <FaUser />
-          </div>
-        )}
-      </div>
-    </div>
-
-    {/* Toggle button for smaller screens */}
-  </div>
-
-  {/* Toggle menu for mobile screens */}
-  <div className="lg:hidden flex justify-end w-full">
-    <button
-      className="lg:hidden text-gray-500 p-4"
-      onClick={() => setHeaderOpen(!headerOpen)}
-    >
-      {headerOpen ? (
-        <span className="text-2xl">&times;</span>
-      ) : (
-        <span className="text-2xl">&#9776;</span>
-      )}
-    </button>
-  </div>
-
-  {/* Hidden menu for smaller screens */}
-  <div
-    className={`lg:hidden fixed top-0 right-0 w-1/2 h-screen bg-white shadow-md z-30 transition-transform duration-300 ${
-      headerOpen ? "translate-x-0" : "translate-x-full"
-    }`}
-  >
-    <div className="p-4">
-      <button
-        className="text-gray-500 text-2xl"
-        onClick={() => setHeaderOpen(false)}
-      >
-        &times;
-      </button>
-    </div>
-    <div className="flex flex-col items-center w-full">
-      <Link href="/" className="flex-shrink-0 mb-4">
-        <Image src="/images/logo.svg" alt="logo" width={80} height={10} />
-      </Link>
-      <select
-        name="select"
-        className="font-normal text-sm border border-[#EFEFEF] bg-[#f7f6f6] rounded-2xl px-4 py-2 drop-shadow-md text-[#000000] mb-4"
-      >
-        <option value="Deoghar">Deoghar</option>
-      </select>
-
-      {/* Mobile search bar */}
-      <div className="relative w-[150px] md:w-[250px] mb-4 lg:mb-0">
-        <input
-          type="search"
-          className="rounded-lg border bg-white w-full drop-shadow-md py-2 px-10 outline-none"
-          placeholder="Search"
-          value={searchValue}
-          onClick={handleSearchClick}
-          onChange={handleSearchChange}
-        />
-        <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
-      </div>
-
-      {!context?.isLoggedin ? (
-        <div className="py-2">
-          <p
-            className="text-gray-800 font-bold cursor-pointer"
-            onClick={() => context?.setModalOpen(true)}
+        <div className="p-4">
+          <button
+            className="text-gray-500 text-2xl"
+            onClick={() => setHeaderOpen(false)}
           >
-            Login
-          </p>
+            &times;
+          </button>
         </div>
-      ) : (
-        <div className="py-2 text-gray-800 font-bold">{context?.name}</div>
-      )}
+        <div className="flex flex-col items-center w-full">
+          <Link href="/" className="flex-shrink-0 mb-4">
+            <Image src="/images/logo.svg" alt="logo" width={80} height={10} />
+          </Link>
+          <select
+            name="select"
+            className="font-normal text-sm border border-[#EFEFEF] bg-[#f7f6f6] rounded-2xl px-4 py-2 drop-shadow-md text-[#000000] mb-4"
+          >
+            <option value="Deoghar">Deoghar</option>
+          </select>
 
-      <div className="py-2">
-        {context?.isLoggedin ? (
-          <Image src={profilephoto} width={45} height={40} alt="profile" />
-        ) : (
-          <div className="p-2 border border-black text-2xl rounded-full shadow-sm">
-            <FaUser />
+          {/* Mobile search bar */}
+          <div className="relative w-[150px] md:w-[250px] mb-4 lg:mb-0">
+            <input
+              type="search"
+              className="rounded-lg border bg-white w-full drop-shadow-md py-2 px-10 outline-none"
+              placeholder="Search"
+              value={searchValue}
+              onClick={handleSearchClick}
+              onChange={handleSearchChange}
+            />
+            <IoSearchOutline className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
           </div>
-        )}
+
+          {!context?.isLoggedin ? (
+            <div className="py-2">
+              <p
+                className="text-gray-800 font-bold cursor-pointer"
+                onClick={() => context?.setModalOpen(true)}
+              >
+                Login
+              </p>
+            </div>
+          ) : (
+            <div className="py-2 text-gray-800 font-bold">{context?.name}</div>
+          )}
+
+          <div className="py-2">
+            {context?.isLoggedin ? (
+              <Image src={profilephoto} width={45} height={40} alt="profile" />
+            ) : (
+              <div className="p-2 border border-black text-2xl rounded-full shadow-sm">
+                <FaUser />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</header>
+    </header>
 
   );
 };

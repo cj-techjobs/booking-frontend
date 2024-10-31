@@ -48,7 +48,7 @@ const CarComparisonPage = () => {
   };
 
   return (
-    <div className="p-4 md:p-8 mt-5 min-h-screen w-full">
+    <div className="p-4 md:p-8 min-h-screen w-full mt-[7rem] sm:mt-10 md:mt-12 lg:mt-12">
       {/* Title Section */}
       <div className="text-center">
         <h1 className="text-2xl md:text-3xl italic font-semibold">
