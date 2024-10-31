@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "./home.module.css";
 import { RiArrowRightSLine } from "react-icons/ri";
 
-  const Homepage = () => {
+const Homepage = () => {
   const router = useRouter();
   const categories = [
     // { id: 1, label: "Cars", image: "/bikeImages/car.png", link: "/cars" },
@@ -27,7 +27,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
   const handleNavigation = (path) => {
     router.push(path); // Navigate to the specified path
   };
-  
+
   const openModal = () => {
     // event.preventDefault();
     setIsModalOpen(true);
@@ -37,8 +37,32 @@ import { RiArrowRightSLine } from "react-icons/ri";
     setIsModalOpen(false);
     setSelectedCategory("");
   };
+  // Function to check if user is logged in
+  const isUserLoggedIn = () => {
+    return Boolean(localStorage.getItem("auth_token"));
+  };
+
+  // Function to handle "Cars" category click (always opens modal)
+  const handleCarsClick = () => {
+    if (isUserLoggedIn()) {
+      setIsModalOpen(true); // Open the modal for "Cars"
+      setSelectedCategory("Cars");
+    }
+  };
+
+  // Function to handle other categories based on login status
+  const handleCategoryClick = (link) => {
+    if (isUserLoggedIn()) {
+      // User is logged in, navigate to the link
+      router.push(link);
+    } else {
+      // User is not logged in, open the modal
+      setIsModalOpen(true);
+      setSelectedCategory(""); // No specific category name needed
+    }
+  };
   return (
-    <>
+    <div className="mt-28 sm:mt-28 md:mt-28 lg:mt-28 xl:mt-28">
       <div className={styles.container}>
         <h2 className={styles.title}>
           SHOP WHAT YOU LIKE USING{" "}
@@ -46,21 +70,18 @@ import { RiArrowRightSLine } from "react-icons/ri";
         </h2>
         <div className={styles.categories}>
           {/* Separate div for "Cars" category */}
-          <div className={styles.category} onClick={openModal}>
+          <div className={styles.category} onClick={handleCarsClick}>
             <img src="/bikeImages/car.png" alt="Cars" className={styles.image} />
             {/* <p className={styles.categoryLabel}>Cars</p> */}
           </div>
           {categories.map((category) => (
-            // <div key={category.id} className={styles.category}  onClick={(event) => openModal(category.label, event)}>
-            <div key={category.id} className={styles.category}>
-
-              <Link href={category.link}>
-                <img
-                  src={category.image}
-                  alt={category.label}
-                  className={styles.image}
-                />
-              </Link>
+            <div
+              key={category.id}
+              className={styles.category}
+              onClick={() => handleCategoryClick(category.link)}
+            >
+              <img src={category.image} alt={category.label} className={styles.image} />
+              {/* <p className={styles.categoryLabel}>{category.label}</p> */}
             </div>
           ))}
         </div>
@@ -186,7 +207,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 
 };

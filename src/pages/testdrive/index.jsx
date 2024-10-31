@@ -16,7 +16,7 @@ const TestDrivePage = () => {
     };
 
     return (
-        <div className="flex justify-center px-4 md:px-8 lg:px-12">
+        <div className="flex justify-center px-4 md:px-8 lg:px-12 mt-28 sm:mt-28 md:mt-28 lg:mt-28 xl:mt-20">
             <div className="p-6 md:p-8 rounded-2xl w-full max-w-6xl">
                 {/* Car Details Section */}
                 <div className="flex flex-col md:flex-row items-center mb-8">

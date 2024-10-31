@@ -50,7 +50,8 @@ export default function BodyTypePage() {
   }, [bodyType]); // Re-run the effect when 'bodyType' changes
 
   return (
-    <div className="min-h-screen max-w-6xl mx-auto w-full bg-white p-4 md:p-6">
+    <div className="min-h-screen max-w-6xl mx-auto w-full bg-white p-4 md:p-6
+    mt-28 sm:mt-28 md:mt-28 lg:mt-28 xl:mt-28">
       {/* Title Section */}
       <div className="mb-4">
         <h2 className="text-xl md:text-2xl font-semibold border-l-4 border-red-500 pl-2 uppercase">

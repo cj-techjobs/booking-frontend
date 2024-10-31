@@ -28,7 +28,8 @@ const CompareCarsPage = () => {
     }
 
     return (
-        <div className="p-4 mx-auto mt-5 max-w-8xl">
+        <div className="p-4 mx-auto  max-w-8xl mt-28 sm:mt-28 md:mt-28 lg:mt-28 xl:mt-28">
+                {/* <div className="mt-28 sm:mt-28 md:mt-28 lg:mt-28 xl:mt-28"></div> */}
             {/* Title */}
             <div className="text-center">
                 <h1 className="text-3xl italic font-semibold">

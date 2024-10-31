@@ -69,7 +69,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen p-4 sm:p-6 lg:p-8 flex justify-center">
+    <div className="bg-gray-100 min-h-screen p-4 sm:p-6 lg:p-8 flex justify-center mt-28 sm:mt-28 md:mt-28 lg:mt-28 xl:mt-20">
       <div className="w-full rounded-lg p-4 sm:p-6 lg:p-8 mt-5">
 
         {/* Car Image Section */}
