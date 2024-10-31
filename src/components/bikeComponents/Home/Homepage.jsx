@@ -48,7 +48,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
           {/* Separate div for "Cars" category */}
           <div className={styles.category} onClick={openModal}>
             <img src="/bikeImages/car.png" alt="Cars" className={styles.image} />
-            <p className={styles.categoryLabel}>Cars</p>
+            {/* <p className={styles.categoryLabel}>Cars</p> */}
           </div>
           {categories.map((category) => (
             // <div key={category.id} className={styles.category}  onClick={(event) => openModal(category.label, event)}>

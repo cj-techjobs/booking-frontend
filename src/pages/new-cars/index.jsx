@@ -14,6 +14,18 @@ import AddSection from "../../components/NewCars/AddSection";
 import MostlySearchedCars from "../../components/NewCars/MostlySearchedCars";
 import ShopByPrice from "../../components/NewCars/ShopByPrice";
 import { CarBrands } from "../../components/NewCars/CarBrands";
+import { Inria_Serif } from 'next/font/google';
+import { Genos } from 'next/font/google';
+
+const genos = Genos({
+  subsets: ['latin'],
+  weight: '400', // Regular weight
+});
+
+const inriaSerifBold = Inria_Serif({
+  subsets: ['latin'],
+  weight: '700', // Bold weight
+});
 
 export default function NewCars() {
   const router = useRouter();
@@ -46,7 +58,7 @@ export default function NewCars() {
     <div className="min-h-screen w-full max-w-8xl mx-auto flex flex-col items-center p-8 ">
     {/* Title Section */}
     <div className="text-center w-full mb-6">
-      <h1 className="text-xl md:text-3xl font-semibold">
+      <h1 className={`text-xl md:text-3xl  ${inriaSerifBold.className}`}>
         Relax and Let us find{" "}
         <span className="text-yellow-500">the perfect</span> pick for you
       </h1>
@@ -95,13 +107,13 @@ export default function NewCars() {
     <ShopByPrice />
 
     {/* Why Choose Us Section */}
-    <div className="w-full bg-white">
-      <div className="mb-6 text-center">
-        <h2 className="text-3xl font-semibold">Why choose us?</h2>
+    <div className={`w-full bg-white `}>
+      <div className="mb-6 mt-3 ">
+        <h2 className={`text-6xl font-semibold ${inriaSerifBold.className}`}>Why choose us?</h2>
       </div>
 
       {/* Features Horizontal Scroll Section */}
-      <section className="flex overflow-x-auto space-x-4 py-4 scrollbar-hide">
+      <section className={`${genos.className} flex overflow-x-auto space-x-4 py-4 scrollbar-hide`}>
         {features.map((feature, index) => (
           <div key={index} className="p-6 bg-gray-100 rounded-lg shadow-md min-w-[200px] flex-shrink-0 text-center">
             <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4">
@@ -120,11 +132,11 @@ export default function NewCars() {
     </div>
 
     {/* Offer of this month */}
-    <div className="w-full bg-white">
+    <div className={`w-full bg-white ${inriaSerifBold.className} mt-4`}>
       <div className="mb-4 text-center">
-        <h2 className="text-4xl font-semibold">Offer of this month</h2>
+        <h2 className="text-5xl font-semibold">Offer of this month</h2>
       </div>
-      <p className="text-center text-gray-600 mb-10">
+      <p className={`${genos.className} text-center text-gray-600 mb-10`}>
         Exciting deals available for a limited time.
       </p>
       <div className="w-full max-w-6xl overflow-hidden rounded-lg shadow-lg">

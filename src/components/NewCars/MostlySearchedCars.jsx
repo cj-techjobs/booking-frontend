@@ -3,6 +3,30 @@ import carImage2 from '/public/images/sample-car2.png';
 import carImage3 from '/public/images/sample-car3.png';
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Inria_Serif } from 'next/font/google';
+import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google';
+// import { Inria_Serif } from 'next/font/google';
+
+const inriaSerif = Inria_Serif({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
+
+const interBold = Inter({
+    subsets: ['latin'],
+    weight: '700', // Bold weight
+});
+
+const interFont = Inter({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
+
+const inriaSerifBold = Inria_Serif({
+    subsets: ['latin'],
+    weight: '700', // Bold weight
+});
 
 const MostlySearchedCars = () => {
     const [cars, setCars] = useState([]);
@@ -38,10 +62,10 @@ const MostlySearchedCars = () => {
     const displayCars = filteredCars.length > 0 ? filteredCars : cars;
 
     return (
-        <div className="w-full mb-10 ">
+        <div className="w-full mb-10 mt-2 ">
             {/* Title Section */}
             <div className="mb-6">
-                <h2 className="text-2xl font-semibold border-l-4 border-red-500 pl-2">
+                <h2 className={`${inriaSerifBold.className} text-center text-2xl font-semibold  pl-2`}>
                     Mostly searched <span className="text-red-500">Cars</span>
                 </h2>
             </div>
@@ -51,7 +75,7 @@ const MostlySearchedCars = () => {
                 {carTypes1.map((type, index) => (
                     <button
                         key={index}
-                        className={`px-4 py-2 rounded-full text-gray-500 hover:text-gray-600 hover:bg-gray-300 transition duration-300 ${selectedType === type ? "bg-gray-300" : ""}`}
+                        className={`${interFont.className}  px-4 py-2 rounded-full  hover:text-gray-600 0 transition duration-300 ${selectedType === type ? "bg-gray-300" : ""}`}
                         onClick={() => setSelectedType(type)} // Set selected type on click
                     >
                         {type}
@@ -77,11 +101,16 @@ const MostlySearchedCars = () => {
                             />
                             {/* Car Details */}
                             <div className="p-4">
-                                <h3 className="text-lg font-semibold">{car.title}</h3>
+                                <h3 className={`${interBold.className} text-lg font-bold`}>{car.title}</h3>
                                 <p className="text-sm text-gray-700 mb-4">
                                     {car.metaDescription.length > 50 ? car.metaDescription.substring(0, 50) + '...' : car.metaDescription}
                                 </p>
-                                <p className="text-lg text-red-500 font-bold">Rs. {car.price}</p>
+                                <p
+                                    className={`${inriaSerif.className}`}
+                                    style={{ fontSize: '22px', lineHeight: '16px', color: '#FF2020' }}
+                                >
+                                    Rs. {car.price}
+                                </p>
                             </div>
                         </div>
                     ))}

@@ -23,8 +23,8 @@ function Home() {
   }, [context, context?.isUpdateUser]);
   return (
     <>
-    <Header/>
-   <CarouselComponent/>
+      <Header />
+      <CarouselComponent />
     </>
   )
 }

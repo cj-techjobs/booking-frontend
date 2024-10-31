@@ -5,6 +5,12 @@ import Image from "next/image";
 import suvIcon from "/public/images/suv-icon.png";
 import { getAllNewCarType } from '../../pages/api/api';
 
+import { Inria_Serif } from 'next/font/google';
+
+const inriaSerif = Inria_Serif({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
 
 const CarType = () => {
     const router = useRouter();
@@ -49,7 +55,10 @@ const CarType = () => {
     return (
         <div className="w-full ">
             <div className="text-center mb-4 w-full mt-10">
-                <h2 className="text-2xl font-semibold">
+                <h2
+                    className={`${inriaSerif.className}`}
+                    style={{ fontSize: '32px', lineHeight: '22px' }}
+                >
                     Select your <span className="text-red-500">type</span>
                 </h2>
             </div>
@@ -64,7 +73,7 @@ const CarType = () => {
                             onClick={() => handleCarType(car.name)}
                         >
                             <Image src={car.image} alt={car.name} width={94} height={94} />
-                            <p className="text-md font-semibold text-black mt-2">
+                            <p className={`text-md text-black mt-2 ${inriaSerif.className}`}>
                                 {car.name.slice(0, 5)}..
                             </p>
                         </div>

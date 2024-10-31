@@ -4,6 +4,12 @@ import carImage from "/src/assets/carsSvg/baleno.png";
 import roundView from "/src/assets/carsSvg/360View.png";
 import carLoading from "/src/assets/carsSvg/loadingCar.png";
 import fullImage from "/src/assets/carsSvg/fullImage.png";
+import { Genos } from 'next/font/google';
+
+const genos = Genos({
+  subsets: ['latin'],
+  weight: '400', // Regular weight
+});
 
 import Accordian from "../../components/NewCars/Accordian";
 import Variants from "../../components/NewCars/Variants";
@@ -62,7 +68,7 @@ export default function Home() {
             <div className="relative">
               {/* Main Image */}
               <Image
-                src={carData.categoriesId.image?carData.categoriesId.image:'/images/sample-car.png'}
+                src={carData.categoriesId.image ? carData.categoriesId.image : '/images/sample-car.png'}
                 // src={carImage}
                 alt="Maruti Suzuki Baleno"
                 height={400}
@@ -164,8 +170,10 @@ export default function Home() {
 
           {/* Right Section with Details */}
           <div className="lg:w-1/3 lg:ml-8 mt-8 lg:mt-0 bg-white p-4 rounded-lg">
-            <h2 className="text-2xl font-bold">
-              {/* 2022 Maruti Suzuki Baleno Zeta AMT Petrol */}
+            <h2
+              className={`${genos.className}`}
+              style={{ fontSize: '36px', lineHeight: '33px' }}
+            >
               {carData.categoriesId.metaTitle}
             </h2>
             <p className="mt-2"> {carData.mileage} km · {carData.fuel} · {carData.variant}</p>

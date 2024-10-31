@@ -3,7 +3,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Filter from "../../components/NewCars/Filter";
 import { fetchFilteredCars } from "../api/api"; // Make sure to import the fetchBrands function
+import { Manrope, Genos } from 'next/font/google';
 
+const genos = Genos({ subsets: ['latin'], weight: ['400', '500', '700'] });
 const Car = () => {
   const router = useRouter();
   const [cars, setCars] = useState([]);
@@ -19,8 +21,8 @@ const Car = () => {
   const [selectedYear, setSelectedYear] = useState(""); // State for selected year
   const [selectedSeat, setSelectedSeat] = useState([]);// Single value for selected seat
   const [selectedKmsDriven, setSelectedKmsDriven] = useState(""); // State for single km driven value
-// State for owner selection (single value)
-const [selectedOwner, setSelectedOwner] = useState(""); 
+  // State for owner selection (single value)
+  const [selectedOwner, setSelectedOwner] = useState("");
 
 
   // Function to fetch cars based on filters
@@ -52,7 +54,7 @@ const [selectedOwner, setSelectedOwner] = useState("");
   useEffect(() => {
     // Fetch cars whenever filters change
     fetchCars();
-  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels, selectedYear, selectedSeat,selectedKmsDriven,selectedOwner]);
+  }, [maxPrice, selectedColor, selectedTransmission, selectedBodyTypes, selectedBrands, selectedModels, selectedYear, selectedSeat, selectedKmsDriven, selectedOwner]);
 
   // Handler for brands
   const handleBrandChange = (brand) => {
@@ -96,9 +98,9 @@ const [selectedOwner, setSelectedOwner] = useState("");
     setSelectedBodyTypes(val);
   };
   // Handler for owner change
-const handleOwnerChange = (event) => {
-  setSelectedOwner(event.target.value);
-};
+  const handleOwnerChange = (event) => {
+    setSelectedOwner(event.target.value);
+  };
   return (
     <div className="flex flex-col md:flex-row">
       {/* Sidebar */}
@@ -108,18 +110,18 @@ const handleOwnerChange = (event) => {
           onColorChange={setSelectedColor}
           onTransmissionChange={setSelectedTransmission}
           onBodyTypeChange={handleBodyType}
-          onBrandChange={handleBrandChange} 
-          onModelChange={handleModelChange} 
-          brand={brands} 
+          onBrandChange={handleBrandChange}
+          onModelChange={handleModelChange}
+          brand={brands}
           onYearChange={handleYearChange}
-          onSeatsChange={handleSeatsChange} 
-          onKmsDrivenChange={handleKmsDrivenChange} 
-          onOwnerChange={handleOwnerChange} 
+          onSeatsChange={handleSeatsChange}
+          onKmsDrivenChange={handleKmsDrivenChange}
+          onOwnerChange={handleOwnerChange}
         />
       </div>
 
       {/* Main content */}
-      <div className="pt-6 px-4 w-full md:w-3/4">
+      <div className={` pt-6 px-4 w-full md:w-3/4`}>
         {
           filteredCars?.length === 0 && !loading ? (
             <div className="text-center text-red-500 font-semibold">
@@ -143,8 +145,20 @@ const handleOwnerChange = (event) => {
                     className="rounded-t-3xl object-cover w-full h-auto"
                   />
                   <div className="flex flex-col p-4">
-                    <span className="font-semibold text-lg">{car.title}</span>
-                    <span className="mt-2 text-red-500 font-semibold">₹ {car.price}</span>
+                    <span
+                      className={`${genos.className} font-medium`}
+                      style={{ fontSize: '20px', lineHeight: '16px', letterSpacing: '0%' }}
+                    >
+                      {car.title}
+                    </span>
+
+                    <span
+                      className={`mt-2 font-medium`}
+                      style={{ color: '#FF0000', fontSize: '15px', lineHeight: '16px' }}
+                    >
+                      ₹ {car.price}
+                    </span>
+
                   </div>
                 </div>
               ))}
@@ -152,6 +166,7 @@ const handleOwnerChange = (event) => {
           )
         }
       </div>
+
     </div>
   );
 };

@@ -4,6 +4,15 @@ import { IoMdArrowBack } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { FaFilter } from "react-icons/fa";
 //filter data from utils
+import { Manrope } from 'next/font/google';
+import { Inria_Serif } from 'next/font/google';
+
+const manrope = Manrope({
+    subsets: ['latin'],
+    weight: ['400', '500', '700'],
+});
+
+
 import {
     carCategory,
     bikeFilterList,
@@ -38,6 +47,10 @@ const marks = [
         label: "",
     },
 ];
+const inriaSerif = Inria_Serif({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
 const Filter = ({
     onPriceChange,
     onColorChange,
@@ -109,12 +122,15 @@ const Filter = ({
         onOwnerChange(event); // Call parent's owner change handler
     }
     return (
-        <div>
+        <div className={manrope.className}>
             <div className="p-3">
                 {/* Header */}
                 <div className="flex justify-between items-center bg-white text-black h-[60px] sm:h-[100px] md:h-[114px] rounded-b-2xl px-4 shadow-lg sm:bg-red-500 sm:text-white">
                     {/* Title */}
-                    <div className="text-lg sm:text-3xl md:text-4xl font-semibold">
+                    <div
+                        className={`${inriaSerif.className}`}
+                        style={{ fontSize: '40px', lineHeight: '16px' }}
+                    >
                         Shop in Cars
                     </div>
 
@@ -143,7 +159,14 @@ const Filter = ({
                                 </div>
                                 <div className="flex flex-col text-center">
                                     {item?.title.split(" ").map((word, index) => (
-                                        <span key={index}>{word}</span>
+                                        <span
+                                            key={index}
+                                            className="font-medium"
+                                            style={{ fontSize: '11px', lineHeight: '16px' }}
+                                        >
+                                            {word}
+                                        </span>
+
                                     ))}
                                 </div>
                             </div>
