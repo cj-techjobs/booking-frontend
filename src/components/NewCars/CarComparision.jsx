@@ -17,7 +17,7 @@ const CarComparision = () => {
   };
 
   return (
-    <div className="relative w-full h-[15rem] md:h-[20rem] lg:h-[24rem] rounded-lg overflow-hidden mx-auto mt-10">
+    <div className="relative w-full h-[15rem] md:h-[20rem] lg:h-[24rem] rounded-lg overflow-hidden mx-auto mt-16">
       {/* Background Image */}
       <Image
         src={carComparisonImage}

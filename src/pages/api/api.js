@@ -439,7 +439,7 @@ export const verifyOtp = async ({ mobileNumber, otp, token }) => {
 export const signIn = async (mobileNumber, password) => {
   try {
     const response = await axiosInstance.post(
-      "http://sixback.eu-north-1.elasticbeanstalk.com/api/v1/auth/signIn",
+      "/auth/signIn",
       {
         mobileNumber,
         password,
