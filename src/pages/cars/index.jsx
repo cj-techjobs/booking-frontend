@@ -102,7 +102,7 @@ const Car = () => {
     setSelectedOwner(event.target.value);
   };
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row mt-10 sm:mt-10 lg:mt-10">
       {/* Sidebar */}
       <div className="w-full md:w-1/4 md:pr-6">
         <Filter

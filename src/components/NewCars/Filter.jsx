@@ -125,11 +125,11 @@ const Filter = ({
         <div className={manrope.className}>
             <div className="p-3">
                 {/* Header */}
-                <div className="flex justify-between items-center bg-white text-black h-[60px] sm:h-[100px] md:h-[114px] rounded-b-2xl px-4 shadow-lg sm:bg-red-500 sm:text-white">
+                <div className="flex justify-between items-center bg-white text-black h-[60px] sm:h-[80px] md:h-[100px] lg:h-[114px] rounded-b-2xl px-4 shadow-lg sm:bg-red-500 sm:text-white">
                     {/* Title */}
                     <div
-                        className={`${inriaSerif.className}`}
-                        style={{ fontSize: '40px', lineHeight: '16px' }}
+                        className={`${inriaSerif.className} text-lg sm:text-2xl md:text-3xl lg:text-4xl`}
+                        style={{ lineHeight: '1.2' }}
                     >
                         Shop in Cars
                     </div>
@@ -142,6 +142,7 @@ const Filter = ({
                         <FaFilter className="w-5 h-5" />
                     </button>
                 </div>
+
 
                 {/* Car Categories */}
                 <div className="mt-3 rounded-xl px-1 flex flex-row flex-wrap justify-center shadow-[0_5px_2px_0_rgba(0,0,0,0.25)] bg-gray-200 sm:bg-white">
