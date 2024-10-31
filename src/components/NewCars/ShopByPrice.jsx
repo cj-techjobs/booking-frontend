@@ -5,6 +5,16 @@ import carImage7 from '/public/images/carImage7.png';
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Inria_Sans } from 'next/font/google';
+import { Genos } from 'next/font/google';
+const genos = Genos({
+  subsets: ['latin'],
+  weight: '400', // Regular weight
+});
+const inriaSans = Inria_Sans({
+  subsets: ['latin'],
+  weight: '400', // Regular weight
+});
 
 const ShopByPrice = () => {
   const router = useRouter();
@@ -69,7 +79,7 @@ const ShopByPrice = () => {
         {priceRanges.map((range, index) => (
           <button
             key={index}
-            className={`px-4 py-2 rounded-full text-gray-700 hover:text-red-500 hover:bg-gray-200 transition duration-300 ${selectedPriceRange === range ? "text-red-500 underline underline-offset-4" : ""}`}
+            className={`px-4 font-bold py-2 rounded-full text-gray-700 hover:text-red-500 hover:bg-gray-200 transition duration-300 ${selectedPriceRange === range ? "text-red-500 underline underline-offset-4" : ""}`}
             onClick={() => handleClick(range)}
           >
             {range}
@@ -108,14 +118,35 @@ const ShopByPrice = () => {
                 </div>
                 {/* Car Details */}
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold">{car.title}</h3>
-                  <p className="text-sm text-gray-700 mb-4">{car.price}</p>
-                  <button
+                  <h3 className={`${inriaSans.className} text-lg `}>{car.title}</h3>
+                  <p className="text-md text-gray-700 mb-4">Rs. {car.price}</p>
+                  {/* <button
                     className="px-4 py-2 text-orange-600 border border-orange-600 rounded-md hover:bg-orange-600 hover:text-white transition duration-300"
                     onClick={() => handleClickForNavigation(car)}
                   >
                     Get Pricing
+                  </button> */}
+                  <button
+                    className={`${inriaSans.className} px-4 py-2 border rounded-md transition duration-300`}
+                    style={{
+                      // fontSize: '32px',
+                      // lineHeight: '16px',
+                      color: '#FF9554',
+                      borderColor: '#FF9554',
+                    }}
+                    onClick={() => handleClickForNavigation(car)}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#FF9554';
+                      e.target.style.color = '#FFFFFF';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = '#FF9554';
+                    }}
+                  >
+                    Get Pricing
                   </button>
+
                 </div>
               </div>
             ))

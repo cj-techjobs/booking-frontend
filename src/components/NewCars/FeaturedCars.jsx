@@ -4,6 +4,12 @@ import carImage1 from "/public/images/sample-car1.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getCarsByFeatureOptions } from "../../pages/api/api";
+import { Inter } from 'next/font/google';
+
+const interFont = Inter({
+  subsets: ['latin'],
+  weight: '400', // Regular weight
+});
 
 const FeaturedCars = () => {
   const router = useRouter();
@@ -41,7 +47,7 @@ const FeaturedCars = () => {
       </div>
 
       {/* Tabs Section */}
-      <div className="flex space-x-6 mb-8">
+      {/* <div className={`${interFont.className} flex space-x-6 mb-8 text-md`}>
         <button
           className="px-4 py-2 bg-white text-black rounded-full hover:text-gray-500"
           onClick={() => fetchCarData(true, false, false)} // Mark isFeatured=true
@@ -58,6 +64,32 @@ const FeaturedCars = () => {
           className="px-4 py-2 text-gray-400 rounded-full hover:text-gray-500"
           onClick={() => fetchCarData(false, false, true)} // Mark isBestSeller=true
         >
+          Bestseller
+        </button>
+      </div> */}
+      <div className="flex space-x-6 mb-8 mt-2 text-md">
+        <button
+          className={`${interFont.className} px-4 py-2 bg-white text-black rounded-full hover:text-gray-500 transition-all duration-300 relative overflow-hidden`}
+          // style={{ fontSize: '30px', lineHeight: '16px' }}
+          onClick={() => fetchCarData(true, false, false)} // Mark isFeatured=true
+        >
+          <span className="absolute inset-0 rounded-full border-2 border-transparent hover:border-black transition-all duration-300"></span>
+          Latest
+        </button>
+        <button
+          className={`${interFont.className} px-4 py-2 text-gray-400 rounded-full hover:text-gray-500 transition-all duration-300 relative overflow-hidden`}
+          // style={{ fontSize: '30px', lineHeight: '16px' }}
+          onClick={() => fetchCarData(false, true, false)} // Mark isComingSoon=true
+        >
+          <span className="absolute inset-0 rounded-full border-2 border-transparent hover:border-gray-400 transition-all duration-300"></span>
+          Upcoming
+        </button>
+        <button
+          className={`${interFont.className} px-4 py-2 text-gray-400 rounded-full hover:text-gray-500 transition-all duration-300 relative overflow-hidden`}
+          // style={{ fontSize: '30px', lineHeight: '16px' }}
+          onClick={() => fetchCarData(false, false, true)} // Mark isBestSeller=true
+        >
+          <span className="absolute inset-0 rounded-full border-2 border-transparent hover:border-gray-400 transition-all duration-300"></span>
           Bestseller
         </button>
       </div>
@@ -113,12 +145,9 @@ const FeaturedCars = () => {
                   className="w-full object-cover"
                 />
                 {/* Car Details */}
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{car.title}</h3>
-                  {/* <p className="text-sm text-gray-700 mb-4">
-                      {car.metaDescription.length > 50 ? car.metaDescription.substring(0, 50) + '...' : car.metaDescription}
-                  </p> */}
-                  <p className="text-lg text-red-500 font-bold">Rs. {car.price}</p>
+                <div className={`p-4 ${interFont.className}`}>
+                  <h3 className="text-md ">{car.title}</h3>
+                  <p className="text-md ">Rs. {car.price}</p>
                 </div>
               </div>
             ))

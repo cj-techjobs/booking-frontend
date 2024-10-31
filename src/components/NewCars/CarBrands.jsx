@@ -7,22 +7,28 @@ import hyundaiLogo from "/public/images/hyundai-logo.png";
 import hondaLogo from "/public/images/honda-logo.png";
 import React, { useEffect, useState } from 'react';
 import { getAllNewCarData, getNewCarBrands } from "../../pages/api/api";
+import { Inria_Serif } from 'next/font/google';
+
+const inriaSerif = Inria_Serif({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
 
 function CarBrandCard({ imageSrc, brandName }) {
     const router = useRouter();
     useEffect(() => {
         // Call the API function and log the result
         const fetchCarData = async () => {
-          try {
-            const data = await getAllNewCarData();
-            // console.log("Fetched Car Data:", data?.list); // This will log the car data to the console
-          } catch (error) {
-            console.error("Error fetching car data:", error);
-          }
+            try {
+                const data = await getAllNewCarData();
+                // console.log("Fetched Car Data:", data?.list); // This will log the car data to the console
+            } catch (error) {
+                console.error("Error fetching car data:", error);
+            }
         };
-    
+
         fetchCarData();
-      }, []);
+    }, []);
     const handleClick = () => {
         router.push(`/brand/${brandName.toLowerCase().replaceAll(" ", "-")}`);
     };
@@ -39,7 +45,10 @@ function CarBrandCard({ imageSrc, brandName }) {
                 alt={`${brandName} logo`}
                 className="object-contain self-center w-full h-auto max-w-[120px] mb-2"
             />
-            <h2 className="text-md font-semibold text-black text-center mt-auto">{brandName}</h2>
+            <h2 className={`${inriaSerif.className} text-md text-black text-center mt-auto uppercase`}>
+                {brandName}
+            </h2>
+
         </div>
     );
 }
@@ -74,9 +83,12 @@ export const CarBrands = () => {
         fetchCarTypes();
     }, []);
     return (
-        <div className="w-full ">
+        <div className="w-full">
             <div className="text-center mb-6 w-full">
-                <h2 className="text-2xl font-semibold">
+                <h2
+                    className={`${inriaSerif.className}`}
+                    style={{ fontSize: '32px', lineHeight: '22px' }}
+                >
                     Shop by <span className="text-red-500">Brands</span>
                 </h2>
             </div>
@@ -93,5 +105,6 @@ export const CarBrands = () => {
                 </section>
             </div>
         </div>
+
     );
 };

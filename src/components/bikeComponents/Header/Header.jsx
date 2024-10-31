@@ -6,6 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchIcon from "@mui/icons-material/Search";
 import AppsIcon from "@mui/icons-material/Apps";
 import MicIcon from "@mui/icons-material/Mic";
+import Link from "next/link";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -42,13 +43,14 @@ const Header = () => {
           <header style={isMobile ? styles.headerMobile : styles.header}>
             <div style={styles.leftSection}>
               {/* Logo */}
-              <div style={styles.logo}>
-                <img
-                  src="/bikeImages/Sitelogo.png"
-                  alt="Six Logo"
-                  style={{ height: "60px", width: "95px" }}
-                />
-              </div>
+              <Link href="/">
+                <div style={styles.logo}>
+                  <img
+                    src="/bikeImages/Sitelogo.png"
+                    alt="Six Logo"
+                    style={{ height: "60px", width: "95px" }}
+                  />
+                </div></Link>
 
               {/* Location Dropdown */}
               {!isMobile && (
@@ -120,13 +122,15 @@ const Header = () => {
               </div>
 
               {/* Logo */}
-              <div style={styles.logo}>
-                <img
-                  src="/bikeImages/Sitelogo.png"
-                  alt="Six Logo"
-                  style={styles.logoImage}
-                />
-              </div>
+              <Link href="/">
+                <div style={styles.logo}>
+                  <img
+                    src="/bikeImages/Sitelogo.png"
+                    alt="Six Logo"
+                    style={styles.logoImage}
+                  />
+                </div>
+              </Link>
 
               {/* Grid Icon */}
               <div style={styles.gridIcon}>

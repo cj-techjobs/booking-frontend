@@ -1,6 +1,13 @@
 import { useRouter } from "next/router"; // Import useRouter
 import carComparisonImage from '/public/images/car-comparison.png';
 import Image from "next/image";
+import { Inria_Serif } from 'next/font/google';
+
+const inriaSerifLightItalic = Inria_Serif({
+  subsets: ['latin'],
+  weight: '300',
+  style: 'italic', // Light Italic
+});
 
 const CarComparision = () => {
   const router = useRouter(); // Initialize the router
@@ -27,7 +34,7 @@ const CarComparision = () => {
           Car Comparison
         </h2>
         <button
-          className="mt-4 px-4 sm:px-6 py-2 text-black bg-white bg-opacity-80 rounded-md hover:bg-opacity-100 transition duration-300 font-medium"
+          className={`${inriaSerifLightItalic.className}  mt-4 px-4 sm:px-6 py-2 text-black bg-white bg-opacity-80 rounded-md hover:bg-opacity-100 transition duration-300`}
           onClick={handleCompareNowClick}
         >
           Compare now

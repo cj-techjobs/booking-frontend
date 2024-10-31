@@ -16,8 +16,25 @@ import displacement from '/src/assets/carsSvg/specificationIcon/displacement.svg
 import bootSpace from '/src/assets/carsSvg/specificationIcon/bootSpace.svg'
 import seating from '/src/assets/carsSvg/specificationIcon/seating.svg'
 import tankCapacity from '/src/assets/carsSvg/specificationIcon/tankCapacity.svg'
+import { Genos} from 'next/font/google';
+// import { inriaSerif} from 'next/font/google';
+import { Inria_Serif} from 'next/font/google';
 
+
+const inriaSerif = Inria_Serif({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
+const inriaSerifLight = Inria_Serif({
+    subsets: ['latin'],
+    weight: '300', // Light weight
+});
+const genos = Genos({
+    subsets: ['latin'],
+    weight: '400', // Regular weight
+});
 export default function Home() {
+
     const router = useRouter();
     const [carData, setCarData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -53,7 +70,7 @@ export default function Home() {
             fetchCarData();
         }
     }, [id]);
-   
+
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
@@ -134,9 +151,14 @@ export default function Home() {
                             </div>
                         </div>
 
-                    
+
                         <div className="flex flex-col flex-wrap justify-center bg-white rounded-lg p-4 mt-10 w-full">
-                            <p className="font-semibold text-xl mb-5">Key Specification</p>
+                            <p
+                                className={`${inriaSerif.className} mb-5`}
+                                style={{ fontSize: '24px', lineHeight: '13.9px' }}
+                            >
+                                Key Specification
+                            </p>
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
 
                                 {/* Mileage */}
@@ -224,15 +246,25 @@ export default function Home() {
 
                     {/* Right Section with Details */}
                     <div className="lg:w-1/3 lg:ml-8 mt-8 lg:mt-0 bg-white p-4 rounded-lg">
-                        <h2 className="text-2xl font-bold">
-                            {carData?.data?.categoriesId?.metaTitle ?carData?.data?.categoriesId?.metaTitle : "2022 Maruti Suzuki Baleno Zeta AMT Petrol "}
+                        {/* <h2 className="text-2xl font-bold"> */}
+                        <h2
+                            className={`${genos.className}`}
+                            style={{ fontSize: '36px', lineHeight: '33px' }}
+                        >
+                            {carData?.data?.categoriesId?.metaTitle ? carData?.data?.categoriesId?.metaTitle : "2022 Maruti Suzuki Baleno Zeta AMT Petrol "}
                         </h2>
                         {/* <p className="mt-2">10K km · Petrol · Automatic</p>
                             <p className="mt-2"> {carData.mileage} km · {carData.fuel} · {carData.variant}</p> */}
 
                         {/* Price and EMI Info */}
                         <div className="mt-4 flex items-center justify-between gap-4">
-                            <p className="text-xl">EMI Available</p>
+                            <p
+                                className={`${inriaSerifLight.className}`}
+                                style={{ fontSize: '20px', lineHeight: '12.2px' }}
+                            >
+                                EMI Available
+                            </p>
+
                             <div className="bg-red-500 text-white py-2 px-4 text-xl rounded-lg shadow-lg">
                                 <p className="text-sm uppercase">EMI starts from</p>
                                 <p className="text-xl">₹10,000/Month</p>
@@ -314,8 +346,13 @@ export default function Home() {
                                     onClick={() => toggleAccordion(index)}
                                     className="w-full flex justify-between items-center bg-white p-4 rounded-lg shadow-md text-left focus:outline-none"
                                 >
-                                    <span className="font-semibold">Feature {feature}</span>
-                                    <span>{activeIndex === index ? '-' : '+'}</span>
+                                    <span className={`${genos.className}`} style={{ fontSize: '26px', lineHeight: '13.9px' }}>
+                                        Feature {feature}
+                                    </span>
+                                    <span className={`${genos.className}`} style={{ fontSize: '36px', lineHeight: '13.9px' }}>
+                                        {activeIndex === index ? '-' : '+'}
+                                    </span>
+
                                 </button>
                                 {activeIndex === index && (
                                     <div className="mt-2 p-4 bg-white rounded-lg shadow-md">
